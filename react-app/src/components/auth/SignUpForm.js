@@ -3,18 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 
-const SignUpForm = ({authenticated, setAuthenticated}) => {
+const SignUpForm = () => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [picture, setPicture] = useState(null);
   const [repeatPassword, setRepeatPassword] = useState("");
 
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      await dispatch(signUp(username, email, password));
+      await dispatch(signUp(username, email, password, ));
     }
   };
 
@@ -26,6 +27,10 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
     setEmail(e.target.value);
   };
 
+  const updatePicture = (e) => {
+    setPicture(e.target.value[0]);
+  }
+
   const updatePassword = (e) => {
     setPassword(e.target.value);
   };
@@ -34,7 +39,7 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
     setRepeatPassword(e.target.value);
   };
 
-  if (authenticated) {
+  if (user) {
     return <Redirect to="/photos" />;
   }
 
@@ -57,6 +62,16 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
           onChange={updateEmail}
           value={email}
         ></input>
+      </div>
+      <div>
+        <label>Profile Picture</label>
+        <input
+          type="file"
+          name="profile_picture"
+          onChange={updatePicture}
+          value={picture}
+          accept=".png, .jpg, .jpeg"
+        />
       </div>
       <div>
         <label>Password</label>
