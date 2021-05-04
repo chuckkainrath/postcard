@@ -5,8 +5,6 @@ import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import UsersList from "./components/UsersList";
-import User from "./components/User";
 import { authenticate } from "./store/session";
 
 function App() {
@@ -28,20 +26,26 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
+        <Route path="/" exact={true}>
+          <h1>Splash Page.  So fancy.</h1>
+        </Route>
         <Route path="/login" exact={true}>
           <LoginForm />
         </Route>
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
-        <ProtectedRoute path="/users" exact={true}>
-          <UsersList/>
+        <ProtectedRoute path="/photos" exact={true}>
+          <h1>Main Page - Photos</h1>
         </ProtectedRoute>
-        <ProtectedRoute path="/users/:userId" exact={true}>
-          <User />
+        <ProtectedRoute path="/photo-upload" exact={true}>
+          <h1>Photo Upload Page</h1>
         </ProtectedRoute>
-        <ProtectedRoute path="/" exact={true}>
-          <h1>My Home Page</h1>
+        <ProtectedRoute path="/create-postcard" exact={true}>
+          <h1>Create Postcard Page</h1>
+        </ProtectedRoute>
+        <ProtectedRoute path="/profiles/:username" exact={true}>
+          <h1>Profile Page</h1>
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
