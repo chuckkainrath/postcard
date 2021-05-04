@@ -1,8 +1,8 @@
 """model-migrations
 
-Revision ID: 723e68abeec5
-Revises:
-Create Date: 2021-05-04 16:00:57.616398
+Revision ID: 1efbe0dc2639
+Revises: 
+Create Date: 2021-05-04 17:41:05.686624
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '723e68abeec5'
+revision = '1efbe0dc2639'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,7 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=40), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
-    sa.Column('profile_img_url', sa.String(), nullable=True),
+    sa.Column('profile_img_url', sa.String(length=255), nullable=True),
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
@@ -39,7 +39,7 @@ def upgrade():
     )
     op.create_table('photos',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('photo_url', sa.String(), nullable=False),
+    sa.Column('photo_url', sa.String(length=255), nullable=False),
     sa.Column('public', sa.Boolean(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
@@ -49,7 +49,7 @@ def upgrade():
     )
     op.create_table('postcards',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('postcard_url', sa.String(), nullable=False),
+    sa.Column('postcard_url', sa.String(length=255), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
