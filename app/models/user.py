@@ -8,8 +8,9 @@ class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key = True)
 	username = db.Column(db.String(40), nullable = False, unique = True)
 	email = db.Column(db.String(255), nullable = False, unique = True)
-	profile_img_url = db.Column(db.String, nullable = True)
+	profile_img_url = db.Column(db.String(255), nullable = True)
 	hashed_password = db.Column(db.String(255), nullable = False)
+
 
 	@property
 	def password(self):
