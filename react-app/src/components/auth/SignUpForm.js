@@ -10,6 +10,7 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [picture, setPicture] = useState(null);
+  const [pictureUrl, setPictureUrl] = useState('');
   const [repeatPassword, setRepeatPassword] = useState("");
 
   const onSignUp = async (e) => {
@@ -28,7 +29,11 @@ const SignUpForm = () => {
   };
 
   const updatePicture = (e) => {
-    setPicture(e.target.value[0]);
+    //console.log(typeof e.target.files[0]);
+    const picUrl = URL.createObjectURL(e.target.files[0]);
+    setPictureUrl(picUrl)
+    console.log(picUrl)
+    setPicture(e.target.files[0]);
   }
 
   const updatePassword = (e) => {
@@ -69,10 +74,10 @@ const SignUpForm = () => {
           type="file"
           name="profile_picture"
           onChange={updatePicture}
-          value={picture}
           accept=".png, .jpg, .jpeg"
         />
       </div>
+      {pictureUrl && <img src={pictureUrl}></img>}
       <div>
         <label>Password</label>
         <input
