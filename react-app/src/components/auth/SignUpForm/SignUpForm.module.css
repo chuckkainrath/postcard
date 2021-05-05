@@ -1,0 +1,7 @@
+.hide_canvas {
+    display: none;
+}
+
+.show_canvas {
+    display: block;
+}
