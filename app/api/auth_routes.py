@@ -71,7 +71,7 @@ def sign_up():
         profile_img = request.files.get('profile_img', '')
         if profile_img and valid_file_type(profile_img.filename):
             profile_img.filename = get_unique_filename(profile_img.filename)
-            upload_response = upload_photo_to_s3(profile_img)
+            upload_response = upload_photo_to_s3(profile_img, 'profile')
             profile_img_url = upload_response['photo_url'] if upload_response['photo_url'] else ''
         user = User(
             username=form.data['username'],

@@ -5,6 +5,7 @@ import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import PhotosComponent from './components/MainPage/PhotosComponent';
 import { authenticate } from "./store/session";
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
           <SignUpForm />
         </Route>
         <ProtectedRoute path="/photos" exact={true}>
-          <h1>Main Page - Photos</h1>
+          <PhotosComponent />
         </ProtectedRoute>
         <ProtectedRoute path="/photo-upload" exact={true}>
           <h1>Photo Upload Page</h1>
