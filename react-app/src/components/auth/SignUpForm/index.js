@@ -34,16 +34,17 @@ const SignUpForm = () => {
   const updatePicture = (e) => {
     const picUrl = URL.createObjectURL(e.target.files[0]);
     setPictureUrl(picUrl)
-    const canvasEl = document.getElementById('profile_canvas');
-    canvasEl.classList.replace(styles.hide_canvas, styles.show_canvas);
-    fabric.Image.fromURL(picUrl, function(img) {
-      canvas.add(img);
-    })
-    const canvas = new fabric.Canvas('profile_canvas');
-    const circle = new fabric.Circle({
-      width: 10, height: 10
-    })
-    canvas.add(circle);
+    // console.log('FILE: ', e.target.files[0])
+    // const canvasEl = document.getElementById('profile_canvas');
+    // canvasEl.classList.replace(styles.hide_canvas, styles.show_canvas);
+    // fabric.Image.fromURL(picUrl, function(img) {
+    //   canvas.add(img);
+    // })
+    // const canvas = new fabric.Canvas('profile_canvas');
+    // const circle = new fabric.Circle({
+    //   width: 10, height: 10
+    // })
+    // canvas.add(circle);
 
     setPicture(e.target.files[0]);
   }

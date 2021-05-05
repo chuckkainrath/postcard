@@ -8,13 +8,19 @@ ALLOWED_EXTENSIONS = {'png', 'jpeg', 'jpg'}
 
 s3_client = boto3.client(
     's3',
-    aws_access_key_id=environ.get('S3_key'),
+    aws_access_key_id=environ.get('S3_KEY'),
     aws_secret_access_key=environ.get('S3_SECRET')
 )
 
 
-def upload_photo_to_s3():
-    pass
+def upload_photo_to_s3(photo):
+    try:
+        s3_client.upload_fileobj(photo, S3_BUCKET_NAME, photo.filename)
+    except e:
+        # Do error handling
+        print('Error uploading file to aws bucket')
+    return {'photo_url': f'{S3_URL}{photo.filename}'}
+
 
 
 def delete_photo_from_s3():
