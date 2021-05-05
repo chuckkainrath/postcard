@@ -2,8 +2,18 @@ import boto3
 from os import environ
 import uuid
 
-S3_BUCKET_NAME = environ.get('S3_BUCKET')
-S3_URL = f'https://{S3_BUCKET_NAME}.s3.amazonaws.com/'
+S3_PHOTO_BUCKET = environ.get('S3_PHOTO_BUCKET')
+S3_POSTCARD_BUCKET = environ.get('S3_POSTCARD_BUCKET')
+S3_PROFILE_BUCKET = environ.get('S3_PROFILE_BUCKET')
+
+S3_BUCKETS = {
+    'profile': S3_PROFILE_BUCKET,
+    'postcard': S3_POSTCARD_BUCKET,
+    'photo': S3_PHOTO_BUCKET
+}
+
+URL_SCHEME = 'https://'
+URL_DOMAIN = '.s3.amazonaws.com/'
 ALLOWED_EXTENSIONS = {'png', 'jpeg', 'jpg'}
 
 s3_client = boto3.client(
@@ -13,13 +23,20 @@ s3_client = boto3.client(
 )
 
 
-def upload_photo_to_s3(photo):
+def upload_photo_to_s3(photo, bucket):
     try:
-        s3_client.upload_fileobj(photo, S3_BUCKET_NAME, photo.filename)
-    except e:
+        s3_client.upload_fileobj(
+            photo,
+            S3_BUCKETS[bucket],
+            photo.filename,
+            ExtraArgs={
+                'ACL': 'public-read',
+                'ContentType': photo.content_type
+            })
+    except Exception as e:
         # Do error handling
         print('Error uploading file to aws bucket')
-    return {'photo_url': f'{S3_URL}{photo.filename}'}
+    return {'photo_url': f'{URL_SCHEME}{S3_BUCKETS[bucket]}{URL_DOMAIN}{photo.filename}'}
 
 
 
