@@ -15,6 +15,7 @@ const SignUpForm = () => {
   const [picture, setPicture] = useState(null);
   const [pictureUrl, setPictureUrl] = useState('');
   const [repeatPassword, setRepeatPassword] = useState("");
+  let circle;
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -34,18 +35,30 @@ const SignUpForm = () => {
   const updatePicture = (e) => {
     const picUrl = URL.createObjectURL(e.target.files[0]);
     setPictureUrl(picUrl)
-    // console.log('FILE: ', e.target.files[0])
-    // const canvasEl = document.getElementById('profile_canvas');
-    // canvasEl.classList.replace(styles.hide_canvas, styles.show_canvas);
-    // fabric.Image.fromURL(picUrl, function(img) {
-    //   canvas.add(img);
-    // })
-    // const canvas = new fabric.Canvas('profile_canvas');
-    // const circle = new fabric.Circle({
-    //   width: 10, height: 10
-    // })
-    // canvas.add(circle);
-
+    const canvasEl = document.getElementById('profile_canvas');
+    canvasEl.classList.replace(styles.hide_canvas, styles.show_canvas);
+    const canvas = new fabric.Canvas('profile_canvas');
+    fabric.Image.fromURL(picUrl, (img) => {
+      img.scale(0.25);
+      canvas.setHeight(img.height / 4);
+      canvas.setWidth(img.width / 4);
+      canvas.setBackgroundImage(img);
+    })
+    circle = new fabric.Circle({
+      radius: 50, left: 50, top: 50,
+      stroke: 'rgba(255,255,255,0.8)',
+      strokeDashArray: [5, 5],
+      fill: 'rgba(0,0,0,0)'
+    })
+    circle.controls = {
+      ...fabric.Circle.prototype.controls,
+      mtr: new fabric.Control({ visible: false }),
+      ml: new fabric.Control({ visible: false }),
+      mr: new fabric.Control({ visible: false }),
+      mt: new fabric.Control({ visible: false }),
+      mb: new fabric.Control({ visible: false })
+    }
+    canvas.add(circle);
     setPicture(e.target.files[0]);
   }
 
@@ -56,6 +69,10 @@ const SignUpForm = () => {
   const updateRepeatPassword = (e) => {
     setRepeatPassword(e.target.value);
   };
+
+  const cropImage = () => {
+    console.log(circle);
+  }
 
   if (user) {
     return <Redirect to="/photos" />;
@@ -92,6 +109,7 @@ const SignUpForm = () => {
       </div>
       {/* {pictureUrl && <img className={styles.profile_preview} src={pictureUrl}></img>} */}
       <canvas className={styles.hide_canvas} id='profile_canvas'></canvas>
+      <button onClick={cropImage}>Crop Image</button>
       <div>
         <label>Password</label>
         <input
