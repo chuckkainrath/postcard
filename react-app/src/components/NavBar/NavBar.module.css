@@ -1,0 +1,9 @@
+.navbar__container {
+    display: flex;
+    list-style-type: none;
+}
+
+.navbar__container li {
+    text-decoration: none;
+    margin: 0 30px;
+}
