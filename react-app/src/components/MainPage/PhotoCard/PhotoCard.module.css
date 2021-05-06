@@ -11,6 +11,7 @@
     display: block;
     width: 400px;
     height: auto;
+    max-height: 275px;
 }
 
 .photo__options {
