@@ -16,6 +16,9 @@ function PhotoCard({ photo }) {
                     className={styles.photo__user_profile}
                     src={photo.profile_img_url}
                 />
+                <div className={styles.photo__card_create}>
+                    <i class="fal fa-envelope"></i>
+                </div>
             </div>
         </div>
     )
