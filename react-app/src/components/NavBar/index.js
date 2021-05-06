@@ -17,6 +17,11 @@ const NavBar = () => {
               </NavLink>
             </li>
             <li>
+              <NavLink to={`/profiles/${user.username}`}>
+                <i class="fas fa-user"></i>
+              </NavLink>
+            </li>
+            <li>
               <LogoutButton />
             </li>
           </ul>
