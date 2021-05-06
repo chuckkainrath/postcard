@@ -4,6 +4,17 @@
 }
 
 .photo__img {
+    display: block;
     width: 400px;
     height: auto;
+}
+
+.photo__options {
+    margin-top: 5px;
+}
+
+.photo__user_profile {
+    margin-left: 5px;
+    border-radius: 50%;
+    width: 50px;
 }
