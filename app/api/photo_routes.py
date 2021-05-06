@@ -31,6 +31,9 @@ def post_photo():
     user_id = int(current_user.id)
     photo_file = request.files.get('photo')
     form = PhotoForm()
+    if not form.validate_on_submit():
+        return { 'errors': ['Invalid form data']}
+
     if (not valid_file_type(photo_file.filename)):
         return { 'errors': ['Invalid file type'] }
 
