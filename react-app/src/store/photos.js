@@ -19,7 +19,7 @@ export const getPhotos = () => async dispatch => {
     dispatch(getPhotosAction(flatPhotos));
 }
 
-const flattenPhotos = photos => {
+export const flattenPhotos = photos => {
     const flatPhotos = {};
     photos.forEach(photo => {
         flatPhotos[photo.id] = photo

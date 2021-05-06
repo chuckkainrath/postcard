@@ -5,10 +5,10 @@ from app.models import User, Photo
 user_routes = Blueprint('users', __name__)
 
 
-@user_routes.route('/<int:id>')
+@user_routes.route('/<int:username>')
 @login_required
-def user(id):
-    user = User.query.get(id)
+def user(username):
+    user = User.query.filter(User.username == username).first()
     sessionUser = int(current_user)
     # Get all photos if request comes from session user
     # Otherwise, just public photos
