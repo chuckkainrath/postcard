@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Photo
+from app.models import db, Photo, User
 from app.aws import (upload_photo_to_s3,
                      valid_file_type,
                      get_unique_filename,
@@ -16,9 +16,15 @@ PHOTO_LIMIT = 40
 @photo_routes.route('/')
 @login_required
 def get_public_photos():
-    photos = Photo.query.filter(Photo.public == True).limit(PHOTO_LIMIT).all()
-    photos_dict = [photo.to_dict() for photo in photos]
-    return { 'photos': photos_dict }
+    #photos = Photo.query(Photo, User).filter(Photo.public == True).limit(PHOTO_LIMIT).all()
+    raw_photos = db.session.query(Photo, User).join(User).filter(Photo.public == True) \
+                   .limit(PHOTO_LIMIT).all()
+    photos_list = []
+    for (photo, user) in raw_photos:
+        photo_dict = photo.to_dict()
+        photo_dict['username'] = user.username
+        photos_list.append(photo_dict)
+    return { 'photos': photos_list}
 
 
 @photo_routes.route('/:<int:photo_id>')
