@@ -13,22 +13,22 @@ photo_routes = Blueprint(('photos'), __name__)
 PHOTO_LIMIT = 40
 
 
-@photo_routes('/')
+@photo_routes.route('/')
 @login_required
 def get_public_photos():
-    photos = Photo.query(Photo).filter(Photo.public).limit(PHOTO_LIMIT).all()
+    photos = Photo.query.filter(Photo.public == True).limit(PHOTO_LIMIT).all()
     photos_dict = [photo.to_dict() for photo in photos]
     return { 'photos': photos_dict }
 
 
-@photo_routes('/:<int:photo_id>')
+@photo_routes.route('/:<int:photo_id>')
 @login_required
 def get_photo(photo_id):
     photo = Photo.query.get(photo_id)
     return { 'photo': photo.to_dict() }
 
 
-@photo_routes('/', methods=['POST'])
+@photo_routes.route('/', methods=['POST'])
 @login_required
 def post_photo():
     user_id = int(current_user.id)
@@ -55,7 +55,7 @@ def post_photo():
     return { 'photo': photo.to_dict() }
 
 
-@photo_routes('/<int:photo_id>', methods=['DELETE'])
+@photo_routes.route('/<int:photo_id>', methods=['DELETE'])
 @login_required
 def delete_photo(photo_id):
     user_id = int(current_user.id)

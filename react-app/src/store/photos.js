@@ -15,11 +15,12 @@ export const getPhotos = () => async dispatch => {
         console.log('ERROR RETRIEVING PHOTOS', data.errors);
         return;
     }
-    dispatch(getPhotosAction(flattenPhotos(data.photos)));
+    const flatPhotos = flattenPhotos(data.photos);
+    dispatch(getPhotosAction(flatPhotos));
 }
 
 const flattenPhotos = photos => {
-    flatPhotos = {};
+    const flatPhotos = {};
     photos.forEach(photo => {
         flatPhotos[photo.id] = photo
     });
@@ -31,7 +32,7 @@ const initialState = { photos: null }
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_PHOTOS:
-            return action.photos
+            return { photos: action.payload }
         case GET_PHOTO:
             return initialState; // TODO: COMPELTE ROUTE
         case POST_PHOTO:
