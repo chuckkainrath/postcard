@@ -1,4 +1,8 @@
-.main_photo {
-    width: 400px;
-    height: auto;
+.cards__container {
+    position: relative;
+    width: 80%;
+    left: 10%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
 }

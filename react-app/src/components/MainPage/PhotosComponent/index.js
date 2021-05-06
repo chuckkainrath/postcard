@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getPhotos } from '../../../store/photos';
+import PhotoCard from '../PhotoCard';
 import styles from './PhotosComponent.module.css';
 
 function PhotosComponent() {
@@ -18,15 +19,16 @@ function PhotosComponent() {
     return (
         <div>
             <h1>Hello {user && user.username}</h1>
-            {photosArr &&
-                photosArr.map(photo => {
-                    return <img key={photo.id}
-                                className={styles.main_photo}
-                                src={photo.photo_url}
-                                onClick={() => history.push(`/profiles/${photo.username}`)}
+            <div className={styles.cards__container}>
+                {photosArr &&
+                    photosArr.map(photo => {
+                        return <PhotoCard
+                                    key={photo.id}
+                                    photo={photo}
                             />
-                })
-            }
+                    })
+                }
+            </div>
             {!photosArr && <h1>No photos yet</h1>}
         </div>
     );

@@ -1,0 +1,9 @@
+.photo__card {
+    margin: 30px 30px;
+    height: 450px;
+}
+
+.photo__img {
+    width: 400px;
+    height: auto;
+}
