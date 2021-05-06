@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import PhotosComponent from './components/MainPage/PhotosComponent';
 import { authenticate } from "./store/session";
+import ProfileContainer from "./components/ProfilePage/ProfileContainer";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -46,7 +47,7 @@ function App() {
           <h1>Create Postcard Page</h1>
         </ProtectedRoute>
         <ProtectedRoute path="/profiles/:username" exact={true}>
-          <h1>Profile Page</h1>
+          <ProfileContainer />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
