@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Photo
 from app.aws import upload_photo_to_s3, valid_file_type, get_unique_filename
+from app.forms import PhotoForm
 
 photo_routes = Blueprint(('photos'), __name__)
 
