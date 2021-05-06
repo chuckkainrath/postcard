@@ -5,6 +5,7 @@
     padding: 5px;
     box-shadow: 0 0 2px 1px rgb(182, 182, 182);
     border-radius: 5px;
+    background-color: white;
 }
 
 .photo__img {
