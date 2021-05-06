@@ -19,7 +19,11 @@ export const getPhotos = () => async dispatch => {
 }
 
 const flattenPhotos = photos => {
-    
+    flatPhotos = {};
+    photos.forEach(photo => {
+        flatPhotos[photo.id] = photo
+    });
+    return flatPhotos;
 }
 
 const initialState = { photos: null }
@@ -27,13 +31,13 @@ const initialState = { photos: null }
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_PHOTOS:
-
+            return action.photos
         case GET_PHOTO:
-
+            return initialState; // TODO: COMPELTE ROUTE
         case POST_PHOTO:
-
+            return initialState; // TODO: COMPELTE ROUTE
         case DELETE_PHOTO:
-
+            return initialState; // TODO: COMPELTE ROUTE
         default:
             return state
     }
