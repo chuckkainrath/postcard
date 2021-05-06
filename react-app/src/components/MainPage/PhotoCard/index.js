@@ -12,9 +12,10 @@ function PhotoCard({ photo }) {
                 onClick={() => history.push(`/profiles/${photo.username}`)}
             />
             <div className={styles.photo__options}>
-                {/* <img
+                <img
                     className={styles.photo__user_profile}
-                    src={photo.} */}
+                    src={photo.profile_img_url}
+                />
             </div>
         </div>
     )

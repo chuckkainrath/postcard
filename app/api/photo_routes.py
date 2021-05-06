@@ -23,6 +23,7 @@ def get_public_photos():
     for (photo, user) in raw_photos:
         photo_dict = photo.to_dict()
         photo_dict['username'] = user.username
+        photo_dict['profile_img_url'] = user.profile_img_url
         photos_list.append(photo_dict)
     return { 'photos': photos_list}
 
