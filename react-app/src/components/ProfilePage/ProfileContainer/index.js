@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { getProfile } from '../../../store/profile';
+import MyProfile from '../MyProfile';
+import OtherProfile from '../OtherProfile';
 
 function ProfileContainer() {
     const dispatch = useDispatch();
@@ -9,14 +12,13 @@ function ProfileContainer() {
     const userProfile = user.username == username;
 
     useEffect(() => {
-        //dispatch(/* write dispatch for getting profile information*/)
+        dispatch(getProfile(username))
     }, [username])
-
 
     return (
         <div>
-            {userProfile && <h1>My Profile</h1>}
-            {!userProfile && <h1>{username}'s Profile</h1>}
+            {userProfile && <MyProfile />}
+            {!userProfile && <OtherProfile />}
         </div>
     )
 }

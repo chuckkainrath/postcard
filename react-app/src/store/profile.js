@@ -14,6 +14,7 @@ export const getProfile = (username) => async dispatch => {
     if (data.errors) {
         console.log('GET PROFILE ERRORS', data.errors);
     }
+
     const flatPhotos = flattenPhotos(data.photos);
     dispatch(getProfileAction(data.user, flatPhotos))
 }
