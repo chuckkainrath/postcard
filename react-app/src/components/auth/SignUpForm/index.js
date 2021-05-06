@@ -50,6 +50,8 @@ const SignUpForm = () => {
       strokeDashArray: [5, 5],
       fill: 'rgba(0,0,0,0)'
     })
+    // Remove rotate and resize for left, right, top, bottom
+    // To preserve x/y ratio of circle.
     circle.controls = {
       ...fabric.Circle.prototype.controls,
       mtr: new fabric.Control({ visible: false }),
@@ -59,6 +61,7 @@ const SignUpForm = () => {
       mb: new fabric.Control({ visible: false })
     }
     canvas.add(circle);
+    console.log('INITICAL CIRCLE', circle)
     setPicture(e.target.files[0]);
   }
 
