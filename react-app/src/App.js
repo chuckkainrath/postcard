@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import PhotosComponent from './components/MainPage/PhotosComponent';
 import { authenticate } from "./store/session";
 import ProfileContainer from "./components/ProfilePage/ProfileContainer";
+import UploadPage from './components/PhotoUpload/UploadPage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -41,7 +42,7 @@ function App() {
           <PhotosComponent />
         </ProtectedRoute>
         <ProtectedRoute path="/photo-upload" exact={true}>
-          <h1>Photo Upload Page</h1>
+          <UploadPage />
         </ProtectedRoute>
         <ProtectedRoute path="/create-postcard" exact={true}>
           <h1>Create Postcard Page</h1>
