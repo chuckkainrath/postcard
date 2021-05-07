@@ -70,21 +70,21 @@ const SignUpForm = () => {
               value={email}
             ></input>
           </div>
-          <div className={styles.picture_input__container}>
-            <label>Profile Picture (Optional)</label>
-            {!picture &&
+          {!picture &&
+            <div className={styles.picture_input__container}>
+              <label>Profile Picture (Optional)</label>
               <button onClick={() => setChoosingPicture(true)}>Choose a Photo</button>
-            }
-            {picture &&
-              <div className={styles.picture__container}>
-                <img
-                  src={URL.createObjectURL(picture)}
-                  className={styles.cropped__profile}
-                />
-                <button onClick={() => setPicture()}>Delete Photo</button>
-              </div>
-            }
-          </div>
+            </div>
+          }
+          {picture &&
+            <div className={styles.picture__container}>
+              <img
+                src={URL.createObjectURL(picture)}
+                className={styles.cropped__profile}
+              />
+              <button onClick={() => setPicture()}>Delete Photo</button>
+            </div>
+          }
           <div className={styles.input__container}>
             <label>Password</label>
             <input

@@ -43,6 +43,7 @@ function AvatarInput({setPicture, setChoosingPicture}) {
 
     return (
         <div>
+            <button onClick={cancelImage}>Cancel</button>
             <div {...getRootProps()}>
                 <input {...getInputProps()} />
                 { isDragActive ?
@@ -72,7 +73,6 @@ function AvatarInput({setPicture, setChoosingPicture}) {
                         onChange={(e) => setScale(parseFloat(e.target.value))}
                     />
                     <button onClick={saveImage}>Save Profile Picture</button>
-                    <button onClick={cancelImage}>Cancel</button>
                 </div>
             }
         </div>
