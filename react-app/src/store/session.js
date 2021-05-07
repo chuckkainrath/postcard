@@ -59,9 +59,11 @@ export const authenticate = () => async dispatch => {
     signupForm.append('email', email);
     signupForm.append('password', password);
     if (picture) {
-      signupForm.append('profile_img', picture);
+      const picType = picture.type;
+      const ext = picType.split('/')[1];
+      const pictureFile = new File([picture], `profile-pic.${ext}`);
+      signupForm.append('profile_img', pictureFile);
     }
-    console.log('SIGNUP FORM', signupForm);
     const response = await fetch("/api/auth/signup", {
       method: "POST",
       body: signupForm
