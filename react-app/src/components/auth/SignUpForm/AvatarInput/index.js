@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import AvatarEditor from 'react-avatar-editor';
 import styles from './AvatarInput.module.css';
 
-function AvatarInput({setPicture}) {
+function AvatarInput({setPicture, setChoosingPicture}) {
     const [imageUrl, setImageUrl] = useState();
     const [width, setWidth] = useState();
     const [height, setHeight] = useState();
@@ -30,9 +30,14 @@ function AvatarInput({setPicture}) {
             // Get image and convert to format for upload
             const blob = editor.getImageScaledToCanvas().toBlob(blob => {
                 setPicture(blob);
+                setChoosingPicture(false);
                 setImageUrl();
             });
         }
+    }
+
+    const cancelImage = () => {
+        setChoosingPicture(false);
     }
 
     return (
@@ -66,6 +71,7 @@ function AvatarInput({setPicture}) {
                         onChange={(e) => setScale(parseFloat(e.target.value))}
                     />
                     <button onClick={saveImage}>Save Profile Picture</button>
+                    <button onClick={cancelImage}>Cancel</button>
                 </div>
             }
         </div>
