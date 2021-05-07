@@ -40,6 +40,16 @@ const NavBar = () => {
                   onClick={() => showProfileMenu(!profileMenu)}
                 />
             </li>
+            <li>
+              <NavLink
+                to='/photo-upload'
+                exact={true}
+                activeClassName="active"
+                className={styles.upload__icon}
+              >
+                <i class="far fa-file-upload"></i>
+              </NavLink>
+            </li>
             {profileMenu &&
               <div className={styles.profile__dropdown}>
                   <li onClick={() => history.push(`/profiles/${user.username}`)}>My Profile</li>

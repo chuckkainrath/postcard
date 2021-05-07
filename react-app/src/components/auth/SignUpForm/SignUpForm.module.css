@@ -5,3 +5,68 @@
 .show_canvas {
     display: block;
 }
+
+.cropped__profile {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.signup_form__container {
+    border-radius: 5px;
+    box-shadow: 0 0 1px 1px gray;
+    position: absolute;
+    padding: 20px;
+    width: 500px;
+    left: 50%;
+    top: 30%;
+    transform: translateX(-50%);
+    background-color: white;
+}
+
+.signup_form {
+    width: fit-content;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.signup_form > button {
+    display: block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.signup_form > div {
+    margin: 10px 0;
+}
+
+.signup_form h1 {
+    text-align: center;
+}
+
+/* .input__container {
+    width: fit-content;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+} */
+
+.input__container label {
+    display: block;
+}
+
+/* .picture_input__container {
+    width: 175px;
+    position: relative;
+    left: 50%;
+} */
+
+.picture_input__container label {
+    display: block;
+}
+
+.redirect {
+    cursor: pointer;
+}
