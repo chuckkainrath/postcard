@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { signUp } from '../../../store/session';
 import AvatarInput from './AvatarInput';
 import styles from './SignUpForm.module.css';
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector(state => state.session.user);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -21,6 +22,10 @@ const SignUpForm = () => {
       await dispatch(signUp(username, email, password, picture));
     }
   };
+
+  const signInAsDemo = async () => {
+    //
+  }
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
@@ -43,10 +48,11 @@ const SignUpForm = () => {
   }
 
   return (
-    <div>
+    <div className={styles.signup_form__container}>
       {!choosingPicture &&
-        <form onSubmit={onSignUp}>
-          <div>
+        <form className={styles.signup_form} onSubmit={onSignUp}>
+          <h1>Sign Up</h1>
+          <div className={styles.input__container}>
             <label>User Name</label>
             <input
               type="text"
@@ -55,7 +61,7 @@ const SignUpForm = () => {
               value={username}
             ></input>
           </div>
-          <div>
+          <div className={styles.input__container}>
             <label>Email</label>
             <input
               type="text"
@@ -64,7 +70,7 @@ const SignUpForm = () => {
               value={email}
             ></input>
           </div>
-          <div>
+          <div className={styles.picture_input__container}>
             <label>Profile Picture (Optional)</label>
             {!picture &&
               <button onClick={() => setChoosingPicture(true)}>Choose a Photo</button>
@@ -79,7 +85,7 @@ const SignUpForm = () => {
               </div>
             }
           </div>
-          <div>
+          <div className={styles.input__container}>
             <label>Password</label>
             <input
               type="password"
@@ -88,7 +94,7 @@ const SignUpForm = () => {
               value={password}
             ></input>
           </div>
-          <div>
+          <div className={styles.input__container}>
             <label>Repeat Password</label>
             <input
               type="password"
@@ -98,7 +104,11 @@ const SignUpForm = () => {
               required={true}
             ></input>
           </div>
-          <button type="submit">Sign Up</button>
+          <button type="submit">Create Account</button>
+          <div>Have an account?
+            <span className={styles.redirect} onClick={() => history.push('/login')}> Sign In </span>
+          </div>
+          <div>or login as a <span className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</span></div>
         </form>
       }
       {choosingPicture &&
