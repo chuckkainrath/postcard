@@ -13,6 +13,7 @@ const SignUpForm = () => {
   const [password, setPassword] = useState("");
   const [picture, setPicture] = useState(null);
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [choosingPicture, setChoosingPicture] = useState(false);
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -42,57 +43,71 @@ const SignUpForm = () => {
   }
 
   return (
-    <form onSubmit={onSignUp}>
-      <div>
-        <label>User Name</label>
-        <input
-          type="text"
-          name="username"
-          onChange={updateUsername}
-          value={username}
-        ></input>
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type="text"
-          name="email"
-          onChange={updateEmail}
-          value={email}
-        ></input>
-      </div>
-      <div>
-        <label>Profile Picture</label>
-        <AvatarInput setPicture={setPicture} />
-        {/* <input
-          type="file"
-          name="profile_picture"
-          onChange={updatePicture}
-          accept=".png, .jpg, .jpeg"
-        /> */}
-
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-      <div>
-        <label>Repeat Password</label>
-        <input
-          type="password"
-          name="repeat_password"
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
-        ></input>
-      </div>
-      <button type="submit">Sign Up</button>
-    </form>
+    <div>
+      {!choosingPicture &&
+        <form onSubmit={onSignUp}>
+          <div>
+            <label>User Name</label>
+            <input
+              type="text"
+              name="username"
+              onChange={updateUsername}
+              value={username}
+            ></input>
+          </div>
+          <div>
+            <label>Email</label>
+            <input
+              type="text"
+              name="email"
+              onChange={updateEmail}
+              value={email}
+            ></input>
+          </div>
+          <div>
+            <label>Profile Picture (Optional)</label>
+            {!picture &&
+              <button onClick={() => setChoosingPicture(true)}>Choose a Photo</button>
+            }
+            {picture &&
+              <div className={styles.picture__container}>
+                <img
+                  src={URL.createObjectURL(picture)}
+                  className={styles.cropped__profile}
+                />
+                <button onClick={() => setPicture()}>Delete Photo</button>
+              </div>
+            }
+          </div>
+          <div>
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              onChange={updatePassword}
+              value={password}
+            ></input>
+          </div>
+          <div>
+            <label>Repeat Password</label>
+            <input
+              type="password"
+              name="repeat_password"
+              onChange={updateRepeatPassword}
+              value={repeatPassword}
+              required={true}
+            ></input>
+          </div>
+          <button type="submit">Sign Up</button>
+        </form>
+      }
+      {choosingPicture &&
+        <div>
+          <label>Profile Picture (Optional)</label>
+          <AvatarInput setPicture={setPicture} setChoosingPicture={setChoosingPicture} />
+        </div>
+      }
+    </div>
   );
 };
 
