@@ -13,6 +13,8 @@ function PhotoKanvas({ photoSrc }) {
     const [ currObject, setCurrObject ] = useState();
     const [ color, setColor ] = useState('#000000')
     const [ fontFamily, setFontFamily ] = useState('Arial');
+    const [ fontStyle, setFontStyle ] = useState('normal');
+    const [ underline, setUnderline ] = useState('');
 
     const typeMap = {
         'Text': Text
@@ -78,6 +80,34 @@ function PhotoKanvas({ photoSrc }) {
         }
     }
 
+    const changeBold = () => {
+        let newBold;
+        if (fontStyle === '' || fontStyle === 'italic') {
+            newBold = 'bold';
+        } else {
+            newBold = '';
+        }
+        currObject.fontStyle = newBold;
+        setFontStyle(newBold);
+    }
+
+    const changeUnderline = () => {
+        const newUnderline = underline ? '' : 'underline';
+        currObject.textDecoration = newUnderline;
+        setUnderline(newUnderline);
+    }
+
+    const changeItalic = () => {
+        let newItalic;
+        if (fontStyle === '' || fontStyle === 'bold') {
+            newItalic = 'italic';
+        } else {
+            newItalic = '';
+        }
+        currObject.fontStyle = newItalic;
+        setFontStyle(newItalic);
+    }
+
     const changeColor = e => {
         setColor(e.target.value);
         if (currObject) {
@@ -115,6 +145,9 @@ function PhotoKanvas({ photoSrc }) {
                 <label>Color</label>
                 <input type="color" value={color} onChange={(e) => changeColor(e)} />
                 <FontSelector fontFamily={fontFamily} changeFontFamily={changeFontFamily} />
+                <button disabled={!currObject} onClick={() => changeBold()}>B</button>
+                <button disabled={!currObject} onClick={() => changeItalic()}>I</button>
+                <button disabled={!currObject} onClick={() => changeUnderline()}>U</button>
             </div>
             <Stage width={600} height={400}>
                 <Layer onClick={() => imageClick()}>
