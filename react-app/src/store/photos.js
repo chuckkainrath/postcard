@@ -8,6 +8,11 @@ const getPhotosAction = photos => ({
     payload: photos
 })
 
+export const postPhoto = (photo, pvtPhoto) => async dispatch => {
+    const form = new FormData();
+    // form.photo =
+}
+
 export const getPhotos = () => async dispatch => {
     const response = await fetch('/api/photos/');
     const data = await response.json();
