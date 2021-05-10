@@ -1,7 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import PhotoCanvas from '../Canvas';
+// import PhotoCanvas from '../PhotoCanvas';
+import PhotoKanvas from '../PhotoKanvas';
 
 function PostCard() {
     const { photoId } = useParams();
@@ -12,7 +13,7 @@ function PostCard() {
     return (
         <div>
             <h1>Canvas!</h1>
-            <PhotoCanvas imageUrl={imageUrl} />
+            <PhotoKanvas photoSrc={imageUrl} />
         </div>
     )
 }
