@@ -11,6 +11,7 @@ import ProfileContainer from "./components/ProfilePage/ProfileContainer";
 import UploadPage from './components/PhotoUpload/UploadPage';
 import PostCard from './components/PostCard';
 
+
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
