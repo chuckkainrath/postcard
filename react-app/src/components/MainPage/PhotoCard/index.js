@@ -18,7 +18,9 @@ function PhotoCard({ photo }) {
                     className={styles.photo__user_profile}
                     src={profileSrc}
                 />
-                <div className={styles.photo__card_create}>
+                <div
+                    onClick={() => history.push(`/create-postcard/${photo.id}`)}
+                    className={styles.photo__card_create}>
                     <i class="fal fa-envelope"></i>
                 </div>
             </div>
