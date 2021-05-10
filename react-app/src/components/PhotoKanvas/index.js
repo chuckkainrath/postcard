@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Stage, Layer, Text, Image } from 'react-konva';
+import { Stage, Layer, Text, Image, Line, Rect } from 'react-konva';
 import useImage from 'use-image';
 import styles from './PhotoKanvas.module.css';
 import FontSelector from './FontSelector';
 
+const WIDTH = 600;
+const HEIGHT = 400;
+
 function PhotoKanvas({ photoSrc }) {
+    const [ stage, setStage ] = useState('card');
     const [ photo ] = useImage(photoSrc);
     const [ textValue, setTextValue ] = useState('');
     const [ textInput, setTextInput ] = useState();
@@ -15,27 +19,54 @@ function PhotoKanvas({ photoSrc }) {
     const [ fontFamily, setFontFamily ] = useState('Arial');
     const [ fontStyle, setFontStyle ] = useState('normal');
     const [ underline, setUnderline ] = useState('');
+    const [ backObjs, setBackObjs ] = useState([]);
 
     const typeMap = {
-        'Text': Text
+        'Text': Text,
+        'Line': Line,
+        'Rect': Rect
     }
 
     useEffect(() => {
+        // Grab text input field
         const textInput = document.getElementById('textInput')
         setTextInput(textInput);
         textInput.disabled = true;
+
+        // Draw postcard back
+        const backArr = [];
+        const background = { type: 'Rect', fill: '#ffffff', x: 0, y: 0, width: WIDTH, height: HEIGHT}
+        const midLine = { type: 'Line', stroke: '#d6d6d6', points: [ WIDTH / 2, 20, WIDTH / 2, HEIGHT - 20, WIDTH / 2, 20] }
+        let xStart = WIDTH / 2 + 20;
+        let xEnd = WIDTH - 20;
+        let y = HEIGHT - 150;
+        const topAddress = { type: 'Line', stroke: '#d6d6d6', points: [ xStart, y, xEnd, y, xStart, y] }
+        y += 40;
+        const midAddress = { type: 'Line', stroke: '#d6d6d6', points: [ xStart, y, xEnd, y, xStart, y] }
+        y += 40;
+        const btmAddress = { type: 'Line', stroke: '#d6d6d6', points: [ xStart, y, xEnd, y, xStart, y] }
+        backArr.push(background);
+        backArr.push(midLine);
+        backArr.push(topAddress);
+        backArr.push(midAddress);
+        backArr.push(btmAddress);
+        // Stamp
+        xStart = WIDTH - 100;
+        let yStart = 20;
+        const stamp = { type: 'Rect', strokeWidth: 2, stroke: '#d6d6d6', x: xStart, y: yStart, width: 80, height: 100 }
+        backArr.push(stamp);
+        setBackObjs(backArr);
     }, [])
 
     // useEffet to have access to div after it renders.
     useEffect(() => {
         if (photo) {
-            photo.width = 600;
-            photo.height = 400;
+            photo.width = WIDTH;
+            photo.height = HEIGHT;
         }
     }, [photo]);
 
     const textChange = (e) => {
-        console.log(e.target.value);
         const newTextValue = e.target.value;
         currObject.text = newTextValue;
         setTextValue(newTextValue);
@@ -44,26 +75,24 @@ function PhotoKanvas({ photoSrc }) {
     const newTextInput = () => {
         const newText = {type: 'Text', fontFamily: fontFamily, fontSize: fontSize, fill: color, text: 'Text', x: 10, y: 10 }
         newText.onClick = () => {
-            console.log('CLICKED', newText.text);
             setTextValue(newText.text);
             setCurrObject(newText);
             textInput.disabled = false;
             textInput.focus();
         }
         newText.onDragStart = () => {
-            console.log('Drag started');
             setCurrObject(newText);
             textInput.disabled = false;
         }
         newText.onDragEnd = () => {
             textInput.focus();
-            console.log('Drag ended');
         }
         setObjects([...objects, newText]);
         setCurrObject(newText);
         setTextValue(newText.text);
         textInput.disabled = false;
         textInput.focus();
+        console.log('Back objs', backObjs);
     }
 
     const changeFontFamily = e => {
@@ -133,33 +162,54 @@ function PhotoKanvas({ photoSrc }) {
     }
 
     return (
-        <div id='kanvas'>
-            <div className={styles.kanvas__options}>
-                <button disabled={!currObject} onClick={() => deleteCurrObj()}>Delete</button>
-                <button onClick={() => newTextInput()}>
-                    Text
-                </button>
-                <input id='textInput' className={styles.kanvas__text_input} value={textValue} onChange={(e) => textChange(e)} />
-                <label>Font Size</label>
-                <input type='number' value={fontSize} onChange={(e) => changeFontSize(e)} />
-                <label>Color</label>
-                <input type="color" value={color} onChange={(e) => changeColor(e)} />
-                <FontSelector fontFamily={fontFamily} changeFontFamily={changeFontFamily} />
-                <button disabled={!currObject} onClick={() => changeBold()}>B</button>
-                <button disabled={!currObject} onClick={() => changeItalic()}>I</button>
-                <button disabled={!currObject} onClick={() => changeUnderline()}>U</button>
-            </div>
-            <Stage width={600} height={400}>
-                <Layer onClick={() => imageClick()}>
-                    <Image image={photo} />
-                </Layer>
-                <Layer id='input-layer'>
-                    {objects && objects.map(object => {
-                        const Comp = typeMap[object.type]
-                        return <Comp draggable {...object} key={object.id} />
-                    })}
-                </Layer>
-            </Stage>
+        <div>
+            {stage === 'card' &&
+                <div id='kanvas'>
+                    <div className={styles.kanvas__options}>
+                        <button disabled={!currObject} onClick={() => deleteCurrObj()}>Delete</button>
+                        <button onClick={() => newTextInput()}>
+                            Text
+                        </button>
+                        <input id='textInput' className={styles.kanvas__text_input} value={textValue} onChange={(e) => textChange(e)} />
+                        <label>Font Size</label>
+                        <input type='number' value={fontSize} onChange={(e) => changeFontSize(e)} />
+                        <label>Color</label>
+                        <input type="color" value={color} onChange={(e) => changeColor(e)} />
+                        <FontSelector fontFamily={fontFamily} changeFontFamily={changeFontFamily} />
+                        <button disabled={!currObject} onClick={() => changeBold()}>B</button>
+                        <button disabled={!currObject} onClick={() => changeItalic()}>I</button>
+                        <button disabled={!currObject} onClick={() => changeUnderline()}>U</button>
+                    </div>
+                    <Stage width={WIDTH} height={HEIGHT}>
+                        <Layer onClick={() => imageClick()}>
+                            <Image image={photo} />
+                        </Layer>
+                        <Layer>
+                            {objects && objects.map(object => {
+                                const Comp = typeMap[object.type]
+                                return <Comp draggable {...object} key={object.id} />
+                            })}
+                        </Layer>
+                    </Stage>
+                    <button onClick={() => setStage('back')}>
+                        Continue
+                    </button>
+                </div>
+            }
+            {stage === 'back' &&
+                <div>
+                    <h1>Back</h1>
+                    <Stage width={WIDTH} height={HEIGHT}>
+                        <Layer>
+                            {backObjs && backObjs.map(object => {
+                                    const Comp = typeMap[object.type]
+                                    return <Comp {...object} key={object.id} />
+                                })
+                            }
+                        </Layer>
+                    </Stage>
+                </div>
+            }
         </div>
     );
 }
