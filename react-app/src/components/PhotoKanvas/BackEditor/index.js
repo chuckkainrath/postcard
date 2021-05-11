@@ -11,6 +11,19 @@ const typeMap = {
     'Rect': Rect
 }
 
+const temp = `A super long string that will hopefully take up a lot of space.
+Next time you have to come.  It was so much fun.
+Hopefully you guys are having a great time whereever you are.
+A super long string that will hopefully take up a lot of space.
+Next time you have to come.  It was so much fun.
+Hopefully you guys are having a great time whereever you are.
+A super long string that will hopefully take up a lot of space.
+Next time you have to come.  It was so much fun.
+Hopefully you guys are having a great time whereever you are.
+A super long string that will hopefully take up a lot of space.
+Next time you have to come.  It was so much fun.
+Hopefully you guys are having a great time whereever you are.`
+
 function BackEditor() {
     const [ backObjs, setBackObjs ] = useState([]);
 
@@ -45,9 +58,9 @@ function BackEditor() {
         // Postcard Message
         xStart = 25;
         yStart = 25;
-        let width = WIDTH / 2 - 50;
+        let width = WIDTH / 2 - 40;
         let height = HEIGHT - 50;
-        const msg = { type: 'Text', x: xStart, y: yStart, width: width, height: height, text: 'Text' }
+        const msg = { type: 'Text', fontFamily: 'cursive', fontSize: 16, x: xStart, y: yStart, width: width, height: height, text: temp }
         backArr.push(msg);
         setBackObjs(backArr);
     }, []);
