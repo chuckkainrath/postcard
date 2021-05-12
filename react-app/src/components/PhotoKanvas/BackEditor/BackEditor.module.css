@@ -1,0 +1,13 @@
+.message__textarea {
+    width: 580px;
+    height: 200px;
+    resize: none;
+    font-size: 16px;
+}
+
+.message__container label {
+    display: block;
+    margin-top: 20px;
+}
+
+
