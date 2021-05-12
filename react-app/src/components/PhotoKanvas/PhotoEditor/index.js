@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Stage, Layer, Text, Image, Line, Rect } from 'react-konva';
 import useImage from 'use-image';
 import styles from './PhotoEditor.module.css';
@@ -24,6 +24,7 @@ function PhotoEditor({ photoSrc, finishFront }) {
     const [ fontFamily, setFontFamily ] = useState('Arial');
     const [ fontStyle, setFontStyle ] = useState('normal');
     const [ underline, setUnderline ] = useState('');
+    const frontRef = useRef(null);
 
     useEffect(() => {
         // Grab text input field
@@ -35,6 +36,7 @@ function PhotoEditor({ photoSrc, finishFront }) {
     // useEffet to have access to div after it renders.
     useEffect(() => {
         if (photo) {
+            photo.crossOrigin = 'Anonymous';
             photo.width = WIDTH;
             photo.height = HEIGHT;
         }
@@ -136,6 +138,9 @@ function PhotoEditor({ photoSrc, finishFront }) {
 
     const doneEditing = () => {
         // Convert canvas to image
+        console.log('ref', frontRef.current);
+        const uri = frontRef.current.toDataURL();
+        console.log('URI', uri);
         finishFront(/*image*/)
     }
 
@@ -156,7 +161,7 @@ function PhotoEditor({ photoSrc, finishFront }) {
                 <button disabled={!currObject} onClick={() => changeItalic()}>I</button>
                 <button disabled={!currObject} onClick={() => changeUnderline()}>U</button>
             </div>
-            <Stage width={WIDTH} height={HEIGHT}>
+            <Stage ref={frontRef} width={WIDTH} height={HEIGHT}>
                 <Layer onClick={() => imageClick()}>
                     <Image image={photo} />
                 </Layer>
