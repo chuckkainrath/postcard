@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Stage, Layer, Text, Image, Line, Rect } from 'react-konva';
 import FontSelector from '../FontSelector';
+import styles from './BackEditor.module.css';
 
 const WIDTH = 600;
 const HEIGHT = 400;
@@ -24,8 +25,41 @@ A super long string that will hopefully take up a lot of space.
 Next time you have to come.  It was so much fun.
 Hopefully you guys are having a great time whereever you are.`
 
-function BackEditor() {
+function BackEditor({finishBack}) {
     const [ backObjs, setBackObjs ] = useState([]);
+    const [ messageObj, setMessageObj ] = useState();
+    const [ message, setMessage ] = useState('Text');
+    // const [ atMax, setAtMax ] = useState(false);
+
+    const messageChange = e => {
+        const newMsg = e.target.value;
+        setMessage(newMsg);
+        messageObj.text = newMsg;
+        // const wordArr = newMsg.split(' '); // 38 Characters per line with cursive font, font size 16, 14 lines max
+        // let lineLen = 0;
+        // let lineCount = 0;
+        // for (let i = 0; i < wordArr.length; i++) {
+        //     if (lineLen === 0) {
+        //         lineLen += wordArr[i].length;
+        //     } else {
+        //         lineLen += wordArr[i].length + 1;
+        //     }
+        //     if (lineLen > 38) {
+        //         lineCount++;
+        //         lineLen = wordArr[i].length;
+        //     } else if (lineLen === 38) {
+        //         lineCount++;
+        //         lineLen = 0;
+        //     }
+        // }
+        // if (lineCount >= 14) {
+        //     setAtMax(true);
+        // } else {
+        //     setAtMax(false);
+        // }
+        // console.log('LineLen', lineLen);
+        // console.log('LineCount', lineCount);
+    }
 
     useEffect(() => {
         // Grab text input field
@@ -60,10 +94,16 @@ function BackEditor() {
         yStart = 25;
         let width = WIDTH / 2 - 40;
         let height = HEIGHT - 50;
-        const msg = { type: 'Text', fontFamily: 'cursive', fontSize: 16, x: xStart, y: yStart, width: width, height: height, text: temp }
+        const msg = { type: 'Text', fontFamily: 'cursive', fontSize: 16, x: xStart, y: yStart,
+                      width: width, height: height, text: message, lineHeight: 1.5 }
+        setMessageObj(msg);
         backArr.push(msg);
         setBackObjs(backArr);
     }, []);
+
+    const submitCard = () => {
+        
+    }
 
     return (
         <div>
@@ -77,6 +117,16 @@ function BackEditor() {
                     }
                 </Layer>
             </Stage>
+            <div className={styles.message__container}>
+                <label>Postcard Message:</label>
+                <textarea
+                    className={styles.message__textarea}
+                    value={message}
+                    onChange={messageChange}
+                    // disabled={atMax}
+                />
+            </div>
+            <button onClick={submitCard}>Create Postcard</button>
         </div>
     )
 }

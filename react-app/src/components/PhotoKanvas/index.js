@@ -26,7 +26,7 @@ function PhotoKanvas({ photoSrc }) {
                 <PhotoEditor photoSrc={photoSrc} finishFront={finishFront} />
             }
             {stage === 'back' &&
-                <BackEditor />
+                <BackEditor finishBack={finishBack} />
             }
             {stage === 'complete' &&
                 <h1>Done?</h1>
