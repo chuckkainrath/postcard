@@ -75,7 +75,7 @@ function UploadPage() {
                         <input
                             type='checkbox'
                             checked={privatePhoto}
-                            onClick={() => setPrivatePhoto(!privatePhoto)}
+                            onChange={() => setPrivatePhoto(!privatePhoto)}
                         />
                     </div>
                     <button onClick={uploadPhoto}>Upload Photo</button>
