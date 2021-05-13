@@ -13,6 +13,8 @@ function PhotoKanvas({ photoSrc }) {
     const [ cardFront, setCardFront ] = useState();
     const [ cardBack, setCardBack ] = useState();
     const [ stage, setStage ] = useState('card');
+    const [ frontName, setFrontName ] = useState('');
+    const [ backName, setBackname ] = useState('');
     const user = useSelector(state => state.session.user);
 
     const finishFront = image => {
@@ -23,9 +25,7 @@ function PhotoKanvas({ photoSrc }) {
     const finishBack = image => {
         setCardBack(image);
         setStage('complete');
-    }
 
-    const downloadPostcard = () => {
         const date = new Date();
         const year = date.getFullYear();
         const month = date.getMonth() + 1;
@@ -34,8 +34,11 @@ function PhotoKanvas({ photoSrc }) {
         const min = date.getMinutes();
         const sec = date.getSeconds();
         const formattedDate = `${year}-${month}-${day}-${hour}-${min}-${sec}`;
-        const frontName = `${user.username}-front-${formattedDate}`;
-        const backName = `${user.username}-back-${formattedDate}`;
+        setFrontName(`${user.username}-front-${formattedDate}`);
+        setBackName(`${user.username}-back-${formattedDate}`);
+    }
+
+    const downloadPostcard = () => {
         saveAs(cardFront, frontName);
         saveAs(cardBack, backName);
         history.push('/photos');
