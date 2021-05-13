@@ -6,22 +6,44 @@ from app.aws import (upload_photo_to_s3,
                      get_unique_filename)
 from app.forms import PostcardForm
 
-photo_routes = Blueprint(('photos'), __name__)
-
+postcard_routes = Blueprint(('postcards'), __name__)
 
 PHOTO_LIMIT = 40
 
 
-@photo_routes.route('/')
+@postcard_routes.route('/', methods=['POST'])
 @login_required
-def get_public_photos():
-    #photos = Photo.query(Photo, User).filter(Photo.public == True).limit(PHOTO_LIMIT).all()
-    raw_photos = db.session.query(Photo, User).join(User).filter(Photo.public == True) \
-                   .limit(PHOTO_LIMIT).all()
-    photos_list = []
-    for (photo, user) in raw_photos:
-        photo_dict = photo.to_dict()
-        photo_dict['username'] = user.username
-        photo_dict['profile_img_url'] = user.profile_img_url
-        photos_list.append(photo_dict)
-    return { 'photos': photos_list}
+def post_postcard():
+    user_id = int(current_user.id)
+    form = PostcardForm()
+    if form.validate_on_submit():
+        # Send photos to aws
+        pc_front = request.files.get('card_front', '')
+        pc_back = request.files.get('card_back', '')
+
+        front_upload = upload_photo_to_s3(pc_front, 'postcard')
+        front_url = front_upload['photo_url'] if front_upload['photo_url'] else ''
+        if not front_url:
+            return { 'errors': ['Image upload to aws failed']}
+
+        back_upload = upload_photo_to_s3(pc_back, 'postcard')
+        back_url = back_upload['photo_url'] if back_upload['photo_url'] else ''
+        if not back_url:
+            # Delete front image before returning ?
+            return { 'errors': ['Image upload to aws failed']}
+
+        postcard = Postcard(
+            user_id = user_id,
+            postcard_front_url = front_url,
+            postcard_back_url = back_url
+        )
+        db.session.add(postcard)
+        db.session.commit()
+        postcard_dict = postcard.to_dict()
+        return { 'postcard': postcard_dict }
+    return { 'errors': ['Invalid postcard form']}
+
+
+@postcard_routes.route('/', methods=['GET'])
+def get_postcards():
+    pass
