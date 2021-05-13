@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Stage, Layer, Text, Image, Line, Rect } from 'react-konva';
 import FontSelector from '../FontSelector';
 import styles from './BackEditor.module.css';
@@ -29,6 +29,7 @@ function BackEditor({finishBack}) {
     const [ backObjs, setBackObjs ] = useState([]);
     const [ messageObj, setMessageObj ] = useState();
     const [ message, setMessage ] = useState('Text');
+    const backRef = useRef(null);
     // const [ atMax, setAtMax ] = useState(false);
 
     const messageChange = e => {
@@ -102,13 +103,20 @@ function BackEditor({finishBack}) {
     }, []);
 
     const submitCard = () => {
-        
+        // Convert canvas to image
+        const imageURL = backRef.current.toDataURL();
+        (async url => {
+            const res = await fetch(url);
+            const imageBlob = await res.blob();
+            imageBlob.filename = 'postcard-back';
+            finishBack(imageBlob);
+        })(imageURL);
     }
 
     return (
         <div>
             <h1>Back</h1>
-            <Stage width={WIDTH} height={HEIGHT}>
+            <Stage ref={backRef} width={WIDTH} height={HEIGHT}>
                 <Layer>
                     {backObjs && backObjs.map(object => {
                             const Comp = typeMap[object.type]
