@@ -2,8 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, Postcard, User
 from app.aws import (upload_photo_to_s3,
-                     valid_file_type,
-                     get_unique_filename)
+                     delete_photo_from_s3)
 from app.forms import PostcardForm
 
 postcard_routes = Blueprint(('postcards'), __name__)
@@ -50,3 +49,18 @@ def get_postcards():
     postcards_arr = Postcard.query.filter(Postcard.user_id == user_id).all()
     postcards = [postcard.to_dict() for postcard in postcards_arr]
     return { 'postcards': postcards }
+
+
+@postcard_routes.route('/<int:postcard_id>', methods=['DELETE'])
+def delete_postcard(postcard_id):
+    user_id = int(current_user.id)
+    postcard = Postcard.query.get(postcard_id)
+    if postcard.user_id != user_id:
+        return { 'errors': ['Cannot delete postcard. Postcard is not owned by user']}
+
+    delete_photo_from_s3('postcard', postcard.postcard_front_url)
+    delete_photo_from_s3('postcard', postcard.postcard_back_url)
+
+    db.session.delete(postcard)
+    db.session.commit()
+    return { 'response': 'Postcard successfully deleted' }
