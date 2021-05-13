@@ -41,7 +41,7 @@ export const getPostcards = () => async dispatch => {
 }
 
 const flattenPostcards = postcards => {
-    fPostcards = {};
+    const fPostcards = {};
     postcards.forEach(card => {
         fPostcards[card.id] = card;
     });
