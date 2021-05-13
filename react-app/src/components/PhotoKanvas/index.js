@@ -4,17 +4,20 @@ import { useHistory } from 'react-router-dom';
 import PhotoEditor from './PhotoEditor';
 import BackEditor from './BackEditor';
 import { saveAs } from 'file-saver';
+import { postPostcard } from '../../store/postcards';
 
 const WIDTH = 600;
 const HEIGHT = 400;
 
 function PhotoKanvas({ photoSrc }) {
+    const dispatch = useDispatch();
     const history = useHistory();
     const [ cardFront, setCardFront ] = useState();
     const [ cardBack, setCardBack ] = useState();
     const [ stage, setStage ] = useState('card');
     const [ frontName, setFrontName ] = useState('');
     const [ backName, setBackname ] = useState('');
+    const [ cardSaved, setCardSaved ] = useState(false);
     const user = useSelector(state => state.session.user);
 
     const finishFront = image => {
@@ -44,8 +47,9 @@ function PhotoKanvas({ photoSrc }) {
         history.push('/photos');
     }
 
-    const storePostcard = () => {
-
+    const storePostcard = async () => {
+        setCardSaved(true);
+        await dispatch(postPostcard(cardFront, cardBack, frontName, backName));
     }
 
     return (
@@ -60,7 +64,7 @@ function PhotoKanvas({ photoSrc }) {
                 <div>
                     <h1>Almost Finished</h1>
                     <button onClick={downloadPostcard}>Download Images</button>
-                    <button onClick={storePostcard}>Save Postcard</button>
+                    <button disabled={cardSaved} onClick={storePostcard}>Save Postcard</button>
                 </div>
             }
         </div>
