@@ -64,7 +64,10 @@ function PhotoKanvas({ photoSrc }) {
                 <div>
                     <h1>Almost Finished</h1>
                     <button onClick={downloadPostcard}>Download Images</button>
-                    <button disabled={cardSaved} onClick={storePostcard}>Save Postcard</button>
+                    <button disabled={cardSaved} onClick={storePostcard}>
+                        {cardSaved ? 'Postcard Saved!' : 'Save Postcard'}
+                    </button>
+                    <button onClick={() => history.push('/photos')}>Photos Page</button>
                 </div>
             }
         </div>
