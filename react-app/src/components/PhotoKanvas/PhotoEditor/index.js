@@ -138,10 +138,13 @@ function PhotoEditor({ photoSrc, finishFront }) {
 
     const doneEditing = () => {
         // Convert canvas to image
-        console.log('ref', frontRef.current);
-        const uri = frontRef.current.toDataURL();
-        console.log('URI', uri);
-        finishFront(/*image*/)
+        const imageURL = frontRef.current.toDataURL();
+        (async url => {
+            const res = await fetch(url);
+            const imageBlob = await res.blob();
+            imageBlob.filename = 'postcard-photo';
+            finishFront(imageBlob);
+        })(imageURL);
     }
 
     return (
