@@ -4,7 +4,7 @@ import styles from './PhotoCanvas.module.css';
 
 function PhotoCanvas({imageUrl}) {
     const canvasRef = useRef(null);
-    const photos = useSelector(() => )
+    // const photos = useSelector(() => )
 
     // Draw image onto canvas when it loads
     useEffect(() => {

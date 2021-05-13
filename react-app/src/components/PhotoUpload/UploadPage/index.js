@@ -1,18 +1,20 @@
 import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import AvatarEditor from 'react-avatar-editor';
+import { postPhoto } from '../../../store/photos';
 
 const WIDTH = 600;
 const HEIGHT = 400;
 
 function UploadPage() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [imageUrl, setImageUrl] = useState();
     const [scale, setScale] = useState(1.2);
     const [editor, setEditor] = useState();
     const [privatePhoto, setPrivatePhoto] = useState(false)
-    const [picture, setPicture] = useState();
     const onDrop = useCallback(acceptedFile => {
         const imageFile = acceptedFile[0];
         const imageUrl = URL.createObjectURL(imageFile)
@@ -25,17 +27,14 @@ function UploadPage() {
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({onDrop});
 
-    const saveImage = () => {
+    const uploadPhoto = () => {
         if (editor) {
             // Get image and convert to format for upload
-            const blob = editor.getImage().toBlob(blob => {
-                setPicture(blob);
+            editor.getImage().toBlob(async blob => {
+                await dispatch(postPhoto(blob, privatePhoto));
+                history.push('/photos');
             });
         }
-    }
-
-    const uploadPhoto = () => {
-        // dispatch photo
     }
 
     return (
