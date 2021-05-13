@@ -5,11 +5,13 @@ import thunk from 'redux-thunk';
 import session from './session';
 import photos from './photos';
 import profile from './profile';
+import postcards from './postcards';
 
 const rootReducer = combineReducers({
     session,
     photos,
-    profile
+    profile,
+    postcards
 })
 
 const persistConfig = {
