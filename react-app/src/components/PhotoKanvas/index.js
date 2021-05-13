@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import PhotoEditor from './PhotoEditor';
 import BackEditor from './BackEditor';
 import { saveAs } from 'file-saver';
+import { postPostcard } from '../../store/postcards';
 
 const WIDTH = 600;
 const HEIGHT = 400;
 
 function PhotoKanvas({ photoSrc }) {
+    const dispatch = useDispatch();
     const history = useHistory();
     const [ cardFront, setCardFront ] = useState();
     const [ cardBack, setCardBack ] = useState();
     const [ stage, setStage ] = useState('card');
+    const [ frontName, setFrontName ] = useState('');
+    const [ backName, setBackName ] = useState('');
+    const [ cardSaved, setCardSaved ] = useState(false);
     const user = useSelector(state => state.session.user);
 
     const finishFront = image => {
@@ -23,9 +28,7 @@ function PhotoKanvas({ photoSrc }) {
     const finishBack = image => {
         setCardBack(image);
         setStage('complete');
-    }
 
-    const downloadPostcard = () => {
         const date = new Date();
         const year = date.getFullYear();
         const month = date.getMonth() + 1;
@@ -34,11 +37,19 @@ function PhotoKanvas({ photoSrc }) {
         const min = date.getMinutes();
         const sec = date.getSeconds();
         const formattedDate = `${year}-${month}-${day}-${hour}-${min}-${sec}`;
-        const frontName = `${user.username}-front-${formattedDate}`;
-        const backName = `${user.username}-back-${formattedDate}`;
+        setFrontName(`${user.username}-front-${formattedDate}`);
+        setBackName(`${user.username}-back-${formattedDate}`);
+    }
+
+    const downloadPostcard = () => {
         saveAs(cardFront, frontName);
         saveAs(cardBack, backName);
         history.push('/photos');
+    }
+
+    const storePostcard = async () => {
+        setCardSaved(true);
+        await dispatch(postPostcard(cardFront, cardBack, frontName, backName));
     }
 
     return (
@@ -53,6 +64,10 @@ function PhotoKanvas({ photoSrc }) {
                 <div>
                     <h1>Almost Finished</h1>
                     <button onClick={downloadPostcard}>Download Images</button>
+                    <button disabled={cardSaved} onClick={storePostcard}>
+                        {cardSaved ? 'Postcard Saved!' : 'Save Postcard'}
+                    </button>
+                    <button onClick={() => history.push('/photos')}>Photos Page</button>
                 </div>
             }
         </div>
