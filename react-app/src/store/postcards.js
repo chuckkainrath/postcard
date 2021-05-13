@@ -16,6 +16,10 @@ export const postPostcard = (frontImg, backImg, frontName, backName) => async di
         body: postcardForm
     });
     const data = await response.json();
+    if (data.errors) {
+        console.log(data.errors);
+        return data;
+    }
     dispatch(postPostcardAction(data.postcard));
 }
 

@@ -15,6 +15,7 @@ PHOTO_LIMIT = 40
 def post_postcard():
     user_id = int(current_user.id)
     form = PostcardForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         # Send photos to aws
         pc_front = request.files.get('card_front', '')

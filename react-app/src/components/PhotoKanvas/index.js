@@ -16,7 +16,7 @@ function PhotoKanvas({ photoSrc }) {
     const [ cardBack, setCardBack ] = useState();
     const [ stage, setStage ] = useState('card');
     const [ frontName, setFrontName ] = useState('');
-    const [ backName, setBackname ] = useState('');
+    const [ backName, setBackName ] = useState('');
     const [ cardSaved, setCardSaved ] = useState(false);
     const user = useSelector(state => state.session.user);
 
