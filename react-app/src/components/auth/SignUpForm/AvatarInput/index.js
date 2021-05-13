@@ -29,7 +29,6 @@ function AvatarInput({setPicture, setChoosingPicture}) {
         if (editor) {
             // Get image and convert to format for upload
             const blob = editor.getImageScaledToCanvas().toBlob(blob => {
-                console.log('BLOB', typeof blob.type);
                 setPicture(blob);
                 setChoosingPicture(false);
                 setImageUrl();

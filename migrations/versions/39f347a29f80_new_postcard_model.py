@@ -1,8 +1,8 @@
-"""model-migrations
+"""new-postcard-model
 
-Revision ID: 1efbe0dc2639
+Revision ID: 39f347a29f80
 Revises: 
-Create Date: 2021-05-04 17:41:05.686624
+Create Date: 2021-05-13 11:16:58.031468
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1efbe0dc2639'
+revision = '39f347a29f80'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -49,12 +49,14 @@ def upgrade():
     )
     op.create_table('postcards',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('postcard_url', sa.String(length=255), nullable=False),
+    sa.Column('postcard_front_url', sa.String(length=255), nullable=False),
+    sa.Column('postcard_back_url', sa.String(length=255), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('postcard_url')
+    sa.UniqueConstraint('postcard_back_url'),
+    sa.UniqueConstraint('postcard_front_url')
     )
     op.create_table('likes',
     sa.Column('id', sa.Integer(), nullable=False),

@@ -93,5 +93,5 @@ def seed_photos():
 
 
 def undo_photos():
-    db.session.execute('TRUNCATE photos;')
+    db.session.execute('TRUNCATE photos CASCADE;')
     db.session.commit()
