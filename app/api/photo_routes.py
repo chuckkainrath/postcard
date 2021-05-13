@@ -41,6 +41,7 @@ def post_photo():
     user_id = int(current_user.id)
     photo_file = request.files.get('photo')
     form = PhotoForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     if not form.validate_on_submit():
         return { 'errors': ['Invalid form data']}
 
