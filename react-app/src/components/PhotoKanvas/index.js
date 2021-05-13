@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import PhotoEditor from './PhotoEditor';
 import BackEditor from './BackEditor';
@@ -41,6 +41,10 @@ function PhotoKanvas({ photoSrc }) {
         history.push('/photos');
     }
 
+    const storePostcard = () => {
+
+    }
+
     return (
         <div>
             {stage === 'card' &&
@@ -53,6 +57,7 @@ function PhotoKanvas({ photoSrc }) {
                 <div>
                     <h1>Almost Finished</h1>
                     <button onClick={downloadPostcard}>Download Images</button>
+                    <button onClick={storePostcard}>Save Postcard</button>
                 </div>
             }
         </div>
