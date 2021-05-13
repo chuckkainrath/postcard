@@ -46,4 +46,7 @@ def post_postcard():
 
 @postcard_routes.route('/', methods=['GET'])
 def get_postcards():
-    pass
+    user_id = int(current_user.id)
+    postcards_arr = Postcard.query.filter(Postcard.user_id == user_id).all()
+    postcards = [postcard.to_dict() for postcard in postcards_arr]
+    return { 'postcards': postcards }
