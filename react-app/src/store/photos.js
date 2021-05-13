@@ -10,7 +10,7 @@ const getPhotosAction = photos => ({
 
 const postPhotoAction = photo => ({
     type: POST_PHOTO,
-    action: photo
+    payload: photo
 })
 
 export const postPhoto = (photo, pvtPhoto) => async dispatch => {
@@ -19,7 +19,8 @@ export const postPhoto = (photo, pvtPhoto) => async dispatch => {
     const ext = picType.split('/')[1];
     const picFile = new File([photo], `newphoto.${ext}`);
     form.append('photo', picFile);
-    form.append('private_photo', pvtPhoto);
+    form.append('public', !pvtPhoto);
+    console.log('FORM ENTRIES', form.entries());
     const response = await fetch('/api/photos/', {
         method: 'POST',
         body: form
