@@ -1,0 +1,13 @@
+.splash__container {
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    transform: translateX(-50%) translateY(-50%);
+    width: fit-content;
+    text-align: center;
+}
+
+.splash__message {
+    font-family: 'KoHo';
+    font-size: 2.5rem;
+}

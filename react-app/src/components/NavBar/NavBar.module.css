@@ -52,3 +52,30 @@
     right: 100px;
     padding-top: 5px;
 }
+
+.login_signup__container {
+    list-style-type: none;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translateY(-50%) translateX(-50%);
+    font-family: 'KoHo';
+    font-size: 2rem;
+}
+
+.login_signup__container li {
+    display: inline;
+}
+
+.login__link, .signup__link {
+    text-decoration: none;
+    color: black;
+}
+
+.login__link:hover, .signup__link:hover {
+    cursor: pointer;
+}
+
+.login__link:visited, .signup__link:visited {
+    text-decoration: none;
+}
