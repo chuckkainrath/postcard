@@ -59,14 +59,15 @@ const NavBar = () => {
           </ul>
         }
         {!user &&
-          <ul className={styles.navbar__container}>
+          <ul className={styles.login_signup__container}>
             <li>
-              <NavLink to="/login" exact={true} activeClassName="active">
+              <NavLink to="/login" exact={true} className={styles.login__link} activeClassName="active">
                 Login
               </NavLink>
             </li>
+            <li> or </li>
             <li>
-              <NavLink to="/sign-up" exact={true} activeClassName="active">
+              <NavLink to="/sign-up" exact={true} className={styles.signup__link} activeClassName="active">
                 Sign Up
               </NavLink>
             </li>
