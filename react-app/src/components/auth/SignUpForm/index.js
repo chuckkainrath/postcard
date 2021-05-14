@@ -104,15 +104,17 @@ const SignUpForm = () => {
               required={true}
             ></input>
           </div>
-          <button type="submit">Create Account</button>
-          <div>Have an account?
-            <span className={styles.redirect} onClick={() => history.push('/login')}> Sign In </span>
+          <button className={styles.submit__btn} type="submit">Create Account</button>
+          <div className={styles.other__options}>
+            <div>Have an account?
+              <span className={styles.redirect} onClick={() => history.push('/login')}> Sign In </span>
+            </div>
+            <div>or login as a <span className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</span></div>
           </div>
-          <div>or login as a <span className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</span></div>
         </form>
       }
       {choosingPicture &&
-        <div>
+        <div className={styles.picture__input}>
           <label>Profile Picture (Optional)</label>
           <AvatarInput setPicture={setPicture} setChoosingPicture={setChoosingPicture} />
         </div>
