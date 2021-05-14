@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import { logout } from '../../store/session';
 import styles from './NavBar.module.css';
 
 const NavBar = () => {
   const history = useHistory();
+  const location = useLocation();
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
   let profileSrc;
@@ -58,7 +59,7 @@ const NavBar = () => {
             }
           </ul>
         }
-        {!user &&
+        {(!user && location.pathname === '/') &&
           <ul className={styles.login_signup__container}>
             <li>
               <NavLink to="/login" exact={true} className={styles.login__link} activeClassName="active">
