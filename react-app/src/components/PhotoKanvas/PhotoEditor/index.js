@@ -14,7 +14,7 @@ const typeMap = {
 }
 
 function PhotoEditor({ photoSrc, finishFront }) {
-    const [ photo ] = useImage(photoSrc);
+    const [ photo ] = useImage(photoSrc + '?_');
     const [ textValue, setTextValue ] = useState('');
     const [ textInput, setTextInput ] = useState();
     const [ objects, setObjects ] = useState([]);

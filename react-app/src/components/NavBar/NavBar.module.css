@@ -102,6 +102,7 @@
 
 .login__link:hover, .signup__link:hover {
     cursor: pointer;
+    font-weight: bold;
 }
 
 .login__link:visited, .signup__link:visited {
