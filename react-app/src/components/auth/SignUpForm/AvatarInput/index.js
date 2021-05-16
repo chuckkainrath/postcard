@@ -42,16 +42,18 @@ function AvatarInput({setPicture, setChoosingPicture}) {
 
     return (
         <div>
-            <button onClick={cancelImage}>Cancel</button>
-            <div {...getRootProps()}>
-                <input {...getInputProps()} />
-                { isDragActive ?
-                    <p>Drop the file here...</p> :
-                    <p>Drag 'n' drop a file here, or click to select files</p>
-                }
-            </div>
+            <button className={styles.cancel__picture} onClick={cancelImage}>Cancel</button>
+            {!imageUrl &&
+                <div className={styles.picture__input} {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    { isDragActive ?
+                        <p>Drop the file here...</p> :
+                        <p>Drag 'n' drop a file here, or click to select files</p>
+                    }
+                </div>
+            }
             {imageUrl &&
-                <div>
+                <div className={styles.picture__container}>
                     <AvatarEditor
                         image={imageUrl}
                         width={width}
@@ -63,15 +65,18 @@ function AvatarInput({setPicture, setChoosingPicture}) {
                         rotate={0}
                         ref={(e) => setEditor(e)}
                     />
-                    <input
-                        type='range'
-                        step='0.1'
-                        min='1'
-                        max='3'
-                        value={scale}
-                        onChange={(e) => setScale(parseFloat(e.target.value))}
-                    />
-                    <button onClick={saveImage}>Save Profile Picture</button>
+                    <div className={styles.scale__slider}>
+                        <label>Scale Image:</label>
+                        <input
+                            type='range'
+                            step='0.1'
+                            min='1'
+                            max='3'
+                            value={scale}
+                            onChange={(e) => setScale(parseFloat(e.target.value))}
+                        />
+                    </div>
+                    <button className={styles.submit__btn} onClick={saveImage}>Save Profile Picture</button>
                 </div>
             }
         </div>
