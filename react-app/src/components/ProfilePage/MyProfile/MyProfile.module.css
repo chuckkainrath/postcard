@@ -35,6 +35,7 @@
 }
 
 .category_selection__selected {
+    font-weight: bold;
     background-color: green;
 }
 
@@ -48,4 +49,11 @@
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     border-left: 1px solid black;
+}
+
+.photos__container {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
