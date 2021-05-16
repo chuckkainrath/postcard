@@ -18,7 +18,6 @@ function PhotosComponent() {
 
     return (
         <div>
-            <h1>Welcome, {user && user.username}</h1>
             <div className={styles.cards__container}>
                 {photosArr &&
                     photosArr.map(photo => {
