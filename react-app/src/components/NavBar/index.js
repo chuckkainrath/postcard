@@ -20,43 +20,50 @@ const NavBar = () => {
     history.push('/');
   }
 
+  const toProfile = () => {
+    showProfileMenu(false);
+    history.push(`/profiles/${user.username}`);
+  }
+
   return (
     <nav>
         {user &&
           <ul className={styles.navbar__container}>
-            <li>
+            <li className={styles.navbar__welcome}>
+              <h1>Welcome, {user && user.username}</h1>
+            </li>
+            <li className={styles.navbar__main}>
               <NavLink
                 to="/photos"
                 exact={true}
                 activeClassName="active"
-                className={styles.navbar__main}
               >
                 Main Page
               </NavLink>
             </li>
-            <li>
+            <li className={styles.navbar__right}>
+              <div>
+                <NavLink
+                  to='/photo-upload'
+                  exact={true}
+                  activeClassName="active"
+                  className={styles.upload__icon}
+                >
+                  <i class="far fa-file-upload"></i>
+                </NavLink>
                 <img
                   className={styles.profile__icon}
                   src={profileSrc}
                   onClick={() => showProfileMenu(!profileMenu)}
                 />
-            </li>
-            <li>
-              <NavLink
-                to='/photo-upload'
-                exact={true}
-                activeClassName="active"
-                className={styles.upload__icon}
-              >
-                <i class="far fa-file-upload"></i>
-              </NavLink>
-            </li>
-            {profileMenu &&
-              <div className={styles.profile__dropdown}>
-                  <li onClick={() => history.push(`/profiles/${user.username}`)}>My Profile</li>
-                  <li onClick={onLogout}>Logout</li>
+                {profileMenu &&
+                  <div className={styles.profile__dropdown}>
+                      <li onClick={toProfile}>My Profile</li>
+                      <li onClick={onLogout}>Logout</li>
+                  </div>
+                }
               </div>
-            }
+            </li>
           </ul>
         }
         {(!user && location.pathname === '/') &&
