@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
-import { signUp } from '../../../store/session';
+import { signUp, login } from '../../../store/session';
 import AvatarInput from './AvatarInput';
 import styles from './SignUpForm.module.css';
 
@@ -15,16 +15,23 @@ const SignUpForm = () => {
   const [picture, setPicture] = useState(null);
   const [repeatPassword, setRepeatPassword] = useState("");
   const [choosingPicture, setChoosingPicture] = useState(false);
+  const [errors, setErrors] = useState([]);
 
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      await dispatch(signUp(username, email, password, picture));
+      const data = await dispatch(signUp(username, email, password, picture));
+      if (data.errors) {
+        setErrors(data.errors);
+      }
     }
   };
 
   const signInAsDemo = async () => {
-    //
+    const data = await dispatch(login('demo@aa.io', 'password'))
+    if (data.errors) {
+      setErrors(data.errors);
+    }
   }
 
   const updateUsername = (e) => {
