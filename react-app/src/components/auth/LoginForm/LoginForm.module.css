@@ -65,3 +65,7 @@
     text-align: center;
     margin-top: 10px;
 }
+
+.redirect:hover {
+    font-weight: bold;
+}
