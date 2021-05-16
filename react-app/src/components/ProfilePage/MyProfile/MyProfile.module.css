@@ -1,4 +1,51 @@
+.profile__container {
+    width: 80%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.profile__container h1 {
+    text-align: center;
+}
+
 .photo_size {
     width: 400px;
     height: auto;
+}
+
+.category_selection {
+    position: relative;
+    margin-bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    text-align: center;
+    font-size: 1.4rem;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.category_selection span {
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    width: 150px;
+    padding: 15px 0;
+}
+
+.category_selection__selected {
+    background-color: green;
+}
+
+.category_selection__left {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: 1px solid black;
+}
+
+.category_selection__right {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: 1px solid black;
 }
