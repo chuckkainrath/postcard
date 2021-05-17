@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import { logout } from '../../store/session';
 import styles from './NavBar.module.css';
+import blankProfile from '../MainPage/PhotoCard/blank-profile-img.png';
+
 
 const NavBar = () => {
   const history = useHistory();
@@ -11,7 +13,7 @@ const NavBar = () => {
   const user = useSelector(state => state.session.user);
   let profileSrc;
   if (user) {
-    profileSrc = user.profile_img_url ? user.profile_img_url : '/images/blank-profile-img.webp';
+    profileSrc = user.profile_img_url ? user.profile_img_url : blankProfile;
   }
   const [profileMenu, showProfileMenu] = useState(false);
 
