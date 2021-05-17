@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import AvatarEditor from 'react-avatar-editor';
 import { postPhoto } from '../../../store/photos';
+import styles from './UploadPage.module.css';
 
 const WIDTH = 600;
 const HEIGHT = 400;
@@ -38,7 +39,7 @@ function UploadPage() {
     }
 
     return (
-        <div>
+        <div className={styles.upload__container}>
             <div {...getRootProps()}>
                 <input {...getInputProps()} />
                 { isDragActive ?
