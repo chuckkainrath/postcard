@@ -1,0 +1,21 @@
+.finished__container {
+    width: 50%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.button__container button {
+    font-size: 1.2rem;
+    margin: 5px;
+}
+
+.image {
+    width: 600px;
+    display: block;
+    margin: 10px 0;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}

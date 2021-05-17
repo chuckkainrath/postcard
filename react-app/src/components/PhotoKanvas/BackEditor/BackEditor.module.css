@@ -11,3 +11,9 @@
 }
 
 
+.kanvas__container {
+    position: relative;
+    width: fit-content;
+    left: 50%;
+    transform: translateX(-50%);
+}
