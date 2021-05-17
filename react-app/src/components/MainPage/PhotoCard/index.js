@@ -1,10 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import styles from './PhotoCard.module.css';
+import blankProfile from './blank-profile-img.png';
 
 function PhotoCard({ photo }) {
     const history = useHistory();
-    const profileSrc = photo.profile_img_url ? photo.profile_img_url : 'images/blank-profile-img.png';
+    const profileSrc = photo.profile_img_url ? photo.profile_img_url : blankProfile;
     console.log(profileSrc);
     return (
         <div className={styles.photo__card}>
