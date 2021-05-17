@@ -16,6 +16,7 @@ function UploadPage() {
     const [scale, setScale] = useState(1.2);
     const [editor, setEditor] = useState();
     const [privatePhoto, setPrivatePhoto] = useState(false)
+    const [imageUploaded, setImageUploaded] = useState(false)
     const onDrop = useCallback(acceptedFile => {
         const imageFile = acceptedFile[0];
         const imageUrl = URL.createObjectURL(imageFile)
@@ -30,6 +31,7 @@ function UploadPage() {
 
     const uploadPhoto = () => {
         if (editor) {
+            setImageUploaded(true);
             // Get image and convert to format for upload
             editor.getImage().toBlob(async blob => {
                 await dispatch(postPhoto(blob, privatePhoto));
@@ -79,7 +81,7 @@ function UploadPage() {
                             onChange={() => setPrivatePhoto(!privatePhoto)}
                         />
                     </div>
-                    <button onClick={uploadPhoto}>Upload Photo</button>
+                    <button disabled={imageUploaded} onClick={uploadPhoto}>Upload Photo</button>
                 </div>
             }
         </div>
