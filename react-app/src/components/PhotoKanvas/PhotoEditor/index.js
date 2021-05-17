@@ -14,7 +14,8 @@ const typeMap = {
 }
 
 function PhotoEditor({ photoSrc, finishFront }) {
-    const [ photo ] = useImage(photoSrc + '?_');
+    const [ photo, photoStatus ] = useImage(photoSrc, 'Anonymous');
+    const [ loading, setLoading ] = useState(true);
     const [ textValue, setTextValue ] = useState('');
     const [ textInput, setTextInput ] = useState();
     const [ objects, setObjects ] = useState([]);
@@ -28,19 +29,22 @@ function PhotoEditor({ photoSrc, finishFront }) {
 
     useEffect(() => {
         // Grab text input field
-        const textInput = document.getElementById('textInput')
-        setTextInput(textInput);
-        textInput.disabled = true;
-    }, [])
+        if (!loading) {
+            const textInput = document.getElementById('textInput')
+            setTextInput(textInput);
+            textInput.disabled = true;
+        }
+    }, [loading])
 
     // useEffet to have access to div after it renders.
     useEffect(() => {
-        if (photo) {
+        if (photoStatus === 'loaded') {
             photo.crossOrigin = 'Anonymous';
             photo.width = WIDTH;
             photo.height = HEIGHT;
+            setLoading(false);
         }
-    }, [photo]);
+    }, [photoStatus]);
 
     const textChange = (e) => {
         const newTextValue = e.target.value;
@@ -148,36 +152,43 @@ function PhotoEditor({ photoSrc, finishFront }) {
     }
 
     return (
-        <div id='kanvas'>
-            <div className={styles.kanvas__options}>
-                <button disabled={!currObject} onClick={() => deleteCurrObj()}>Delete</button>
-                <button onClick={() => newTextInput()}>
-                    Text
+        <div className={styles.kanvas__container}>
+            {loading &&
+            <h1>Loading...</h1>
+            }
+            {!loading &&
+            <div id='kanvas'>
+                <div className={styles.kanvas__options}>
+                    <button disabled={!currObject} onClick={() => deleteCurrObj()}>Delete</button>
+                    <button onClick={() => newTextInput()}>
+                        Text
+                    </button>
+                    <input id='textInput' className={styles.kanvas__text_input} value={textValue} onChange={(e) => textChange(e)} />
+                    <label>Font Size</label>
+                    <input type='number' value={fontSize} onChange={(e) => changeFontSize(e)} />
+                    <label>Color</label>
+                    <input type="color" value={color} onChange={(e) => changeColor(e)} />
+                    <FontSelector fontFamily={fontFamily} changeFontFamily={changeFontFamily} />
+                    <button disabled={!currObject} onClick={() => changeBold()}>B</button>
+                    <button disabled={!currObject} onClick={() => changeItalic()}>I</button>
+                    <button disabled={!currObject} onClick={() => changeUnderline()}>U</button>
+                </div>
+                <Stage ref={frontRef} width={WIDTH} height={HEIGHT}>
+                    <Layer onClick={() => imageClick()}>
+                        <Image image={photo} />
+                    </Layer>
+                    <Layer>
+                        {objects && objects.map(object => {
+                            const Comp = typeMap[object.type]
+                            return <Comp draggable {...object} key={object.id} />
+                        })}
+                    </Layer>
+                </Stage>
+                <button onClick={doneEditing}>
+                    Continue
                 </button>
-                <input id='textInput' className={styles.kanvas__text_input} value={textValue} onChange={(e) => textChange(e)} />
-                <label>Font Size</label>
-                <input type='number' value={fontSize} onChange={(e) => changeFontSize(e)} />
-                <label>Color</label>
-                <input type="color" value={color} onChange={(e) => changeColor(e)} />
-                <FontSelector fontFamily={fontFamily} changeFontFamily={changeFontFamily} />
-                <button disabled={!currObject} onClick={() => changeBold()}>B</button>
-                <button disabled={!currObject} onClick={() => changeItalic()}>I</button>
-                <button disabled={!currObject} onClick={() => changeUnderline()}>U</button>
             </div>
-            <Stage ref={frontRef} width={WIDTH} height={HEIGHT}>
-                <Layer onClick={() => imageClick()}>
-                    <Image image={photo} />
-                </Layer>
-                <Layer>
-                    {objects && objects.map(object => {
-                        const Comp = typeMap[object.type]
-                        return <Comp draggable {...object} key={object.id} />
-                    })}
-                </Layer>
-            </Stage>
-            <button onClick={doneEditing}>
-                Continue
-            </button>
+            }
         </div>
     );
 }

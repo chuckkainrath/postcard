@@ -5,6 +5,7 @@ import PhotoEditor from './PhotoEditor';
 import BackEditor from './BackEditor';
 import { saveAs } from 'file-saver';
 import { postPostcard } from '../../store/postcards';
+import styles from './PhotoKanvas.module.css';
 
 const WIDTH = 600;
 const HEIGHT = 400;
@@ -14,6 +15,8 @@ function PhotoKanvas({ photoSrc }) {
     const history = useHistory();
     const [ cardFront, setCardFront ] = useState();
     const [ cardBack, setCardBack ] = useState();
+    const [ frontUrl, setFrontUrl ] = useState('');
+    const [ backUrl, setBackUrl ] = useState('');
     const [ stage, setStage ] = useState('card');
     const [ frontName, setFrontName ] = useState('');
     const [ backName, setBackName ] = useState('');
@@ -23,12 +26,13 @@ function PhotoKanvas({ photoSrc }) {
     const finishFront = image => {
         setCardFront(image);
         setStage('back');
+        setFrontUrl(URL.createObjectURL(image));
     }
 
     const finishBack = image => {
         setCardBack(image);
         setStage('complete');
-
+        setBackUrl(URL.createObjectURL(image));
         const date = new Date();
         const year = date.getFullYear();
         const month = date.getMonth() + 1;
@@ -44,7 +48,6 @@ function PhotoKanvas({ photoSrc }) {
     const downloadPostcard = () => {
         saveAs(cardFront, frontName);
         saveAs(cardBack, backName);
-        history.push('/photos');
     }
 
     const storePostcard = async () => {
@@ -61,13 +64,18 @@ function PhotoKanvas({ photoSrc }) {
                 <BackEditor finishBack={finishBack} />
             }
             {stage === 'complete' &&
-                <div>
-                    <h1>Almost Finished</h1>
-                    <button onClick={downloadPostcard}>Download Images</button>
-                    <button disabled={cardSaved} onClick={storePostcard}>
-                        {cardSaved ? 'Postcard Saved!' : 'Save Postcard'}
-                    </button>
-                    <button onClick={() => history.push('/photos')}>Photos Page</button>
+                <div className={styles.finished__container}>
+                    <div className={styles.images__container}>
+                        <img className={styles.image} src={frontUrl} />
+                        <img className={styles.iamge} src={backUrl} />
+                    </div>
+                    <div className={styles.button__container}>
+                        <button onClick={downloadPostcard}>Download Images</button>
+                        <button disabled={cardSaved} onClick={storePostcard}>
+                            {cardSaved ? 'Postcard Saved!' : 'Save Postcard'}
+                        </button>
+                        <button onClick={() => history.push('/photos')}>Back to Main Page</button>
+                    </div>
                 </div>
             }
         </div>

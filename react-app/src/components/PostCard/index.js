@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-// import PhotoCanvas from '../PhotoCanvas';
 import PhotoKanvas from '../PhotoKanvas';
+import styles from './PostCard.module.css';
 
 function PostCard() {
     const { photoId } = useParams();
@@ -12,7 +12,7 @@ function PostCard() {
 
     return (
         <div>
-            <h1>Canvas!</h1>
+            <h1 className={styles.postcard_title}>Create a Postcard</h1>
             <PhotoKanvas photoSrc={imageUrl} />
         </div>
     )
