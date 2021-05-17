@@ -32,7 +32,9 @@ function MyProfile() {
     }, [])
 
     useEffect(() => {
-        setPostcards(Object.values(postcardsDict));
+        if (postcardsDict) {
+            setPostcards(Object.values(postcardsDict));
+        }
     }, [postcardsDict]);
 
     useEffect(() => {
