@@ -1,9 +1,15 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styles from './Splash.module.css';
 
 function Splash() {
     const history = useHistory();
+    const user = useSelector(state => state.session.user);
+
+    if (user) {
+        history.push('/photos');
+    }
 
     const login = () => {
         history.push('/login');
