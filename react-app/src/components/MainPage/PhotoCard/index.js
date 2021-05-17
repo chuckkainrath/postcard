@@ -4,7 +4,7 @@ import styles from './PhotoCard.module.css';
 
 function PhotoCard({ photo }) {
     const history = useHistory();
-    const profileSrc = photo.profile_img_url ? photo.profile_img_url : '/images/blank-profile-img.webp';
+    const profileSrc = photo.profile_img_url ? photo.profile_img_url : 'images/blank-profile-img.png';
     console.log(profileSrc);
     return (
         <div className={styles.photo__card}>

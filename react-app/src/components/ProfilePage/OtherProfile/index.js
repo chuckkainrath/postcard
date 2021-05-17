@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import PhotoCard from '../../MainPage/PhotoCard';
 import styles from './OtherProfile.module.css';
 
 function OtherProfile() {
@@ -13,16 +14,15 @@ function OtherProfile() {
     }, [photos])
 
     return (
-        <div>
+        <div className={styles.profile__container}>
             {profile &&
                 <h1>{profile.username}'s Profile</h1>
             }
-            {photosArr && photosArr.map(photo => {
-                return <img key={photo.id}
-                            className={styles.photo_size}
-                            src={photo.photo_url}
-                        />
-            })}
+            <div className={styles.photos__container}>
+                {photosArr && photosArr.map(photo => {
+                    return <PhotoCard key={photo.id} photo={photo} />
+                })}
+            </div>
         </div>
     );
 }
