@@ -12,19 +12,6 @@ const typeMap = {
     'Rect': Rect
 }
 
-const temp = `A super long string that will hopefully take up a lot of space.
-Next time you have to come.  It was so much fun.
-Hopefully you guys are having a great time whereever you are.
-A super long string that will hopefully take up a lot of space.
-Next time you have to come.  It was so much fun.
-Hopefully you guys are having a great time whereever you are.
-A super long string that will hopefully take up a lot of space.
-Next time you have to come.  It was so much fun.
-Hopefully you guys are having a great time whereever you are.
-A super long string that will hopefully take up a lot of space.
-Next time you have to come.  It was so much fun.
-Hopefully you guys are having a great time whereever you are.`
-
 function BackEditor({finishBack}) {
     const [ backObjs, setBackObjs ] = useState([]);
     const [ messageObj, setMessageObj ] = useState();
@@ -114,8 +101,7 @@ function BackEditor({finishBack}) {
     }
 
     return (
-        <div>
-            <h1>Back</h1>
+        <div className={styles.kanvas__container}>
             <Stage ref={backRef} width={WIDTH} height={HEIGHT}>
                 <Layer>
                     {backObjs && backObjs.map(object => {
