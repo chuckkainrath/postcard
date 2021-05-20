@@ -64,7 +64,9 @@ function PhotoEditor({ photoSrc, finishFront }) {
             setCurrObject(newText);
             textInput.disabled = false;
         }
-        newText.onDragEnd = () => {
+        newText.onDragEnd = (e) => {
+            newText.x = e.target.x();
+            newText.y = e.target.y();
             textInput.focus();
         }
         setObjects([...objects, newText]);
@@ -124,9 +126,11 @@ function PhotoEditor({ photoSrc, finishFront }) {
     }
 
     const deleteCurrObj = () => {
+        console.log('BEFORE FILTER: ', objects);
         const objCopies = objects.filter(obj => {
             return obj !== currObject;
         })
+        console.log('AFTER FILTER: ', objCopies);
         setObjects(objCopies);
         setTextValue('');
         textInput.disabled = true;
