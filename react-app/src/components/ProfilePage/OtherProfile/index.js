@@ -20,7 +20,7 @@ function OtherProfile() {
             }
             <div className={styles.photos__container}>
                 {photosArr && photosArr.map(photo => {
-                    return <PhotoCard key={photo.id} photo={photo} />
+                    return <PhotoCard profilePage={false} key={photo.id} photo={photo} />
                 })}
             </div>
         </div>

@@ -74,7 +74,7 @@ function MyProfile() {
             {category === 'photo-public' &&
                 <div className={styles.photos__container}>
                     {publicPhotos && publicPhotos.map(photo => (
-                        <PhotoCard key={photo.id} photo={photo} />
+                        <PhotoCard profilePage={true} key={photo.id} photo={photo} />
                     ))}
 
                 </div>
@@ -82,7 +82,7 @@ function MyProfile() {
             {category === 'photo-private' &&
                 <div className={styles.photos__container}>
                     {privatePhotos && privatePhotos.map(photo => (
-                        <PhotoCard key={photo.id} photo={photo} />
+                        <PhotoCard profilePage={true} key={photo.id} photo={photo} />
                     ))}
                 </div>
             }

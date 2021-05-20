@@ -22,6 +22,7 @@ function PhotosComponent() {
                 {photosArr &&
                     photosArr.map(photo => {
                         return <PhotoCard
+                                    profilePage={false}
                                     key={photo.id}
                                     photo={photo}
                             />
