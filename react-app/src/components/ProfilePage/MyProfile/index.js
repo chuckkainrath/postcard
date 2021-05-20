@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './MyProfile.module.css';
-import PhotoCard from '../../MainPage/PhotoCard';
+import ProfileCard from '../../ProfilePage/ProfileCard';
 import { getPostcards } from '../../../store/postcards';
 
 const photoFilter = (photos, photoType) => {
@@ -74,7 +74,7 @@ function MyProfile() {
             {category === 'photo-public' &&
                 <div className={styles.photos__container}>
                     {publicPhotos && publicPhotos.map(photo => (
-                        <PhotoCard profilePage={true} key={photo.id} photo={photo} />
+                        <ProfileCard userProfile={true} key={photo.id} photo={photo} />
                     ))}
 
                 </div>
@@ -82,7 +82,7 @@ function MyProfile() {
             {category === 'photo-private' &&
                 <div className={styles.photos__container}>
                     {privatePhotos && privatePhotos.map(photo => (
-                        <PhotoCard profilePage={true} key={photo.id} photo={photo} />
+                        <ProfileCard userProfile={true} key={photo.id} photo={photo} />
                     ))}
                 </div>
             }
