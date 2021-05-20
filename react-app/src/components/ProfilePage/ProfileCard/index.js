@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { confirmAlert } from 'react-confirm-alert';
 import { deletePhoto } from '../../../store/photos';
-import styles from './PhotoCard.module.css';
-import blankProfile from './blank-profile-img.png';
+import styles from './ProfileCard.module.css';
 
-function ProfileCard({ photo }) {
+function ProfileCard({ userProfile, photo }) {
     const history = useHistory();
     const dispatch = useDispatch();
-    const profileSrc = photo.profile_img_url ? photo.profile_img_url : blankProfile;
 
     const dltPhoto = async () => {
         dispatch(deletePhoto(photo.id));
@@ -45,16 +43,9 @@ function ProfileCard({ photo }) {
             <img
                 className={styles.photo__img}
                 src={photo.photo_url}
-                onClick={() => history.push(`/profiles/${photo.username}`)}
             />
             <div className={styles.photo__options}>
-                {!profilePage &&
-                    <img
-                        className={styles.photo__user_profile}
-                        src={profileSrc}
-                    />
-                }
-                {profilePage &&
+                {userProfile &&
                     <button onClick={confirmDelete}>Delete</button>
                 }
                 <div
