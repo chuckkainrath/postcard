@@ -26,7 +26,7 @@ function PhotoEditor({ photoSrc, finishFront }) {
     const [ currObject, setCurrObject ] = useState();
     const [ color, setColor ] = useState('#000000')
     const [ fontFamily, setFontFamily ] = useState('Arial');
-    const [ fontStyle, setFontStyle ] = useState('normal');
+    const [ fontStyle, setFontStyle ] = useState('');
     const [ underline, setUnderline ] = useState('');
     const [ filter, setFilter ] = useState([]);
     const frontRef = useRef(null);
@@ -61,7 +61,6 @@ function PhotoEditor({ photoSrc, finishFront }) {
             photoRef.current.getLayer().batchDraw();
         }
     }, [filter]);
-
 
     const textChange = (e) => {
         const newTextValue = e.target.value;
