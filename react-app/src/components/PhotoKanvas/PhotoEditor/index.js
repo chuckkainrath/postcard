@@ -34,6 +34,22 @@ function PhotoEditor({ photoSrc, finishFront }) {
     console.log('FILTERS', Konva.Filters);
 
     useEffect(() => {
+        // event listener for deleting stuff?
+        // window.addEventListener('keydown', e => {
+        //     if (e.keyco)
+        // })
+        const objCopies = objects.filter(obj => {
+            return obj !== currObject;
+        })
+        console.log('AFTER FILTER: ', objCopies);
+        setObjects(objCopies);
+        setTextValue('');
+        textInput.disabled = true;
+        setCurrObject(null);
+
+    }, []);
+
+    useEffect(() => {
         // Grab text input field
         if (!loading) {
             const textInput = document.getElementById('textInput')
@@ -85,6 +101,7 @@ function PhotoEditor({ photoSrc, finishFront }) {
             newText.y = e.target.y();
             textInput.focus();
         }
+
         setObjects([...objects, newText]);
         setCurrObject(newText);
         setTextValue(newText.text);
