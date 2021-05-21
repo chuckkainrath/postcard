@@ -30,11 +30,11 @@ def get_public_photos():
     return { 'photos': photos_list}
 
 
-@photo_routes.route('/:<int:photo_id>')
-@login_required
-def get_photo(photo_id):
-    photo = Photo.query.get(photo_id)
-    return { 'photo': photo.to_dict() }
+# @photo_routes.route('/:<int:photo_id>')
+# @login_required
+# def get_photo(photo_id):
+#     photo = Photo.query.get(photo_id)
+#     return { 'photo': photo.to_dict() }
 
 
 @photo_routes.route('/', methods=['POST'])

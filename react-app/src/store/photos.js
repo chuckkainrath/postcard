@@ -50,7 +50,7 @@ export const postPhoto = (photo, pvtPhoto) => async dispatch => {
 }
 
 export const likePhoto = photoId => async dispatch => {
-    const response = await fetch(`/api/photos/${photoId}/like`, {method: 'PUT'});
+    const response = await fetch(`/api/photos/${photoId}/like`, {method: 'POST'});
     const data = await response.json();
     if (data.errors) {
         console.log(data.errors);
@@ -60,7 +60,7 @@ export const likePhoto = photoId => async dispatch => {
 }
 
 export const unlikePhoto = photoId => async dispatch => {
-    const response = await fetch(`/api/photos/${photoId}/unlike`, {method: 'PUT'});
+    const response = await fetch(`/api/photos/${photoId}/unlike`, {method: 'DELETE'});
     const data = await response.json();
     if (data.errors) {
         console.log(data.errors);
