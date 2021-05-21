@@ -44,3 +44,13 @@
     width: fit-content;
     padding: 0 20px 10px 20px;
 }
+
+.photo__heart {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 2rem;
+    color: rgb(144, 37, 37);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
