@@ -25,7 +25,6 @@ export const postPhoto = (photo, pvtPhoto) => async dispatch => {
     const picFile = new File([photo], `newphoto.${ext}`);
     form.append('photo', picFile);
     form.append('public', !pvtPhoto);
-    console.log('FORM ENTRIES', form.entries());
     const response = await fetch('/api/photos/', {
         method: 'POST',
         body: form
