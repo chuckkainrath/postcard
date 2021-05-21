@@ -13,6 +13,11 @@ const postPhotoAction = photo => ({
     payload: photo
 })
 
+const deletePhotoAction = photoId => ({
+    type: DELETE_PHOTO,
+    payload: photoId
+})
+
 export const postPhoto = (photo, pvtPhoto) => async dispatch => {
     const form = new FormData();
     const picType = photo.type;
@@ -20,7 +25,6 @@ export const postPhoto = (photo, pvtPhoto) => async dispatch => {
     const picFile = new File([photo], `newphoto.${ext}`);
     form.append('photo', picFile);
     form.append('public', !pvtPhoto);
-    console.log('FORM ENTRIES', form.entries());
     const response = await fetch('/api/photos/', {
         method: 'POST',
         body: form
@@ -42,6 +46,16 @@ export const getPhotos = () => async dispatch => {
     }
     const flatPhotos = flattenPhotos(data.photos);
     dispatch(getPhotosAction(flatPhotos));
+}
+
+export const deletePhoto = photoId => async dispatch => {
+    const res = await fetch(`/api/photos/${photoId}`, { method: 'DELETE'});
+    const data = await res.json();
+    if (data.errors) {
+        console.log('PHOTO ERRORS', data.errors);
+        return;
+    }
+    dispatch(deletePhotoAction(photoId));
 }
 
 export const flattenPhotos = photos => {
@@ -69,7 +83,9 @@ export default function reducer(state = initialState, action) {
             newState.photos[action.payload.id] = action.payload
             return newState;
         case DELETE_PHOTO:
-            return initialState; // TODO: COMPELTE ROUTE
+            newState = Object.assign({}, state);
+            delete newState.photos[action.payload];
+            return newState;
         default:
             return state
     }

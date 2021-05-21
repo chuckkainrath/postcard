@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import PhotoCard from '../../MainPage/PhotoCard';
+import ProfileCard from '../ProfileCard';
 import styles from './OtherProfile.module.css';
 
 function OtherProfile() {
@@ -20,7 +20,7 @@ function OtherProfile() {
             }
             <div className={styles.photos__container}>
                 {photosArr && photosArr.map(photo => {
-                    return <PhotoCard key={photo.id} photo={photo} />
+                    return <ProfileCard userProfile={false} key={photo.id} photo={photo} />
                 })}
             </div>
         </div>

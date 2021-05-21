@@ -1,0 +1,9 @@
+.upload__container {
+    width: 60%;
+    text-align: center;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+}
