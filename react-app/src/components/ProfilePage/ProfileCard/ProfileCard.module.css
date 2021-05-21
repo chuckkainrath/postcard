@@ -21,12 +21,6 @@
     width: 100%;
 }
 
-.photo__user_profile {
-    margin-left: 5px;
-    border-radius: 50%;
-    width: 50px;
-}
-
 .photo__card_create {
     display: inline-block;
     position: absolute;

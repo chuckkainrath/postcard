@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Stage, Layer, Text, Image, Line, Rect } from 'react-konva';
+import { Stage, Layer, Text, Line, Rect, Transformer } from 'react-konva';
 import FontSelector from '../FontSelector';
 import styles from './BackEditor.module.css';
 
@@ -10,6 +10,10 @@ const typeMap = {
     'Text': Text,
     'Line': Line,
     'Rect': Rect
+}
+
+function checkTextOverflow(text, font, fontSize) {
+
 }
 
 function BackEditor({finishBack}) {
