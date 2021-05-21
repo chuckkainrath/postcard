@@ -7,6 +7,10 @@ function PhotoCard({ photo }) {
     const history = useHistory();
     const profileSrc = photo.profile_img_url ? photo.profile_img_url : blankProfile;
 
+    const toggleLike = () => {
+        
+    }
+
     return (
         <div className={styles.photo__card}>
             <img
@@ -20,6 +24,11 @@ function PhotoCard({ photo }) {
                     src={profileSrc}
                     onClick={() => history.push(`/profiles/${photo.username}`)}
                 />
+                <div
+                    onClick={toggleLike}
+                    className={styles.photo__heart}>
+                    <i class="fal fa-heart"></i>
+                </div>
                 <div
                     onClick={() => history.push(`/create-postcard/${photo.id}`)}
                     className={styles.photo__card_create}>
