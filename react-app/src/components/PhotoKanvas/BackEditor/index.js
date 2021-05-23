@@ -5,6 +5,8 @@ import styles from './BackEditor.module.css';
 
 const WIDTH = 600;
 const HEIGHT = 400;
+const ADDRESS1 = '123 Rye Road'
+const ADDRESS2 = 'Chicago, IL 60060'
 
 const typeMap = {
     'Text': Text,
@@ -20,37 +22,20 @@ function BackEditor({finishBack}) {
     const [ backObjs, setBackObjs ] = useState([]);
     const [ messageObj, setMessageObj ] = useState();
     const [ message, setMessage ] = useState('Text');
+    const [ address1, setAddress1] = useState('')
+    const [ msgDiv, setMsgDiv] = useState();
     const backRef = useRef(null);
     // const [ atMax, setAtMax ] = useState(false);
 
     const messageChange = e => {
         const newMsg = e.target.value;
+
+        // Check for message overflow
+        msgDiv.innerText = newMsg;
+        console.log('Offset Height', msgDiv.offsetHeight);
+
         setMessage(newMsg);
         messageObj.text = newMsg;
-        // const wordArr = newMsg.split(' '); // 38 Characters per line with cursive font, font size 16, 14 lines max
-        // let lineLen = 0;
-        // let lineCount = 0;
-        // for (let i = 0; i < wordArr.length; i++) {
-        //     if (lineLen === 0) {
-        //         lineLen += wordArr[i].length;
-        //     } else {
-        //         lineLen += wordArr[i].length + 1;
-        //     }
-        //     if (lineLen > 38) {
-        //         lineCount++;
-        //         lineLen = wordArr[i].length;
-        //     } else if (lineLen === 38) {
-        //         lineCount++;
-        //         lineLen = 0;
-        //     }
-        // }
-        // if (lineCount >= 14) {
-        //     setAtMax(true);
-        // } else {
-        //     setAtMax(false);
-        // }
-        // console.log('LineLen', lineLen);
-        // console.log('LineCount', lineCount);
     }
 
     useEffect(() => {
@@ -58,6 +43,10 @@ function BackEditor({finishBack}) {
         // const textInput = document.getElementById('textInput')
         // setTextInput(textInput);
         // textInput.disabled = true;
+        const msgDiv = document.getElementById('hidden-message')
+        setMsgDiv(msgDiv);
+        msgDiv.style.fontSize = '16';
+        msgDiv.style.fontFamily  = 'cursive';
 
         // Draw postcard back
         const backArr = [];
@@ -86,6 +75,8 @@ function BackEditor({finishBack}) {
         yStart = 25;
         let width = WIDTH / 2 - 40;
         let height = HEIGHT - 50;
+        console.log('WIDTH', width);
+        console.log('HEIGHT', height);
         const msg = { type: 'Text', fontFamily: 'cursive', fontSize: 16, x: xStart, y: yStart,
                       width: width, height: height, text: message, lineHeight: 1.5 }
         setMessageObj(msg);
@@ -125,6 +116,9 @@ function BackEditor({finishBack}) {
                 />
             </div>
             <button onClick={submitCard}>Create Postcard</button>
+            <div id='hidden-message' className={styles.hidden__message}>
+
+            </div>
         </div>
     )
 }

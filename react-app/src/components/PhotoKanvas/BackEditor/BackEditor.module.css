@@ -17,3 +17,10 @@
     left: 50%;
     transform: translateX(-50%);
 }
+
+.hidden__message {
+    position: absolute;
+    left: -10000px;
+    width: 260px;
+    line-height: 1.5em;
+}
