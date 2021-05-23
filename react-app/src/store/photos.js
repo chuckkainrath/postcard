@@ -1,7 +1,19 @@
-const GET_PHOTOS = 'photos/GET_PHOTOS'
-const GET_PHOTO = 'photos/GET_PHOTO'
-const POST_PHOTO = 'photos/POST_PHOTO'
-const DELETE_PHOTO = 'photos/DELETE_PHOTO'
+const GET_PHOTOS = 'photos/GET_PHOTOS';
+const GET_PHOTO = 'photos/GET_PHOTO';
+const POST_PHOTO = 'photos/POST_PHOTO';
+const DELETE_PHOTO = 'photos/DELETE_PHOTO';
+const LIKE_PHOTO = 'photos/LIKE';
+const UNLIKE_PHOTO = 'photos/UNLIKE';
+
+const likePhotoAction = photoId => ({
+    type: LIKE_PHOTO,
+    payload: photoId
+});
+
+const unlikePhotoAction = photoId => ({
+    type: UNLIKE_PHOTO,
+    payload: photoId
+})
 
 const getPhotosAction = photos => ({
     type: GET_PHOTOS,
@@ -35,6 +47,26 @@ export const postPhoto = (photo, pvtPhoto) => async dispatch => {
         return;
     }
     dispatch(postPhotoAction(data.photo))
+}
+
+export const likePhoto = photoId => async dispatch => {
+    const response = await fetch(`/api/photos/${photoId}/like`, {method: 'POST'});
+    const data = await response.json();
+    if (data.errors) {
+        console.log(data.errors);
+        return;
+    }
+    dispatch(likePhotoAction(photoId));
+}
+
+export const unlikePhoto = photoId => async dispatch => {
+    const response = await fetch(`/api/photos/${photoId}/unlike`, {method: 'DELETE'});
+    const data = await response.json();
+    if (data.errors) {
+        console.log(data.errors);
+        return;
+    }
+    dispatch(unlikePhotoAction(photoId));
 }
 
 export const getPhotos = () => async dispatch => {
@@ -85,6 +117,18 @@ export default function reducer(state = initialState, action) {
         case DELETE_PHOTO:
             newState = Object.assign({}, state);
             delete newState.photos[action.payload];
+            return newState;
+        case LIKE_PHOTO:
+            newState = Object.assign({}, state);
+            if (newState.photos[action.payload]) {
+                newState.photos[action.payload].like = true;
+            }
+            return newState;
+        case UNLIKE_PHOTO:
+            newState = Object.assign({}, state);
+            if (newState.photos[action.payload]) {
+                newState.photos[action.payload].like = false;
+            }
             return newState;
         default:
             return state
