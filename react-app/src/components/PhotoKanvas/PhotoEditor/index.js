@@ -213,7 +213,7 @@ function PhotoEditor({ photoSrc, finishFront }) {
                 </div>
                 <Stage ref={frontRef} width={WIDTH} height={HEIGHT}>
                     <Layer onClick={() => imageClick()}>
-                        <Image ref={photoRef} filters={[/*Konva.Filters.Invert*/]} image={photo} />
+                        <Image ref={photoRef} filters={filter} image={photo} />
                     </Layer>
                     <Layer>
                         {objects && objects.map(object => {
