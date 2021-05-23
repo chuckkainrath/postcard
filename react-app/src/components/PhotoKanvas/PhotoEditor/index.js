@@ -33,21 +33,21 @@ function PhotoEditor({ photoSrc, finishFront }) {
 
     console.log('FILTERS', Konva.Filters);
 
-    useEffect(() => {
-        // event listener for deleting stuff?
-        // window.addEventListener('keydown', e => {
-        //     if (e.keyco)
-        // })
-        const objCopies = objects.filter(obj => {
-            return obj !== currObject;
-        })
-        console.log('AFTER FILTER: ', objCopies);
-        setObjects(objCopies);
-        setTextValue('');
-        textInput.disabled = true;
-        setCurrObject(null);
+    // useEffect(() => {
+    //     // event listener for deleting stuff?
+    //     // window.addEventListener('keydown', e => {
+    //     //     if (e.keyco)
+    //     // })
+    //     const objCopies = objects.filter(obj => {
+    //         return obj !== currObject;
+    //     })
+    //     console.log('AFTER FILTER: ', objCopies);
+    //     setObjects(objCopies);
+    //     setTextValue('');
+    //     textInput.disabled = true;
+    //     setCurrObject(null);
 
-    }, []);
+    // }, []);
 
     useEffect(() => {
         // Grab text input field
