@@ -7,7 +7,11 @@ import styles from './PostCard.module.css';
 function PostCard() {
     const { photoId } = useParams();
     const photos = useSelector(state => state.photos.photos);
-    const photo = photos[photoId];
+    const profPhotos = useSelector(state => state.profile.photos);
+    let photo = photos[photoId];
+    if (!photo) {
+        photo = profPhotos[photoId];
+    }
     const imageUrl = photo.photo_url;
 
     return (
