@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './MyProfile.module.css';
-import ProfileCard from '../../ProfilePage/ProfileCard';
+import ProfileCard from '../ProfileCard';
+import PostcardCard from '../PostcardCard';
 import { getPostcards } from '../../../store/postcards';
 
 const photoFilter = (photos, photoType) => {
@@ -87,11 +88,10 @@ function MyProfile() {
                 </div>
             }
             {category === 'postcards' &&
-                <div>
-                    {postcards && postcards.map(card => {
-                        return <img src={card.postcard_front_url}
-                                    key={card.id} />
-                    })}
+                <div className={styles.photos__container}>
+                    {postcards && postcards.map(card => (
+                        <PostcardCard postcard={card} key={card.id} />
+                    ))}
                 </div>
             }
         </div>
