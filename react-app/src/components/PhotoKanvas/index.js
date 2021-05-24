@@ -63,7 +63,8 @@ function PhotoKanvas({ photoSrc, frontSrc }) {
                 const res = await fetch(url);
                 const imageBlob = await res.blob();
                 const srcParts = frontSrc.split('/');
-                const filename = srcParts[srcParts.length - 1];
+                let filename = srcParts[srcParts.length - 1];
+                filename = filename.split('.')[0];
                 imageBlob.filename = filename;
                 setFrontName(filename);
                 finishFront(imageBlob);
