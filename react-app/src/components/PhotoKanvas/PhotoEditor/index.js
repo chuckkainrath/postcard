@@ -8,6 +8,7 @@ import FilterSelector from '../FilterSelector';
 
 const WIDTH = 600;
 const HEIGHT = 400;
+const randomNum = Math.floor(Math.random() * 1000000);
 
 const typeMap = {
     'Text': Text,
@@ -16,7 +17,7 @@ const typeMap = {
 }
 
 function PhotoEditor({ photoSrc, finishFront }) {
-    const [ photo, photoStatus ] = useImage(photoSrc, 'Anonymous');
+    const [photo, photoStatus] = useImage(`${photoSrc}?${randomNum}`, 'Anonymous');
     const photoRef = useRef(null);
     const [ loading, setLoading ] = useState(true);
     const [ textValue, setTextValue ] = useState('');
@@ -30,24 +31,6 @@ function PhotoEditor({ photoSrc, finishFront }) {
     const [ underline, setUnderline ] = useState('');
     const [ filter, setFilter ] = useState([]);
     const frontRef = useRef(null);
-
-    console.log('FILTERS', Konva.Filters);
-
-    // useEffect(() => {
-    //     // event listener for deleting stuff?
-    //     // window.addEventListener('keydown', e => {
-    //     //     if (e.keyco)
-    //     // })
-    //     const objCopies = objects.filter(obj => {
-    //         return obj !== currObject;
-    //     })
-    //     console.log('AFTER FILTER: ', objCopies);
-    //     setObjects(objCopies);
-    //     setTextValue('');
-    //     textInput.disabled = true;
-    //     setCurrObject(null);
-
-    // }, []);
 
     useEffect(() => {
         // Grab text input field
