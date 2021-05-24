@@ -72,12 +72,7 @@ def delete_postcard(postcard_id):
 @postcard_routes.route('/', methods=['DELETE'])
 def delete_postcards():
     user_id = int(current_user.id)
-    front_url = request.body.front_url
-    cards = Postcard.query.filter(Postcard.user_id == user_id and
-                                  Postcard.postcard_front_url == front_url).all()
-
-    # Delete postcards from aws
-
-    db.session.delete(cards)
+    front_url = request.get_json()['front_url']
+    Postcard.query.filter(Postcard.postcard_front_url == front_url).delete()
     db.session.commit()
     return { 'response': 'Postcards successfully deleted' }

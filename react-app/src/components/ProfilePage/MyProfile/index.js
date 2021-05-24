@@ -18,9 +18,11 @@ const photoFilter = (photos, photoType) => {
 function MyProfile() {
     const dispatch = useDispatch();
     const profile = useSelector(state => state.profile);
-    const postcardsDict = useSelector(state => state.postcards.postcards);
+    const postcardsDict = useSelector(state => state.postcards);
     const [category, setCategory] = useState('photo-public');
-    const [postcards, setPostcards] = useState([]);
+    const [postcards, setPostcards] = useState(
+        postcardsDict ? Object.values(postcardsDict.postcards) : []
+    );
     const [publicPhotos, setPublicPhotos] = useState(
         profile.photos ? photoFilter(Object.values(profile.photos), 'public') : []
     );
@@ -33,9 +35,7 @@ function MyProfile() {
     }, [])
 
     useEffect(() => {
-        if (postcardsDict) {
-            setPostcards(Object.values(postcardsDict));
-        }
+        setPostcards(postcardsDict ? Object.values(postcardsDict.postcards) : [])
     }, [postcardsDict]);
 
     useEffect(() => {
