@@ -47,11 +47,7 @@ def upload_photo_to_s3(photo, bucket):
 
 
 def delete_photo_from_s3(bucket, filename):
-    try:
-        s3_client.delete_object(Bucket=bucket, Key=filename)
-    except Exception as e:
-        print('ERORR DELETING')
-        print(e)
+    return s3_client.delete_object(Bucket=bucket, Key=filename)
 
 
 def valid_file_type(filename):
