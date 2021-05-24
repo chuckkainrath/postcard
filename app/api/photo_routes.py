@@ -16,17 +16,18 @@ PHOTO_LIMIT = 40
 @photo_routes.route('/')
 @login_required
 def get_public_photos():
-    #photos = Photo.query(Photo, User).filter(Photo.public == True).limit(PHOTO_LIMIT).all()
+    # photos = Photo.query(Photo, User).filter(Photo.public == True).limit(PHOTO_LIMIT).all()
     user_id = int(current_user.id)
-    raw_photos = db.session.query(Photo, User, Like).join(User).join(Like) \
+    raw_photos = db.session.query(Photo, User).join(User) \
                    .filter(Photo.public == True and User.id == user_id).limit(PHOTO_LIMIT).all()
+    # raw_photos = db.session.query(Photo, User, Like).join(User).join(Like) \
+    #                .filter(Photo.public == True and User.id == user_id).limit(PHOTO_LIMIT).all()
     photos_list = []
-    for (photo, user, like) in raw_photos:
+    for (photo, user) in raw_photos:
         photo_dict = photo.to_dict()
         photo_dict['username'] = user.username
         photo_dict['profile_img_url'] = user.profile_img_url
         photos_list.append(photo_dict)
-        print('LIKEeeeeeeeeeeeeee', like)
     return { 'photos': photos_list}
 
 
