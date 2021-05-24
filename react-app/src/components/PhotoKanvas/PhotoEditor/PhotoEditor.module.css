@@ -1,6 +1,10 @@
 .kanvas__container {
     position: relative;
     width: fit-content;
+    background-color: white;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 1px 1px lightgray;
     left: 50%;
     transform: translateX(-50%);
 }

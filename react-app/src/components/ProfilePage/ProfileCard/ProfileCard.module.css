@@ -21,12 +21,6 @@
     width: 100%;
 }
 
-.photo__user_profile {
-    margin-left: 5px;
-    border-radius: 50%;
-    width: 50px;
-}
-
 .photo__card_create {
     display: inline-block;
     position: absolute;
@@ -43,14 +37,4 @@
     background-color: white;
     width: fit-content;
     padding: 0 20px 10px 20px;
-}
-
-.photo__heart {
-    display: inline-block;
-    margin-left: 10px;
-    font-size: 2rem;
-    color: rgb(144, 37, 37);
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
 }

@@ -5,6 +5,7 @@ import uuid
 S3_PHOTO_BUCKET = environ.get('S3_PHOTO_BUCKET')
 S3_POSTCARD_BUCKET = environ.get('S3_POSTCARD_BUCKET')
 S3_PROFILE_BUCKET = environ.get('S3_PROFILE_BUCKET')
+S3_ID = environ.get('S3_ID')
 
 S3_BUCKETS = {
     'profile': S3_PROFILE_BUCKET,
@@ -25,17 +26,22 @@ s3_client = boto3.client(
 
 def upload_photo_to_s3(photo, bucket):
     try:
-        s3_client.upload_fileobj(
+        temp = s3_client.upload_fileobj(
             photo,
             S3_BUCKETS[bucket],
             photo.filename,
             ExtraArgs={
+                #'ACL': 'bucket-owner-full-control',
                 'ACL': 'public-read',
-                'ContentType': photo.content_type
+                'ContentType': photo.content_type,
+                #'GrantFullControl': f'id={S3_ID}',
+                #'GrantRead': 'uri="http://acs.amazonaws.com/groups/global/AllUsers"'
             })
     except Exception as e:
         # Do error handling
         print('Error uploading file to aws bucket')
+        print(e)
+    print('no erRRRRREOoerereroERERE')
     return {'photo_url': f'{URL_SCHEME}{S3_BUCKETS[bucket]}{URL_DOMAIN}{photo.filename}'}
 
 
