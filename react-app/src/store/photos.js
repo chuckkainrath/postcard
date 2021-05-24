@@ -1,3 +1,5 @@
+import { deleteProfileImageAction } from './profile';
+
 const GET_PHOTOS = 'photos/GET_PHOTOS'
 const GET_PHOTO = 'photos/GET_PHOTO'
 const POST_PHOTO = 'photos/POST_PHOTO'
@@ -52,11 +54,13 @@ export const getPhotos = () => async dispatch => {
 export const deletePhoto = photoId => async dispatch => {
     const res = await fetch(`/api/photos/${photoId}`, { method: 'DELETE'});
     const data = await res.json();
+    console.log('DELETED', data);
     if (data.errors) {
-        console.log('PHOTO ERRORS', data.errors);
         return;
     }
+    console.log('DELETING')
     dispatch(deletePhotoAction(photoId));
+    dispatch(deleteProfileImageAction(photoId));
 }
 
 export const flattenPhotos = photos => {
@@ -82,6 +86,7 @@ export default function reducer(state = initialState, action) {
                 newState.photos = {}
             }
             newState.photos[action.payload.id] = action.payload
+            console.log('NEW TATE', newState);
             return newState;
         case DELETE_PHOTO:
             newState = Object.assign({}, state);

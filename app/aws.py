@@ -41,7 +41,7 @@ def upload_photo_to_s3(photo, bucket):
 
 
 def delete_photo_from_s3(bucket, filename):
-    return s3_client.delete_object(bucket, filename)
+    return s3_client.delete_object(Bucket=bucket, Key=filename)
 
 
 def valid_file_type(filename):
