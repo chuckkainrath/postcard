@@ -18,9 +18,9 @@ const deletePostcardsAction = front_url => ({
     payload: front_url
 })
 
-const deletePostcardAction = back_url => ({
+const deletePostcardAction = postcard_id => ({
     type: DELETE_POSTCARD,
-    payload: back_url
+    payload: postcard_id
 })
 
 export const postPostcard = (frontImg, backImg, frontName, backName) => async dispatch => {
@@ -35,7 +35,6 @@ export const postPostcard = (frontImg, backImg, frontName, backName) => async di
     });
     const data = await response.json();
     if (data.errors) {
-        console.log(data.errors);
         return data;
     }
     dispatch(postPostcardAction(data.postcard));
@@ -45,7 +44,6 @@ export const getPostcards = () => async dispatch => {
     const response = await fetch('/api/postcards/');
     const data = await response.json();
     if (data.errors) {
-        console.log('ERRORS GETTING POSTCARDS', data.errors);
         return;
     }
     const flatCards = flattenPostcards(data.postcards)
@@ -53,12 +51,12 @@ export const getPostcards = () => async dispatch => {
 }
 
 export const deletePostcards = front_url => async dispatch => {
-    const response = await fetch('/api/postcards', {
+    const response = await fetch('/api/postcards/', {
         method: 'DELETE',
-        header: {
+        headers: {
             'Content-Type': 'application/json'
         },
-        body: { front_url }
+        body: JSON.stringify({ front_url })
     });
     const data = await response.json();
     if (data.errors) {

@@ -2,14 +2,16 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { confirmAlert } from 'react-confirm-alert';
+import { deletePostcards } from '../../../store/postcards';
 import styles from './PostcardCard.module.css';
 
 function ProfileCard({ postcard }) {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const dltPostcard = async () => {
-       // dispatch(deletePostcard(photo.id));
+    const dltPostcards = async () => {
+        console.log('deleting card');
+        dispatch(deletePostcards(postcard.postcard_front_url));
     }
 
     const confirmDelete = () => {
@@ -19,7 +21,7 @@ function ProfileCard({ postcard }) {
             buttons: [
                 {
                     label: 'Delete',
-                    onClick: dltPostcard
+                    onClick: dltPostcards
                 },
                 {
                     label: 'Cancel',
@@ -45,7 +47,7 @@ function ProfileCard({ postcard }) {
             />
             <div className={styles.postcard__options}>
                 <button onClick={confirmDelete}>Delete</button>
-                <button onClick={}>Reuse Card</button>
+                {/* <button onClick={}>Reuse Card</button> */}
                 {/* <div   TODO REDIRECT THIS TO POSTCARD BACK.
                     onClick={() => history.push(`/create-postcard/${photo.id}`)}
                     className={styles.photo__card_create}>
