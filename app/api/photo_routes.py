@@ -73,8 +73,10 @@ def delete_photo(photo_id):
 
     photo_url = photo.photo_url
     filename = photo_url.rsplit('/', 1)[-1]
-    response = delete_photo_from_s3('photo', filename)
-    print('AWS DELETE RESPONSE', response)
+    try:
+        delete_photo_from_s3('photo', filename)
+    except Exception as e:
+        print(e)
 
     db.session.delete(photo)
     db.session.commit()
