@@ -39,6 +39,10 @@ function ProfileCard({ postcard }) {
         confirmAlert(options);
     }
 
+    const reuseCard = () => {
+        history.push(`/create-postcard/${postcard.id}`, { front_url: postcard.postcard_front_url })
+    }
+
     return (
         <div className={styles.postcard__card}>
             <img
@@ -47,7 +51,7 @@ function ProfileCard({ postcard }) {
             />
             <div className={styles.postcard__options}>
                 <button onClick={confirmDelete}>Delete</button>
-                {/* <button onClick={}>Reuse Card</button> */}
+                <button onClick={reuseCard}>Reuse Card</button>
                 {/* <div   TODO REDIRECT THIS TO POSTCARD BACK.
                     onClick={() => history.push(`/create-postcard/${photo.id}`)}
                     className={styles.photo__card_create}>
