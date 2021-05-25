@@ -45,6 +45,10 @@
     border-right: 1px solid black;
 }
 
+.category_selection__middle {
+    border-right: 1px solid black;
+}
+
 .category_selection__right {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
