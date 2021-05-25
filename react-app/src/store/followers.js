@@ -24,8 +24,8 @@ export const getFollows = () => async dispatch => {
     if (data.errors) {
         return;
     }
-    const followers = flattenFollows(data.followers);
-    const following = flattenFollows(data.following);
+    const followers = flattenFollows(data.followers, false);
+    const following = flattenFollows(data.following, true);
     dispatch(getFollowsAction(followers, following));
 }
 
@@ -44,8 +44,8 @@ export const addFollow = (followedId) => async dispatch => {
     dispatch(addFollowAction(data.follow))
 }
 
-export const deleteFollow = (followedId) => async dispatch => {
-    const res = await fetch(`/api/follows/${followedId}`, { method: 'DELETE' });
+export const deleteFollow = (followId, followedId) => async dispatch => {
+    const res = await fetch(`/api/follows/${followId}`, { method: 'DELETE' });
     const data = await res.json();
     if (data.errors) {
         return;
@@ -53,10 +53,14 @@ export const deleteFollow = (followedId) => async dispatch => {
     dispatch(deleteFollowAction(followedId));
 }
 
-const flattenFollows = followers => {
+const flattenFollows = (follows, following) => {
     const fFollows = {}
-    followers.forEach(follower => {
-        fFollows[follower.id] = follower;
+    follows.forEach(follow => {
+        if (following) {
+            fFollows[follow.followed_id] = follow;
+        } else {
+            fFollows[follow.follower_id] = follow;
+        }
     });
     return fFollows;
 }
@@ -73,7 +77,10 @@ export default function reducer(state = initialState, action) {
             return { followers: action.followers, following: action.following };
         case ADD_FOLLOW:
             newState = Object.assign({}, state);
-            newState.following[action.payload.id] = action.payload;
+            if (!newState.following) {
+                newState.following = {}
+            }
+            newState.following[action.payload.followed_id] = action.payload;
             return newState;
         case DELETE_FOLLOW:
             newState = Object.assign({}, state);
