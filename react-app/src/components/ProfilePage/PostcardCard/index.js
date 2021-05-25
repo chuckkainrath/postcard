@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { confirmAlert } from 'react-confirm-alert';
-import { deletePostcards } from '../../../store/postcards';
+import { deletePostcards, deletePostcard } from '../../../store/postcards';
 import { saveAs } from 'file-saver';
 import styles from './PostcardCard.module.css';
 
@@ -47,7 +47,13 @@ function ProfileCard({ cards }) {
     }
 
     const deleteCard = async card => {
-
+        // Delete template and card
+        if (cards.length === 1) {
+            await dispatch(deletePostcards(card.postcard_front_url));
+            setShowBack(false);
+        } else {  // Delete just card
+            dispatch(deletePostcard(card.id));
+        }
     }
 
     const downloadCard = card => {
