@@ -10,7 +10,7 @@ import styles from './PhotoKanvas.module.css';
 const WIDTH = 600;
 const HEIGHT = 400;
 
-function PhotoKanvas({ photoSrc }) {
+function PhotoKanvas({ photoSrc, frontSrc }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const [ cardFront, setCardFront ] = useState();
@@ -41,7 +41,9 @@ function PhotoKanvas({ photoSrc }) {
         const min = date.getMinutes();
         const sec = date.getSeconds();
         const formattedDate = `${year}-${month}-${day}-${hour}-${min}-${sec}`;
-        setFrontName(`${user.username}-front-${formattedDate}`);
+        if (photoSrc) {
+            setFrontName(`${user.username}-front-${formattedDate}`);
+        }
         setBackName(`${user.username}-back-${formattedDate}`);
     }
 
@@ -54,6 +56,22 @@ function PhotoKanvas({ photoSrc }) {
         setCardSaved(true);
         await dispatch(postPostcard(cardFront, cardBack, frontName, backName));
     }
+
+    useEffect(() => {
+        if (frontSrc) {
+            (async url => {
+                const res = await fetch(url);
+                const imageBlob = await res.blob();
+                const srcParts = frontSrc.split('/');
+                let filename = srcParts[srcParts.length - 1];
+                filename = filename.split('.')[0];
+                imageBlob.filename = filename;
+                setFrontName(filename);
+                finishFront(imageBlob);
+            })(frontSrc);
+        }
+    }, []);
+
 
     return (
         <div>

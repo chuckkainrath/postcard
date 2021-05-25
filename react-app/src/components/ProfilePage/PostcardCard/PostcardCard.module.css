@@ -1,0 +1,49 @@
+.postcard__card {
+    position: relative;
+    margin: 30px 30px;
+    height: 350px;
+    padding: 5px;
+    box-shadow: 0 0 2px 1px rgb(182, 182, 182);
+    border-radius: 5px;
+    background-color: white;
+}
+
+.postcard__img {
+    display: block;
+    width: 400px;
+    height: auto;
+    max-height: 275px;
+}
+
+.postcard__options {
+    position: relative;
+    margin-top: 15px;
+    width: 100%;
+}
+
+/* .photo__card_create {
+    display: inline-block;
+    position: absolute;
+    right: 5px;
+    font-size: 3rem;
+} */
+
+.delete_popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    border: 1px solid black;
+    transform: translateX(-50%) translateY(-50%);
+    background-color: white;
+    width: fit-content;
+    padding: 0 20px 10px 20px;
+}
+
+.modal__container {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    width: fit-content;
+    transform: translateX(-50%);
+    background-color: blue;
+}
