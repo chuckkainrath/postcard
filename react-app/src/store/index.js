@@ -6,12 +6,14 @@ import session from './session';
 import photos from './photos';
 import profile from './profile';
 import postcards from './postcards';
+import followers from './followers';
 
 const rootReducer = combineReducers({
     session,
     photos,
     profile,
-    postcards
+    postcards,
+    followers
 })
 
 const persistConfig = {
