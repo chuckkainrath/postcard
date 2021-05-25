@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, User, Follower
 
@@ -49,7 +49,7 @@ def get_follows():
 @follow_routes.route('/', methods=["POST"])
 @login_required
 def add_following():
-    followed_id = request.get_json()['followed']
+    followed_id = request.get_json()['followedId']
     user_id = int(current_user.id)
     newFollower = Follower(
         follower = user_id,
@@ -57,7 +57,11 @@ def add_following():
     )
     db.session.add(newFollower)
     db.session.commit()
-    return { 'follow': newFollower.to_dict() }
+    followed = User.query.get(followed_id)
+    newFollowerDict = newFollower.to_dict()
+    newFollowerDict['username'] = followed.username
+    newFollowerDict['profile_img_url'] = followed.profile_img_url
+    return { 'follow': newFollowerDict }
 
 
 @follow_routes.route('/<int:follow_id>', methods=["DELETE"])

@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, Photo, User, Like, photo
+from app.models import db, Photo, Like
 from app.aws import (upload_photo_to_s3,
                      valid_file_type,
                      get_unique_filename,
