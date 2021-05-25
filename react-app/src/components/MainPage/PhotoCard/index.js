@@ -8,7 +8,7 @@ function PhotoCard({ photo }) {
     const profileSrc = photo.profile_img_url ? photo.profile_img_url : blankProfile;
 
     const toggleLike = () => {
-        
+        // if (photo.liked) {}
     }
 
     return (
