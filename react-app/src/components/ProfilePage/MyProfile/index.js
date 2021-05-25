@@ -15,13 +15,25 @@ const photoFilter = (photos, photoType) => {
     });
 }
 
+const postcardFilter = (postcards) => {
+    const fPostcards = {};
+    postcards.forEach(card => {
+        if (!fPostcards[card.postcard_front_url]) {
+            fPostcards[card.postcard_front_url] = [card]
+        } else {
+            fPostcards[card.postcard_front_url].push(card);
+        }
+    });
+    return fPostcards;
+}
+
 function MyProfile() {
     const dispatch = useDispatch();
     const profile = useSelector(state => state.profile);
     const postcardsDict = useSelector(state => state.postcards);
     const [category, setCategory] = useState('photo-public');
     const [postcards, setPostcards] = useState(
-        postcardsDict ? Object.values(postcardsDict.postcards) : []
+        postcardsDict ? postcardFilter(Object.values(postcardsDict.postcards)) : {}
     );
     const [publicPhotos, setPublicPhotos] = useState(
         profile.photos ? photoFilter(Object.values(profile.photos), 'public') : []
@@ -32,10 +44,10 @@ function MyProfile() {
 
     useEffect(() => {
         dispatch(getPostcards());
-    }, [])
+    }, []);
 
     useEffect(() => {
-        setPostcards(postcardsDict ? Object.values(postcardsDict.postcards) : [])
+        setPostcards(postcardsDict ? postcardFilter(Object.values(postcardsDict.postcards)) : {})
     }, [postcardsDict]);
 
     useEffect(() => {
@@ -89,8 +101,8 @@ function MyProfile() {
             }
             {category === 'postcards' &&
                 <div className={styles.photos__container}>
-                    {postcards && postcards.map(card => (
-                        <PostcardCard postcard={card} key={card.id} />
+                    {postcards && Object.keys(postcards).map((key, idx) => (
+                        <PostcardCard cards={postcards[key]} key={idx} />
                     ))}
                 </div>
             }

@@ -38,3 +38,12 @@
     width: fit-content;
     padding: 0 20px 10px 20px;
 }
+
+.modal__container {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    width: fit-content;
+    transform: translateX(-50%);
+    background-color: blue;
+}
