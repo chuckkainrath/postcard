@@ -36,16 +36,16 @@ function MyProfile() {
     const postcardsDict = useSelector(state => state.postcards);
     const [category, setCategory] = useState('photo-public');
     const [likedPhotos, setLikedPhotos] = useState(
-        photos.likedPhotos ? Object.values(photos.likedPhotos) : []
+        photos.likedPhotos ? Object.values(photos.likedPhotos).reverse() : []
     );
     const [postcards, setPostcards] = useState(
         postcardsDict ? postcardFilter(Object.values(postcardsDict.postcards)) : {}
     );
     const [publicPhotos, setPublicPhotos] = useState(
-        profile.photos ? photoFilter(Object.values(profile.photos), 'public') : []
+        profile.photos ? photoFilter(Object.values(profile.photos).reverse(), 'public') : []
     );
     const [privatePhotos, setPrivatePhotos] = useState(
-        profile.photos ? photoFilter(Object.values(profile.photos), 'private') : []
+        profile.photos ? photoFilter(Object.values(profile.photos).reverse(), 'private') : []
     );
 
     useEffect(() => {
@@ -58,15 +58,15 @@ function MyProfile() {
     }, [postcardsDict]);
 
     useEffect(() => {
-        setLikedPhotos(photos.likedPhotos ? Object.values(photos.likedPhotos) : []);
+        setLikedPhotos(photos.likedPhotos ? Object.values(photos.likedPhotos).reverse() : []);
     }, [photos])
 
     useEffect(() => {
         setPrivatePhotos(
-            profile.photos ? photoFilter(Object.values(profile.photos), 'private') : []
+            profile.photos ? photoFilter(Object.values(profile.photos), 'private').reverse() : []
         );
         setPublicPhotos(
-            profile.photos ? photoFilter(Object.values(profile.photos), 'public') : []
+            profile.photos ? photoFilter(Object.values(profile.photos), 'public').reverse() : []
         );
     }, [profile])
 

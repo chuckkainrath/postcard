@@ -13,11 +13,11 @@ def get_follows():
 
     raw_followers = db.session.execute('''SELECT followers.*, users.username, users.profile_img_url FROM followers
                                           JOIN users ON followers.follower_id=users.id
-                                          WHERE followers.followed_id=user_id''', {'user_id': user_id})
+                                          WHERE followers.followed_id=:user_id''', {'user_id': user_id})
 
     raw_following = db.session.execute('''SELECT followers.*, users.username, users.profile_img_url FROM followers
                                           JOIN users ON followers.followed_id=users.id
-                                          WHERE followers.follower_id=user_id''', {'user_id': user_id})
+                                          WHERE followers.follower_id=:user_id''', {'user_id': user_id})
 
     followers = []
     for follower in raw_followers:
@@ -26,24 +26,24 @@ def get_follows():
             'follower_id': follower[1],
             'followed_id': follower[2],
             'created_at': follower[3],
-            'username': follower[5],
-            'profile_img_url': follower[6],
+            'username': follower[4],
+            'profile_img_url': follower[5],
         }
         followers.append(follower_dict)
 
     followings = []
-    for following in raw_followers:
+    for following in raw_following:
         following_dict = {
             'id': following[0],
             'follower_id': following[1],
             'followed_id': following[2],
             'created_at': following[3],
-            'username': following[5],
-            'profile_img_url': following[6],
+            'username': following[4],
+            'profile_img_url': following[5],
         }
         followings.append(following_dict)
 
-    return { 'followers': followers, 'following': following }
+    return { 'followers': followers, 'following': followings }
 
 
 @follow_routes.route('/', methods=["POST"])
@@ -52,8 +52,8 @@ def add_following():
     followed_id = request.get_json()['followedId']
     user_id = int(current_user.id)
     newFollower = Follower(
-        follower = user_id,
-        followed = followed_id
+        follower_id = user_id,
+        followed_id = followed_id
     )
     db.session.add(newFollower)
     db.session.commit()

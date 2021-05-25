@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { getFollows } from '../../../store/followers';
 import { getPhotos } from '../../../store/photos';
 import PhotoCard from '../PhotoCard';
 import styles from './PhotosComponent.module.css';
 
+
 function PhotosComponent() {
     const dispatch = useDispatch();
     const photos = useSelector(state => state.photos);
-    const [photosArr, setPhotosArr] = useState(photos.photos ? Object.values(photos.photos) : []);
+    const [photosArr, setPhotosArr] = useState(photos.photos ? Object.values(photos.photos).reverse() : []);
 
     useEffect(() => {
-        setPhotosArr(photos.photos ? Object.values(photos.photos) : [])
+        setPhotosArr(photos.photos ? Object.values(photos.photos).reverse() : [])
     }, photos);
 
     useEffect(() => {
         dispatch(getPhotos());
+        dispatch(getFollows())
     }, [])
 
     return (
