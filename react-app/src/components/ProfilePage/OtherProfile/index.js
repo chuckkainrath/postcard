@@ -18,8 +18,9 @@ function OtherProfile() {
     }, [photos])
 
     useEffect(() => {
-        setFollowing(followingDict[profile.id] ? true : false)
-    }, [followingDict])
+        setFollowing(profile.id in followingDict)
+        console.log('FOLLOWING DICT', followingDict);
+    }, [followingDict, profile])
 
     const follow = async () => {
         await dispatch(addFollow(profile.id));
