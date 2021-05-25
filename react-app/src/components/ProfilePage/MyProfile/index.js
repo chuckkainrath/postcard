@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './MyProfile.module.css';
 import ProfileCard from '../ProfileCard';
+import PhotoCard from '../../MainPage/PhotoCard';
 import PostcardCard from '../PostcardCard';
 import { getPostcards } from '../../../store/postcards';
+import { getLikedPhotos } from '../../../store/photos';
 
 const photoFilter = (photos, photoType) => {
     return photos.filter(photo => {
@@ -30,8 +32,12 @@ const postcardFilter = (postcards) => {
 function MyProfile() {
     const dispatch = useDispatch();
     const profile = useSelector(state => state.profile);
+    const photos = useSelector(state => state.photos);
     const postcardsDict = useSelector(state => state.postcards);
     const [category, setCategory] = useState('photo-public');
+    const [likedPhotos, setLikedPhotos] = useState(
+        photos.likedPhotos ? Object.values(photos.likedPhotos) : []
+    );
     const [postcards, setPostcards] = useState(
         postcardsDict ? postcardFilter(Object.values(postcardsDict.postcards)) : {}
     );
@@ -44,11 +50,16 @@ function MyProfile() {
 
     useEffect(() => {
         dispatch(getPostcards());
+        dispatch(getLikedPhotos());
     }, []);
 
     useEffect(() => {
         setPostcards(postcardsDict ? postcardFilter(Object.values(postcardsDict.postcards)) : {})
     }, [postcardsDict]);
+
+    useEffect(() => {
+        setLikedPhotos(photos.likedPhotos ? Object.values(photos.likedPhotos) : []);
+    }, [photos])
 
     useEffect(() => {
         setPrivatePhotos(
@@ -80,6 +91,9 @@ function MyProfile() {
                     className={styles.category_selection__middle}
                     onClick={(e) => setPictureCategory('photo-private')}>Private Photos</span>
                 <span
+                    id='liked-photos'
+                    onClick={(e) => setPictureCategory('liked-photos')}>Liked Photos</span>
+                <span
                     id='postcards'
                     className={styles.category_selection__right}
                     onClick={(e) => setPictureCategory('postcards')}>Postcards</span>
@@ -89,13 +103,19 @@ function MyProfile() {
                     {publicPhotos && publicPhotos.map(photo => (
                         <ProfileCard userProfile={true} key={photo.id} photo={photo} />
                     ))}
-
                 </div>
             }
             {category === 'photo-private' &&
                 <div className={styles.photos__container}>
                     {privatePhotos && privatePhotos.map(photo => (
                         <ProfileCard userProfile={true} key={photo.id} photo={photo} />
+                    ))}
+                </div>
+            }
+            {category === 'liked-photos' &&
+                <div className={styles.photos__container}>
+                    {likedPhotos && likedPhotos.map(photo => (
+                        <PhotoCard userProfile={false} key={photo.id} photo={photo} />
                     ))}
                 </div>
             }
