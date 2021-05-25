@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { getPhotos } from '../../../store/photos';
 import PhotoCard from '../PhotoCard';
 import styles from './PhotosComponent.module.css';
 
 function PhotosComponent() {
     const dispatch = useDispatch();
-    const history = useHistory();
-    const user = useSelector(state => state.session.user);
-    const photos = useSelector(state => state.photos.photos);
-    const photosArr = photos ? Object.values(photos) : [];
+    const photos = useSelector(state => state.photos);
+    const [photosArr, setPhotosArr] = useState(photos.photos ? Object.values(photos.photos) : []);
+
+    useEffect(() => {
+        setPhotosArr(photos.photos ? Object.values(photos.photos) : [])
+    }, photos);
 
     useEffect(() => {
         dispatch(getPhotos());
