@@ -1,4 +1,3 @@
-
 import { deleteProfileImageAction } from './profile';
 
 const GET_PHOTOS = 'photos/GET_PHOTOS';
@@ -7,15 +6,22 @@ const POST_PHOTO = 'photos/POST_PHOTO';
 const DELETE_PHOTO = 'photos/DELETE_PHOTO';
 const LIKE_PHOTO = 'photos/LIKE';
 const UNLIKE_PHOTO = 'photos/UNLIKE';
+const GET_LIKED_PHOTOS = 'photos/GET_LIKED';
 
-const likePhotoAction = photoId => ({
+const likePhotoAction = (photoId, likedId) => ({
     type: LIKE_PHOTO,
-    payload: photoId
+    photoId,
+    likedId
 });
 
 const unlikePhotoAction = photoId => ({
     type: UNLIKE_PHOTO,
     payload: photoId
+})
+
+const getLikedPhotosAction = photos => ({
+    type: GET_LIKED_PHOTOS,
+    payload: photos
 })
 
 const getPhotosAction = photos => ({
@@ -46,7 +52,6 @@ export const postPhoto = (photo, pvtPhoto) => async dispatch => {
     });
     const data = await response.json();
     if (data.errors) {
-        console.log('PHOTO UPLOAD ERRER', data.errors);
         return;
     }
     dispatch(postPhotoAction(data.photo))
@@ -56,10 +61,9 @@ export const likePhoto = photoId => async dispatch => {
     const response = await fetch(`/api/photos/${photoId}/like`, {method: 'POST'});
     const data = await response.json();
     if (data.errors) {
-        console.log(data.errors);
         return;
     }
-    dispatch(likePhotoAction(photoId));
+    dispatch(likePhotoAction(photoId, data.liked_id));
 }
 
 export const unlikePhoto = photoId => async dispatch => {
@@ -72,11 +76,20 @@ export const unlikePhoto = photoId => async dispatch => {
     dispatch(unlikePhotoAction(photoId));
 }
 
+export const getLikedPhotos = () => async dispatch => {
+    const response = await fetch('/api/photos/liked');
+    const data = await response.json();
+    if (data.errors) {
+        return;
+    }
+    const flatPhotos = flattenPhotos(data.photos);
+    dispatch(getLikedPhotosAction(flatPhotos));
+}
+
 export const getPhotos = () => async dispatch => {
     const response = await fetch('/api/photos/');
     const data = await response.json();
     if (data.errors) {
-        console.log('ERROR RETRIEVING PHOTOS', data.errors);
         return;
     }
     const flatPhotos = flattenPhotos(data.photos);
@@ -103,7 +116,9 @@ export const flattenPhotos = photos => {
     return flatPhotos;
 }
 
-const initialState = { photos: null }
+const initialState = { photos: null,
+                       likedPhotos: null
+                     }
 
 export default function reducer(state = initialState, action) {
     let newState;
@@ -126,8 +141,8 @@ export default function reducer(state = initialState, action) {
             return newState;
         case LIKE_PHOTO:
             newState = Object.assign({}, state);
-            if (newState.photos[action.payload]) {
-                newState.photos[action.payload].liked = action.payload;
+            if (newState.photos[action.photoId]) {
+                newState.photos[action.photoId].liked = action.likedId;
             }
             return newState;
         case UNLIKE_PHOTO:
@@ -135,8 +150,15 @@ export default function reducer(state = initialState, action) {
             if (newState.photos[action.payload]) {
                 newState.photos[action.payload].liked = null;
             }
+            if (newState.likedPhotos && newState.likedPhotos[action.payload]) {
+                delete newState.likedPhotos[action.payload];
+            }
+            return newState;
+        case GET_LIKED_PHOTOS:
+            newState = Object.assign({}, state);
+            newState.likedPhotos = action.payload;
             return newState;
         default:
-            return state
+            return state;
     }
 }
