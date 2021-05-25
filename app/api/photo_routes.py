@@ -92,6 +92,7 @@ def delete_photo(photo_id):
     except Exception as e:
         print(e)
 
+    db.session.query(Like).filter(Like.photo_id == photo.id).delete()
     db.session.delete(photo)
     db.session.commit()
     return { 'response': 'Photo successfully deleted' }
