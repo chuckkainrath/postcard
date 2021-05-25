@@ -16,18 +16,26 @@ PHOTO_LIMIT = 40
 @photo_routes.route('/')
 @login_required
 def get_public_photos():
-    # photos = Photo.query(Photo, User).filter(Photo.public == True).limit(PHOTO_LIMIT).all()
     user_id = int(current_user.id)
-    raw_photos = db.session.query(Photo, User).join(User) \
-                   .filter(Photo.public == True and User.id == user_id).limit(PHOTO_LIMIT).all()
-    # raw_photos = db.session.query(Photo, User, Like).join(User).join(Like) \
-    #                .filter(Photo.public == True and User.id == user_id).limit(PHOTO_LIMIT).all()
+    raw_photos = db.session.execute('''SELECT photos.*, users.username, users.profile_img_url, likes.id FROM photos
+                                   JOIN users ON photos.user_id=users.id
+                                   LEFT JOIN likes ON likes.user_id=:user_id AND likes.photo_id=photos.id
+                                   WHERE public=true''', {'user_id': user_id})
+
     photos_list = []
-    for (photo, user) in raw_photos:
-        photo_dict = photo.to_dict()
-        photo_dict['username'] = user.username
-        photo_dict['profile_img_url'] = user.profile_img_url
+    for photo in raw_photos:
+        photo_dict = {
+            'id': photo[0],
+            'photo_url': photo[1],
+            'public': photo[2],
+            'user_id': photo[3],
+            'created_at': photo[4],
+            'username': photo[5],
+            'profile_img_url': photo[6],
+            'liked': photo[7]
+        }
         photos_list.append(photo_dict)
+
     return { 'photos': photos_list}
 
 
@@ -69,7 +77,6 @@ def post_photo():
 @photo_routes.route('/<int:photo_id>', methods=['DELETE'])
 @login_required
 def delete_photo(photo_id):
-    # TODO: DELETE ALL LIKES ASSOCIATE WITH PHOTO
     user_id = int(current_user.id)
     photo = Photo.query.get(photo_id)
     if user_id != photo.user_id:
@@ -82,17 +89,45 @@ def delete_photo(photo_id):
     except Exception as e:
         print(e)
 
+    db.session.query(Like).filter(Like.photo_id == photo.id).delete()
     db.session.delete(photo)
     db.session.commit()
     return { 'response': 'Photo successfully deleted' }
 
 
-@photo_routes.route('/<int:photo_id>', methods=['POST'])
+@photo_routes.route('/liked')
+@login_required
+def get_liked_photos():
+    user_id = int(current_user.id)
+    raw_photos = db.session.execute('''SELECT photos.*, users.username, users.profile_img_url, likes.id FROM photos
+                                   JOIN users ON photos.user_id=users.id
+                                   JOIN likes ON likes.user_id=:user_id AND likes.photo_id=photos.id
+                                   WHERE public=true''', {'user_id': user_id})
+
+    photos_list = []
+    for photo in raw_photos:
+        photo_dict = {
+            'id': photo[0],
+            'photo_url': photo[1],
+            'public': photo[2],
+            'user_id': photo[3],
+            'created_at': photo[4],
+            'username': photo[5],
+            'profile_img_url': photo[6],
+            'liked': photo[7]
+        }
+        photos_list.append(photo_dict)
+
+    return { 'photos': photos_list}
+
+
+
+@photo_routes.route('/<int:photo_id>/like', methods=['POST'])
 @login_required
 def like_photo(photo_id):
     user_id = int(current_user.id)
-    like = Like.query.filter(user_id == Like.user_id and
-                             photo_id == Like.photo_id).first()
+    like = Like.query.filter(user_id == Like.user_id, photo_id == Like.photo_id).first()
+
     if like:
         return { 'errors': ['Photo already liked']}
 
@@ -102,13 +137,12 @@ def like_photo(photo_id):
     )
     db.session.add(like)
     db.session.commit()
-    return { 'response': 'photo liked' }
+    return { 'liked_id': like.id }
 
-@photo_routes.route('/<int:photo_id>', methods=['DELETE'])
+@photo_routes.route('/<int:photo_id>/unlike', methods=['DELETE'])
 def unlike_photo(photo_id):
     user_id = int(current_user.id)
-    like = Like.query.filter(user_id == Like.user_id and
-                             photo_id == Like.photo_id).first()
+    like = Like.query.filter(user_id == Like.user_id).filter(photo_id == Like.photo_id).first()
     if not like:
         return { 'errors': ['Photo not liked']}
 
