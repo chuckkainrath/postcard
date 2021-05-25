@@ -59,9 +59,20 @@ def delete_postcard(postcard_id):
     if postcard.user_id != user_id:
         return { 'errors': ['Cannot delete postcard. Postcard is not owned by user']}
 
-    delete_photo_from_s3('postcard', postcard.postcard_front_url)
-    delete_photo_from_s3('postcard', postcard.postcard_back_url)
+    try:
+        # delete_photo_from_s3('postcard', postcard.postcard_front_url)
+        delete_photo_from_s3('postcard', postcard.postcard_back_url)
+    except Exception as e:
+        pass
 
     db.session.delete(postcard)
     db.session.commit()
     return { 'response': 'Postcard successfully deleted' }
+
+@postcard_routes.route('/', methods=['DELETE'])
+def delete_postcards():
+    user_id = int(current_user.id)
+    front_url = request.get_json()['front_url']
+    Postcard.query.filter(Postcard.postcard_front_url == front_url).delete()
+    db.session.commit()
+    return { 'response': 'Postcards successfully deleted' }

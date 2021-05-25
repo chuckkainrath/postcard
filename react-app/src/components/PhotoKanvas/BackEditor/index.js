@@ -19,23 +19,27 @@ function checkTextOverflow(text, font, fontSize) {
 }
 
 function BackEditor({finishBack}) {
+    const [ maxLen, setMaxLen ] = useState(1000);
     const [ backObjs, setBackObjs ] = useState([]);
     const [ messageObj, setMessageObj ] = useState();
     const [ message, setMessage ] = useState('Text');
     const [ address1, setAddress1] = useState('')
     const [ msgDiv, setMsgDiv] = useState();
     const backRef = useRef(null);
-    // const [ atMax, setAtMax ] = useState(false);
 
     const messageChange = e => {
         const newMsg = e.target.value;
 
         // Check for message overflow
-        msgDiv.innerText = newMsg;
+        msgDiv.innerText = newMsg + 'W';
         console.log('Offset Height', msgDiv.offsetHeight);
-
-        setMessage(newMsg);
-        messageObj.text = newMsg;
+        if (msgDiv.offsetHeight >= 350) {
+            console.log('reached max');
+            setMaxLen(newMsg.len);
+        } else {
+            setMessage(newMsg);
+            messageObj.text = newMsg;
+        }
     }
 
     useEffect(() => {
@@ -109,10 +113,10 @@ function BackEditor({finishBack}) {
             <div className={styles.message__container}>
                 <label>Postcard Message:</label>
                 <textarea
+                    maxLength={`${maxLen}`}
                     className={styles.message__textarea}
                     value={message}
                     onChange={messageChange}
-                    // disabled={atMax}
                 />
             </div>
             <button onClick={submitCard}>Create Postcard</button>

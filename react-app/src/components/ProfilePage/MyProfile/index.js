@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './MyProfile.module.css';
-import ProfileCard from '../../ProfilePage/ProfileCard';
+import ProfileCard from '../ProfileCard';
+import PostcardCard from '../PostcardCard';
 import { getPostcards } from '../../../store/postcards';
 
 const photoFilter = (photos, photoType) => {
@@ -14,12 +15,26 @@ const photoFilter = (photos, photoType) => {
     });
 }
 
+const postcardFilter = (postcards) => {
+    const fPostcards = {};
+    postcards.forEach(card => {
+        if (!fPostcards[card.postcard_front_url]) {
+            fPostcards[card.postcard_front_url] = [card]
+        } else {
+            fPostcards[card.postcard_front_url].push(card);
+        }
+    });
+    return fPostcards;
+}
+
 function MyProfile() {
     const dispatch = useDispatch();
     const profile = useSelector(state => state.profile);
-    const postcardsDict = useSelector(state => state.postcards.postcards);
+    const postcardsDict = useSelector(state => state.postcards);
     const [category, setCategory] = useState('photo-public');
-    const [postcards, setPostcards] = useState([]);
+    const [postcards, setPostcards] = useState(
+        postcardsDict ? postcardFilter(Object.values(postcardsDict.postcards)) : {}
+    );
     const [publicPhotos, setPublicPhotos] = useState(
         profile.photos ? photoFilter(Object.values(profile.photos), 'public') : []
     );
@@ -29,12 +44,10 @@ function MyProfile() {
 
     useEffect(() => {
         dispatch(getPostcards());
-    }, [])
+    }, []);
 
     useEffect(() => {
-        if (postcardsDict) {
-            setPostcards(Object.values(postcardsDict));
-        }
+        setPostcards(postcardsDict ? postcardFilter(Object.values(postcardsDict.postcards)) : {})
     }, [postcardsDict]);
 
     useEffect(() => {
@@ -87,11 +100,10 @@ function MyProfile() {
                 </div>
             }
             {category === 'postcards' &&
-                <div>
-                    {postcards && postcards.map(card => {
-                        return <img src={card.postcard_front_url}
-                                    key={card.id} />
-                    })}
+                <div className={styles.photos__container}>
+                    {postcards && Object.keys(postcards).map((key, idx) => (
+                        <PostcardCard cards={postcards[key]} key={idx} />
+                    ))}
                 </div>
             }
         </div>
