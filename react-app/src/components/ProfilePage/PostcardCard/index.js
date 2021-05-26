@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal'
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { confirmAlert } from 'react-confirm-alert';
 import { deletePostcards, deletePostcard } from '../../../store/postcards';
 import { saveAs } from 'file-saver';
 import styles from './PostcardCard.module.css';
@@ -12,34 +11,11 @@ function ProfileCard({ cards }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const [showBack, setShowBack] = useState(false);
+    const [deleteConfirm, setDeleteConfirm] = useState(false);
 
     const dltPostcards = async () => {
+        setDeleteConfirm(false);
         dispatch(deletePostcards(cards[0].postcard_front_url));
-    }
-
-    const confirmDelete = () => {
-        const options = {
-            title: 'Delete Postcard',
-            message: 'Are you sure you want to delete this postcard?  All postcards created with the template will be deleted.',
-            buttons: [
-                {
-                    label: 'Delete',
-                    onClick: dltPostcards
-                },
-                {
-                    label: 'Cancel',
-                    onClick: () => {}
-                }
-            ],
-            closeOnEscape: true,
-            closeOnClickOutside: true,
-            willUnmount: () => {},
-            afterClose: () => {},
-            onClickOutside: () => {},
-            onKeypressEscape: () => {},
-            overlayClassName: styles.delete_popup
-        };
-        confirmAlert(options);
     }
 
     const reuseCard = () => {
@@ -75,7 +51,7 @@ function ProfileCard({ cards }) {
                 src={cards[0].postcard_front_url}
             />
             <div className={styles.postcard__options}>
-                <span className={styles.delete__card} onClick={confirmDelete}><i class="fas fa-trash"></i></span>
+                <span className={styles.delete__card} onClick={() => setDeleteConfirm(true)}><i class="fas fa-trash"></i></span>
                 <button className={styles.reuse} onClick={reuseCard}>Reuse Card</button>
                 <button className={styles.view__msgs} onClick={() => setShowBack(true)}>Show Messages</button>
                 <Modal
@@ -101,6 +77,25 @@ function ProfileCard({ cards }) {
                             )
                         })}
                     </Modal.Body>
+                </Modal>
+                <Modal
+                    show={deleteConfirm}
+                    onHide={() => setDeleteConfirm(false)}
+                    // backdrop='static'
+                    dialogClassName={styles.modal_delete__container}
+                >
+                    <Modal.Header>
+                        <h1 className={styles.modal__title}>Delete Postcard</h1>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Deleting this postcard will also delete all associate messages.</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <div className={styles.delete_or_cancel}>
+                            <button onClick={dltPostcards}>Delete</button>
+                            <button onClick={() => setDeleteConfirm(false)}>Cancel</button>
+                        </div>
+                    </Modal.Footer>
                 </Modal>
             </div>
         </div>
