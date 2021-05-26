@@ -20,7 +20,6 @@ function OtherProfile() {
 
     useEffect(() => {
         setFollowing(profile.id in followingDict)
-        console.log('FOLLOWING DICT', followingDict);
     }, [followingDict, profile])
 
     const follow = async () => {

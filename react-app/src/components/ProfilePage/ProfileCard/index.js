@@ -48,6 +48,9 @@ function ProfileCard({ userProfile, photo }) {
                 {userProfile &&
                     <span className={styles.photo__delete} onClick={confirmDelete}><i class="fas fa-trash"></i></span>
                 }
+                {!userProfile &&
+                    <span>{photo.like}</span>
+                }
                 <div
                     onClick={() => history.push(`/create-postcard/${photo.id}`)}
                     className={styles.photo__card_create}>
