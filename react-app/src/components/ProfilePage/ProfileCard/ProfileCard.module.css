@@ -54,3 +54,19 @@
     color: rgb(144, 37, 37);
     position: absolute;
 }
+
+.modal__container {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    width: fit-content !important;
+    transform: translateX(-50%) !important;
+}
+
+.modal__container div {
+    background-color: rgb(37, 33, 26);
+}
+
+.modal__title {
+    text-align: center;
+}
