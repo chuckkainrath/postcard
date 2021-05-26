@@ -39,8 +39,9 @@ const NavBar = () => {
                 to="/photos"
                 exact={true}
                 activeClassName="active"
+                className={styles.navbar__name}
               >
-                Main Page
+                Postacard
               </NavLink>
             </li>
             <li className={styles.navbar__right}>

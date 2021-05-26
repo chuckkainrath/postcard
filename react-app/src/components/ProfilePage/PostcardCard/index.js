@@ -7,6 +7,7 @@ import { deletePostcards, deletePostcard } from '../../../store/postcards';
 import { saveAs } from 'file-saver';
 import styles from './PostcardCard.module.css';
 
+
 function ProfileCard({ cards }) {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -81,6 +82,7 @@ function ProfileCard({ cards }) {
                 <Modal
                     show={showBack}
                     onHide={() => setShowBack(false)}
+                    // backdrop='static'
                     dialogClassName={styles.modal__container}
                 >
                     <Modal.Header closeButton>
