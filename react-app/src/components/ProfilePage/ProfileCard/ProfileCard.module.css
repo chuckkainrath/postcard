@@ -24,6 +24,7 @@
 .photo__card_create {
     display: inline-block;
     position: absolute;
+    top: -10px;
     right: 5px;
     font-size: 3rem;
     color: rgb(164, 187, 183);
@@ -44,4 +45,12 @@
     font-size: 2.5rem;
     margin-left: 5px;
     color: rgb(164, 187, 183);
+}
+
+.photo__heart {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 2rem;
+    color: rgb(144, 37, 37);
+    position: absolute;
 }
