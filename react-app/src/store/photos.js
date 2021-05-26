@@ -70,7 +70,6 @@ export const unlikePhoto = photoId => async dispatch => {
     const response = await fetch(`/api/photos/${photoId}/unlike`, {method: 'DELETE'});
     const data = await response.json();
     if (data.errors) {
-        console.log(data.errors);
         return;
     }
     dispatch(unlikePhotoAction(photoId));
@@ -99,11 +98,9 @@ export const getPhotos = () => async dispatch => {
 export const deletePhoto = photoId => async dispatch => {
     const res = await fetch(`/api/photos/${photoId}`, { method: 'DELETE'});
     const data = await res.json();
-    console.log('DELETED', data);
     if (data.errors) {
         return;
     }
-    console.log('DELETING')
     dispatch(deletePhotoAction(photoId));
     dispatch(deleteProfileImageAction(photoId));
 }
@@ -133,7 +130,6 @@ export default function reducer(state = initialState, action) {
                 newState.photos = {}
             }
             newState.photos[action.payload.id] = action.payload
-            console.log('NEW TATE', newState);
             return newState;
         case DELETE_PHOTO:
             newState = Object.assign({}, state);
