@@ -36,7 +36,7 @@
 
 .category_selection__selected {
     font-weight: bold;
-    background-color: green;
+    background-color: rgb(164, 187, 183);
 }
 
 .category_selection__left {
@@ -76,21 +76,54 @@
     background-color: white;
     box-shadow: 0 0 2px 1px rgb(182, 182, 182);
     border-radius: 5px;
+
 }
 
 .right__container {
+    margin-top: 30px;
     position: absolute;
     width: 20%;
     right: 0;
+    background-color: white;
+    box-shadow: 0 0 2px 1px rgb(182, 182, 182);
+    border-radius: 5px;
 }
 
 .follow__profile_img {
     width: 40px;
     border-radius: 50%;
+    padding-left: 5px;
 }
 
 .follow__name {
     display: inline-block;
-    font-size: 1.3rem;
+    position: relative;
+    bottom: -4px;
+    left: 15px;
+    font-size: 1.5rem;
     margin-bottom: 10px;
+    width: 62%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.follows__container, .following__container, .follower__container {
+    padding: 5px;
+}
+
+.unfollow {
+    display: inline-block;
+    position: relative;
+    left: 3%;
+    bottom: 15px;
+}
+
+.following__container:hover, .follower__container:hover {
+    background-color: rgb(164, 187, 183);
+}
+
+.folower__img {
+    width: 40px;
+    border-radius: 50%;
+    padding-left: 5px;
 }
