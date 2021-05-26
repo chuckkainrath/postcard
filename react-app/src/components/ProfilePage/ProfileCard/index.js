@@ -46,7 +46,7 @@ function ProfileCard({ userProfile, photo }) {
             />
             <div className={styles.photo__options}>
                 {userProfile &&
-                    <button onClick={confirmDelete}>Delete</button>
+                    <span className={styles.photo__delete} onClick={confirmDelete}><i class="fas fa-trash"></i></span>
                 }
                 <div
                     onClick={() => history.push(`/create-postcard/${photo.id}`)}

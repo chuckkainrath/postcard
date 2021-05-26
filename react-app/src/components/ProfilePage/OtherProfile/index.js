@@ -10,7 +10,6 @@ function OtherProfile() {
     const { profile, photos } = useSelector(state => state.profile);
     const followingDict = useSelector(state => state.follows.following);
     const [following, setFollowing] = useState(profile.id in followingDict);
-    const [ profileImg, setProfileImg ] = useState(profile.profile_img_url ? profile.profile_img_url : blankProfile)
     const [ photosArr, setPhotosArr ] = useState(
         photos ? Object.values(photos).reverse() : []
     );
@@ -39,7 +38,10 @@ function OtherProfile() {
             {profile &&
                 <div className={styles.profile__header}>
                     {profile.profile_img_url &&
-                        <img src={profileImg}/>
+                        <img src={profile.profile_img_url}/>
+                    }
+                    {!profile.profile_img_url &&
+                        <img src={blankProfile}/>
                     }
                     <span>{profile.username}'s Profile</span>
                     {following &&
