@@ -23,7 +23,7 @@ export const getProfile = (username) => async dispatch => {
     const response = await fetch(`/api/users/${username}`);
     const data = await response.json();
     if (data.errors) {
-        console.log('GET PROFILE ERRORS', data.errors);
+        return;
     }
 
     const flatPhotos = flattenPhotos(data.photos);
@@ -41,10 +41,7 @@ export default function reducer(state = initialState, action) {
             return { profile: action.user, photos: action.photos };
         case DELETE_PROFILE_IMAGE:
             let newState = Object.assign({}, state);
-            console.log('action', action);
-            console.log('OLDSTATE', state);
             delete newState.photos[action.payload];
-            console.log('NEWSTATE', newState);
             return newState;
         case BLANK_PROFILE:
             return initialState;
