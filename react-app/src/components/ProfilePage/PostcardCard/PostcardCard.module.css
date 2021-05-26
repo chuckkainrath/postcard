@@ -46,3 +46,34 @@
     width: fit-content !important;
     transform: translateX(-50%) !important;
 }
+
+.modal__title {
+    text-align: center;
+}
+
+.modal__close {
+    cursor: pointer;
+    position: absolute;
+    right: 5%;
+    top: 5%;
+}
+
+.modal__message {
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: 0 0 2px 1px rgb(182, 182, 182);
+    border-radius: 5px;
+    background-color: rgb(212, 212, 212);
+}
+
+.modal__delete, .modal__download {
+    font-size: 2rem;
+    color: gray;
+    cursor: pointer;
+}
+
+.modal__download {
+    display: inline-block;
+    position: absolute;
+    right: 5% !important;
+}
