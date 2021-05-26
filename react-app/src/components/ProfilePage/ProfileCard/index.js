@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { confirmAlert } from 'react-confirm-alert';
 import { deletePhoto } from '../../../store/photos';
+import Modal from 'react-bootstrap/Modal'
 import { likePhoto, unlikePhoto } from '../../../store/photos';
 import styles from './ProfileCard.module.css';
 
@@ -10,34 +10,11 @@ function ProfileCard({ userProfile, photo }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const [liked, setLiked] = useState(photo.liked);
+    const [deleteConfirm, setDeleteConfirm] = useState(false);
 
     const dltPhoto = async () => {
+        setDeleteConfirm(false);
         dispatch(deletePhoto(photo.id));
-    }
-
-    const confirmDelete = () => {
-        const options = {
-            title: 'Delete Photo',
-            message: 'Are you sure you want to delete this photo?',
-            buttons: [
-                {
-                    label: 'Delete',
-                    onClick: dltPhoto
-                },
-                {
-                    label: 'Cancel',
-                    onClick: () => {}
-                }
-            ],
-            closeOnEscape: true,
-            closeOnClickOutside: true,
-            willUnmount: () => {},
-            afterClose: () => {},
-            onClickOutside: () => {},
-            onKeypressEscape: () => {},
-            overlayClassName: styles.delete_popup
-        };
-        confirmAlert(options);
     }
 
     const toggleLike = async () => {
@@ -58,7 +35,7 @@ function ProfileCard({ userProfile, photo }) {
             />
             <div className={styles.photo__options}>
                 {userProfile &&
-                    <span className={styles.photo__delete} onClick={confirmDelete}><i class="fas fa-trash"></i></span>
+                    <span className={styles.photo__delete} onClick={() => setDeleteConfirm(true)}><i class="fas fa-trash"></i></span>
                 }
                 {!userProfile &&
                     <div
@@ -78,6 +55,25 @@ function ProfileCard({ userProfile, photo }) {
                     <i class="fal fa-envelope"></i>
                 </div>
             </div>
+                <Modal
+                    show={deleteConfirm}
+                    onHide={() => setDeleteConfirm(false)}
+                    // backdrop='static'
+                    dialogClassName={styles.modal__container}
+                >
+                    <Modal.Header dialogClassName={styles.modal__header}>
+                        <h1 className={styles.modal__title}>Delete Photo</h1>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Are you sure you want to delete the photo?</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <div className={styles.delete_or_cancel}>
+                            <button onClick={dltPhoto}>Delete</button>
+                            <button onClick={() => setDeleteConfirm(false)}>Cancel</button>
+                        </div>
+                    </Modal.Footer>
+                </Modal>
         </div>
     )
 }
