@@ -33,7 +33,6 @@ function ProfileCard({ cards }) {
     }
 
     const downloadCard = card => {
-        console.log('here');
         (async () => {
             const srcPartsFront = card.postcard_front_url.split('/');
             const srcPartsBack = card.postcard_back_url.split('/');

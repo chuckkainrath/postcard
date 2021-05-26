@@ -32,9 +32,7 @@ function BackEditor({finishBack}) {
 
         // Check for message overflow
         msgDiv.innerText = newMsg + 'W';
-        console.log('Offset Height', msgDiv.offsetHeight);
         if (msgDiv.offsetHeight >= 350) {
-            console.log('reached max');
             setMaxLen(newMsg.len);
         } else {
             setMessage(newMsg);
@@ -79,8 +77,6 @@ function BackEditor({finishBack}) {
         yStart = 25;
         let width = WIDTH / 2 - 40;
         let height = HEIGHT - 50;
-        console.log('WIDTH', width);
-        console.log('HEIGHT', height);
         const msg = { type: 'Text', fontFamily: 'cursive', fontSize: 16, x: xStart, y: yStart,
                       width: width, height: height, text: message, lineHeight: 1.5 }
         setMessageObj(msg);
