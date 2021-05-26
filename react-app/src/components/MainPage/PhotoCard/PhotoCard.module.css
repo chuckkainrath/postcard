@@ -32,6 +32,7 @@
     position: absolute;
     right: 5px;
     font-size: 3rem;
+    color: rgb(164, 187, 183);
 }
 
 .delete_popup {

@@ -8,6 +8,7 @@ import PostcardCard from '../PostcardCard';
 import { getPostcards } from '../../../store/postcards';
 import { getLikedPhotos } from '../../../store/photos';
 import { deleteFollow } from '../../../store/followers';
+import blankProfile from '../../MainPage/PhotoCard/blank-profile-img.png';
 
 const photoFilter = (photos, photoType) => {
     return photos.filter(photo => {
@@ -160,13 +161,18 @@ function MyProfile() {
             </div>
             <div className={styles.left__container}>
                 <h1>Following</h1>
-                <div className={styles.follow__container}>
+                <div className={styles.follows__container}>
                     {followingArr && followingArr.map(follow => {
                         return (
-                            <div>
-                                <img className={styles.follow__profile_img} src={follow.profile_img_url}/>
-                                <span className={styles.follow__name} onClick={() => history.push(`/profiles/${follow.username}`)}key={follow.id}>{follow.username}</span>
-                                <button onClick={() => unfollow(follow)}>Unfollow</button>
+                            <div className={styles.following__container}>
+                                {follow.profile_img_url &&
+                                    <img onClick={() => history.push(`/profiles/${follow.username}`)} className={styles.follow__profile_img} src={follow.profile_img_url}/>
+                                }
+                                {!follow.profile_img_url &&
+                                    <img onClick={() => history.push(`/profiles/${follow.username}`)} className={styles.follow__profile_img} src={blankProfile}/>
+                                }
+                                <span className={styles.follow__name} onClick={() => history.push(`/profiles/${follow.username}`)} key={follow.id}>{follow.username}</span>
+                                <button className={styles.unfollow} onClick={() => unfollow(follow)}>Unfollow</button>
                             </div>
                         )
                     })}
@@ -174,9 +180,19 @@ function MyProfile() {
             </div>
             <div className={styles.right__container}>
                 <h1>Followers</h1>
-                <div className={styles.follow__container}>
+                <div className={styles.follows__container}>
                     {followersArr && followersArr.map(follow => {
-                        return <p key={follow.id}>{follow.username}</p>
+                        return (
+                            <div className={styles.follower__container}>
+                                {follow.profile_img_url &&
+                                    <img className={styles.follower__img} onClick={() => history.push(`/profiles/${follow.username}`)} className={styles.follow__profile_img} src={follow.profile_img_url}/>
+                                }
+                                {!follow.profile_img_url &&
+                                    <img className={styles.follower__img} onClick={() => history.push(`/profiles/${follow.username}`)} className={styles.follow__profile_img} src={blankProfile}/>
+                                }
+                                <span className={styles.follow__name} onClick={() => history.push(`/profiles/${follow.username}`)} key={follow.id}>{follow.username}</span>
+                            </div>
+                        )
                     })}
                 </div>
             </div>
