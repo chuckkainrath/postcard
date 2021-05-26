@@ -87,7 +87,7 @@ def delete_photo(photo_id):
     try:
         delete_photo_from_s3('photo', filename)
     except Exception as e:
-        print(e)
+        pass
 
     db.session.query(Like).filter(Like.photo_id == photo.id).delete()
     db.session.delete(photo)

@@ -39,9 +39,7 @@ def upload_photo_to_s3(photo, bucket):
             })
     except Exception as e:
         # Do error handling
-        print('Error uploading file to aws bucket')
-        print(e)
-    print('no erRRRRREOoerereroERERE')
+        pass
     return {'photo_url': f'{URL_SCHEME}{S3_BUCKETS[bucket]}{URL_DOMAIN}{photo.filename}'}
 
 

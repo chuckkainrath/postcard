@@ -15,7 +15,6 @@ function AvatarInput({setPicture, setChoosingPicture}) {
         const img = new Image();
         img.src = imageUrl;
         img.onload = () => {
-            console.log(`Image dimension: ${img.width}x${img.height}`);
             const width = Math.min(400, img.width);
             setWidth(width)
             setHeight(width)
