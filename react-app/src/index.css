@@ -6,6 +6,10 @@
 @import url('https://fonts.googleapis.com/css2?family=KoHo:wght@200&display=swap');
 
 body {
-    background-color: rgb(246, 241, 233);
+    background-color: #f3f4ed;
     font-family: 'KoHo';
+}
+
+i {
+    color: #536162;
 }

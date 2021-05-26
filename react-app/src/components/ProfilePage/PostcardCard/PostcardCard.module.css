@@ -47,6 +47,10 @@
     transform: translateX(-50%) !important;
 }
 
+.modal__container > div {
+    background-color: rgb(164, 187, 183);
+}
+
 .modal__title {
     text-align: center;
 }
@@ -63,7 +67,7 @@
     padding: 10px;
     box-shadow: 0 0 2px 1px rgb(202, 202, 202);
     border-radius: 5px;
-    background-color: rgb(212, 212, 212);
+    background-color: #f3f4ed;
 }
 
 .modal__delete, .modal__download {
