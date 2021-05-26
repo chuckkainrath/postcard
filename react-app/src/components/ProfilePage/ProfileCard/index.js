@@ -17,31 +17,6 @@ function ProfileCard({ userProfile, photo }) {
         dispatch(deletePhoto(photo.id));
     }
 
-    // const confirmDelete = () => {
-    //     const options = {
-    //         title: 'Delete Photo',
-    //         message: 'Are you sure you want to delete this photo?',
-    //         buttons: [
-    //             {
-    //                 label: 'Delete',
-    //                 onClick: dltPhoto
-    //             },
-    //             {
-    //                 label: 'Cancel',
-    //                 onClick: () => {}
-    //             }
-    //         ],
-    //         closeOnEscape: true,
-    //         closeOnClickOutside: true,
-    //         willUnmount: () => {},
-    //         afterClose: () => {},
-    //         onClickOutside: () => {},
-    //         onKeypressEscape: () => {},
-    //         overlayClassName: styles.delete_popup
-    //     };
-    //     confirmAlert(options);
-    // }
-
     const toggleLike = async () => {
         if (liked) {
             await dispatch(unlikePhoto(photo.id));
@@ -93,8 +68,10 @@ function ProfileCard({ userProfile, photo }) {
                         <p>Are you sure you want to delete the photo?</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <button onClick={dltPhoto}>Delete</button>
-                        <button onClick={() => setDeleteConfirm(false)}>Cancel</button>
+                        <div className={styles.delete_or_cancel}>
+                            <button onClick={dltPhoto}>Delete</button>
+                            <button onClick={() => setDeleteConfirm(false)}>Cancel</button>
+                        </div>
                     </Modal.Footer>
                 </Modal>
         </div>
