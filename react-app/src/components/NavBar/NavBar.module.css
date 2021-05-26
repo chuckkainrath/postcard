@@ -26,6 +26,14 @@
     text-decoration: none;
 }
 
+.navbar__name {
+    text-decoration: none;
+}
+
+.navbar__name:visited {
+    color: black;
+}
+
 .navbar__welcome h1 {
     margin-top: 0;
     margin-left: 20px;
@@ -76,7 +84,7 @@
 
 .upload__icon i {
     font-size: 2.5rem;
-    color: black;
+    color: rgb(164, 187, 183);
     margin-right: 20px;
 
 }

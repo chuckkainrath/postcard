@@ -7,13 +7,13 @@ import { deletePostcards, deletePostcard } from '../../../store/postcards';
 import { saveAs } from 'file-saver';
 import styles from './PostcardCard.module.css';
 
+
 function ProfileCard({ cards }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const [showBack, setShowBack] = useState(false);
 
     const dltPostcards = async () => {
-        console.log('deleting card');
         dispatch(deletePostcards(cards[0].postcard_front_url));
     }
 
@@ -75,36 +75,33 @@ function ProfileCard({ cards }) {
                 src={cards[0].postcard_front_url}
             />
             <div className={styles.postcard__options}>
-                <button onClick={confirmDelete}>Delete</button>
-                <button onClick={reuseCard}>Reuse Card</button>
-                <button onClick={() => setShowBack(true)}>Show Messages</button>
+                <span className={styles.delete__card} onClick={confirmDelete}><i class="fas fa-trash"></i></span>
+                <button className={styles.reuse} onClick={reuseCard}>Reuse Card</button>
+                <button className={styles.view__msgs} onClick={() => setShowBack(true)}>Show Messages</button>
                 <Modal
                     show={showBack}
                     onHide={() => setShowBack(false)}
+                    // backdrop='static'
                     dialogClassName={styles.modal__container}
                 >
-                    <Modal.Header closeButton>
-                        <Modal.Title>Postcard Messages</Modal.Title>
+                    <Modal.Header>
+                        <h1 className={styles.modal__title}>Postcard Messages</h1>
+                        <div className={styles.modal__close} onClick={() => setShowBack(false)}><i class="fal fa-times"></i></div>
                     </Modal.Header>
                     <Modal.Body>
                         {cards.map(card => {
                             return (
-                                <div key={card.id}>
+                                <div className={styles.modal__message} key={card.id}>
                                     <img src={card.postcard_back_url} />
                                     <div>
-                                        <button onClick={() => deleteCard(card)}>Delete</button>
-                                        <button onClick={() => downloadCard(card)}>Download</button>
+                                        <span className={styles.modal__delete} onClick={() => deleteCard(card)}><i class="fas fa-trash"></i></span>
+                                        <span className={styles.modal__download} onClick={() => downloadCard(card)}><i class="fas fa-download"></i></span>
                                     </div>
                                 </div>
                             )
                         })}
                     </Modal.Body>
                 </Modal>
-                {/* <div   TODO REDIRECT THIS TO POSTCARD BACK.
-                    onClick={() => history.push(`/create-postcard/${photo.id}`)}
-                    className={styles.photo__card_create}>
-                    <i class="fal fa-envelope"></i>
-                </div> */}
             </div>
         </div>
     )

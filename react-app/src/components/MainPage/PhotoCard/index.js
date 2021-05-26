@@ -8,6 +8,7 @@ import blankProfile from './blank-profile-img.png';
 function PhotoCard({ photo }) {
     const history = useHistory();
     const dispatch = useDispatch();
+    const user = useSelector(state => state.session.user)
     const profileSrc = photo.profile_img_url ? photo.profile_img_url : blankProfile;
     const [liked, setLiked] = useState(photo.liked);
 
@@ -34,16 +35,18 @@ function PhotoCard({ photo }) {
                     src={profileSrc}
                     onClick={() => history.push(`/profiles/${photo.username}`)}
                 />
-                <div
-                    onClick={toggleLike}
-                    className={styles.photo__heart}>
-                    {liked &&
-                        <i class="fas fa-heart"></i>
-                    }
-                    {!liked &&
-                        <i class="fal fa-heart"></i>
-                    }
-                </div>
+                {photo.user_id !== user.id &&
+                    <div
+                        onClick={toggleLike}
+                        className={styles.photo__heart}>
+                        {liked &&
+                            <i class="fas fa-heart"></i>
+                        }
+                        {!liked &&
+                            <i class="fal fa-heart"></i>
+                        }
+                    </div>
+                }
                 <div
                     onClick={() => history.push(`/create-postcard/${photo.id}`)}
                     className={styles.photo__card_create}>

@@ -43,7 +43,66 @@
     position: absolute;
     top: 10%;
     left: 50%;
-    width: fit-content;
+    width: fit-content !important;
+    transform: translateX(-50%) !important;
+}
+
+.modal__title {
+    text-align: center;
+}
+
+.modal__close {
+    cursor: pointer;
+    position: absolute;
+    right: 5%;
+    top: 5%;
+}
+
+.modal__message {
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: 0 0 2px 1px rgb(202, 202, 202);
+    border-radius: 5px;
+    background-color: rgb(212, 212, 212);
+}
+
+.modal__delete, .modal__download {
+    font-size: 2rem;
+    color: rgb(164, 187, 183);
+    cursor: pointer;
+}
+
+.modal__download {
+    display: inline-block;
+    position: absolute;
+    right: 5% !important;
+}
+
+.delete__card {
+    font-size: 2.5rem;
+    margin-left: 5px;
+    color: rgb(164, 187, 183);
+}
+
+.reuse {
+    display: inline-block;
+    position: absolute;
+    left: 35%;
     transform: translateX(-50%);
-    background-color: blue;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    top: 25%;
+    background-color: white;
+}
+
+.view__msgs {
+    display: inline-block;
+    position: absolute;
+    right: 5%;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    top: 25%;
+    background-color: white;
 }
