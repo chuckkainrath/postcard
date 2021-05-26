@@ -110,3 +110,32 @@
     top: 25%;
     background-color: white;
 }
+
+.modal_delete__container {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    width: fit-content !important;
+    transform: translateX(-50%) !important;
+}
+
+.modal_delete__container > div {
+    background-color: rgb(164, 187, 183);
+}
+
+.modal__title {
+    text-align: center;
+}
+
+.modal_delete__container p {
+    font-size: 1.2rem;
+}
+
+.delete_or_cancel {
+    text-align: center;
+}
+
+.delete_or_cancel button {
+    font-size: 1.2rem;
+    margin: 0 10px;
+}
