@@ -57,6 +57,7 @@
     z-index: 10;
     right: 25px;
     top: 75px;
+    list-style-type: none;
 }
 
 .profile__dropdown li {
@@ -69,7 +70,8 @@
 
 .profile__dropdown li:hover {
     cursor: pointer;
-    background-color: rgb(192, 192, 192);
+    background-color: rgb(164, 187, 183);
+
 }
 
 .navbar__right {
@@ -115,4 +117,12 @@
 
 .login__link:visited, .signup__link:visited {
     text-decoration: none;
+}
+
+.modal__container {
+    position: absolute;
+    top: 0%;
+    left: 99%;
+    width: fit-content !important;
+    transform: translateX(-50%) !important;
 }
