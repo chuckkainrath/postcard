@@ -33,12 +33,21 @@ const postcardFilter = (postcards) => {
 }
 
 const followSort = (follows) => {
-    if (!follows) return []
+    if (!follows) return [];
     const sortedFollows = Object.values(follows);
     sortedFollows.sort((follow1, follow2) => {
         return follow1.username.toLowerCase() - follow2.username.toLowerCase();
     })
     return sortedFollows;
+}
+
+const likeSort = likes => {
+    if (!likes) return [];
+    const sortedLikes = Object.values(likes);
+    sortedLikes.sort((like1, like2) => {
+        return like2.liked - like1.liked;
+    })
+    return sortedLikes;
 }
 
 function MyProfile() {
@@ -52,7 +61,7 @@ function MyProfile() {
     const [followersArr, setFollowersArr] = useState([]);
     const [followingArr, setFollowingArr] = useState([]);
     const [likedPhotos, setLikedPhotos] = useState(
-        photos.likedPhotos ? Object.values(photos.likedPhotos).reverse() : []
+        photos.likedPhotos ? likeSort(photos.likedPhotos) : []
     );
     const [postcards, setPostcards] = useState(
         postcardsDict ? postcardFilter(Object.values(postcardsDict.postcards)) : {}
@@ -82,7 +91,7 @@ function MyProfile() {
     }, [postcardsDict]);
 
     useEffect(() => {
-        setLikedPhotos(photos.likedPhotos ? Object.values(photos.likedPhotos).reverse() : []);
+        setLikedPhotos(photos.likedPhotos ? likeSort(photos.likedPhotos) : []);
     }, [photos])
 
     useEffect(() => {
