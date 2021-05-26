@@ -3,12 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addFollow, deleteFollow } from '../../../store/followers';
 import ProfileCard from '../ProfileCard';
 import styles from './OtherProfile.module.css';
+import blankProfile from '../../MainPage/PhotoCard/blank-profile-img.png';
 
 function OtherProfile() {
     const dispatch = useDispatch();
     const { profile, photos } = useSelector(state => state.profile);
     const followingDict = useSelector(state => state.follows.following);
     const [following, setFollowing] = useState(profile.id in followingDict);
+    const [ profileImg, setProfileImg ] = useState(profile.profile_img_url ? profile.profile_img_url : blankProfile)
     const [ photosArr, setPhotosArr ] = useState(
         photos ? Object.values(photos).reverse() : []
     );
@@ -35,13 +37,18 @@ function OtherProfile() {
     return (
         <div className={styles.profile__container}>
             {profile &&
-                <h1>{profile.username}'s Profile</h1>
-            }
-            {following &&
-                <button onClick={unfollow}>Unfollow</button>
-            }
-            {!following &&
-                <button onClick={follow}>Follow</button>
+                <div className={styles.profile__header}>
+                    {profile.profile_img_url &&
+                        <img src={profileImg}/>
+                    }
+                    <span>{profile.username}'s Profile</span>
+                    {following &&
+                        <button className={styles.follow__btn} onClick={unfollow}>Unfollow</button>
+                    }
+                    {!following &&
+                        <button className={styles.follow__btn} onClick={follow}>Follow</button>
+                    }
+                </div>
             }
             <div className={styles.photos__container}>
                 {photosArr && photosArr.map(photo => {
