@@ -3,7 +3,7 @@
     margin: 30px 30px;
     height: 350px;
     padding: 5px;
-    box-shadow: 0 0 2px 1px rgb(182, 182, 182);
+    box-shadow: 0 0 2px 1px rgb(112, 112, 112);
     border-radius: 5px;
     background-color: white;
 }
@@ -57,16 +57,29 @@
 
 .modal__container {
     position: absolute;
-    top: 20%;
+    top: 30%;
     left: 50%;
     width: fit-content !important;
     transform: translateX(-50%) !important;
 }
 
-.modal__container div {
-    background-color: rgb(37, 33, 26);
+.modal__container > div {
+    background-color: rgb(164, 187, 183);
 }
 
 .modal__title {
     text-align: center;
+}
+
+.modal__container p {
+    font-size: 1.2rem;
+}
+
+.delete_or_cancel {
+    text-align: center;
+}
+
+.delete_or_cancel button {
+    font-size: 1.2rem;
+    margin: 0 10px;
 }
