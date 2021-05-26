@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import { logout } from '../../store/session';
+import Modal from 'react-bootstrap/Modal';
 import styles from './NavBar.module.css';
 import blankProfile from '../MainPage/PhotoCard/blank-profile-img.png';
 
@@ -18,6 +19,7 @@ const NavBar = () => {
   const [profileMenu, showProfileMenu] = useState(false);
 
   const onLogout = async () => {
+    showProfileMenu(false);
     await dispatch(logout());
     history.push('/');
   }
@@ -59,12 +61,22 @@ const NavBar = () => {
                   src={profileSrc}
                   onClick={() => showProfileMenu(!profileMenu)}
                 />
-                {profileMenu &&
+                <Modal
+                    show={profileMenu}
+                    onHide={() => showProfileMenu(false)}
+                    dialogClassName={styles.modal__container}
+                >
                   <div className={styles.profile__dropdown}>
                       <li onClick={toProfile}>My Profile</li>
                       <li onClick={onLogout}>Logout</li>
                   </div>
-                }
+                </Modal>
+                {/* {profileMenu &&
+                  <div className={styles.profile__dropdown}>
+                      <li onClick={toProfile}>My Profile</li>
+                      <li onClick={onLogout}>Logout</li>
+                  </div>
+                } */}
               </div>
             </li>
           </ul>
