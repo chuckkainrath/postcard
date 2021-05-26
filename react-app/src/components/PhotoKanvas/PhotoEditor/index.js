@@ -53,8 +53,6 @@ function PhotoEditor({ photoSrc, finishFront }) {
 
     useEffect(() => {
         if (photoRef.current) {
-            console.log('FILTER', filter);
-            console.log('TYPEOF', typeof filter[0])
             photoRef.current.attrs.filters = filter;
             photoRef.current.cache();
             photoRef.current.getLayer().batchDraw();
@@ -142,11 +140,9 @@ function PhotoEditor({ photoSrc, finishFront }) {
     }
 
     const deleteCurrObj = () => {
-        console.log('BEFORE FILTER: ', objects);
         const objCopies = objects.filter(obj => {
             return obj !== currObject;
         })
-        console.log('AFTER FILTER: ', objCopies);
         setObjects(objCopies);
         setTextValue('');
         textInput.disabled = true;
