@@ -85,17 +85,18 @@ function ProfileCard({ cards }) {
                     // backdrop='static'
                     dialogClassName={styles.modal__container}
                 >
-                    <Modal.Header closeButton>
-                        <Modal.Title>Postcard Messages</Modal.Title>
+                    <Modal.Header>
+                        <h1 className={styles.modal__title}>Postcard Messages</h1>
+                        <div className={styles.modal__close} onClick={() => setShowBack(false)}><i class="fal fa-times"></i></div>
                     </Modal.Header>
                     <Modal.Body>
                         {cards.map(card => {
                             return (
-                                <div key={card.id}>
+                                <div className={styles.modal__message} key={card.id}>
                                     <img src={card.postcard_back_url} />
                                     <div>
-                                        <button onClick={() => deleteCard(card)}>Delete</button>
-                                        <button onClick={() => downloadCard(card)}>Download</button>
+                                        <span className={styles.modal__delete} onClick={() => deleteCard(card)}><i class="fas fa-trash"></i></span>
+                                        <span className={styles.modal__download} onClick={() => downloadCard(card)}><i class="fas fa-download"></i></span>
                                     </div>
                                 </div>
                             )
