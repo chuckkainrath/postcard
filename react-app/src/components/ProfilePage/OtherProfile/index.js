@@ -9,7 +9,7 @@ function OtherProfile() {
     const dispatch = useDispatch();
     const { profile, photos } = useSelector(state => state.profile);
     const followingDict = useSelector(state => state.follows.following);
-    const [following, setFollowing] = useState(profile.id in followingDict);
+    const [following, setFollowing] = useState(profile && profile.id in followingDict);
     const [ photosArr, setPhotosArr ] = useState(
         photos ? Object.values(photos).reverse() : []
     );
@@ -19,7 +19,7 @@ function OtherProfile() {
     }, [photos])
 
     useEffect(() => {
-        setFollowing(profile.id in followingDict)
+        setFollowing(profile && profile.id in followingDict)
     }, [followingDict, profile])
 
     const follow = async () => {

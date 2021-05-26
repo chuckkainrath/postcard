@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFollows } from '../../../store/followers';
 import { getPhotos } from '../../../store/photos';
+import { blankProfile } from '../../../store/profile';
 import PhotoCard from '../PhotoCard';
 import styles from './PhotosComponent.module.css';
 
@@ -18,6 +19,7 @@ function PhotosComponent() {
     useEffect(() => {
         dispatch(getPhotos());
         dispatch(getFollows())
+        dispatch(blankProfile());
     }, [])
 
     return (
