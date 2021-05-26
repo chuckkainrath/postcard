@@ -164,7 +164,8 @@ function MyProfile() {
                     {followingArr && followingArr.map(follow => {
                         return (
                             <div>
-                                <p onClick={() => history.push(`/profiles/${follow.username}`)}key={follow.id}>{follow.username}</p>
+                                <img className={styles.follow__profile_img} src={follow.profile_img_url}/>
+                                <span className={styles.follow__name} onClick={() => history.push(`/profiles/${follow.username}`)}key={follow.id}>{follow.username}</span>
                                 <button onClick={() => unfollow(follow)}>Unfollow</button>
                             </div>
                         )
