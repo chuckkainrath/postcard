@@ -110,10 +110,10 @@ function BackEditor({finishBack}) {
                       width: width, height: height, text: message, lineHeight: 1.5 }
         setMessageObj(msg);
         backArr.push(msg);
-        const add1 = { type: 'Text', fontFamily: 'cursive', fontSize: 16, x: 320, y: 200, text: address1, lineHeight: 1.5 }
-        const add2 = { type: 'Text', fontFamily: 'cursive', fontSize: 16, x: 320, y: 240, text: address2, lineHeight: 1.5 }
-        const add3 = { type: 'Text', fontFamily: 'cursive', fontSize: 16, x: 320, y: 280, text: address3, lineHeight: 1.5 }
-        const add4 = { type: 'Text', fontFamily: 'cursive', fontSize: 16, x: 320, y: 320, text: address4, lineHeight: 1.5 }
+        const add1 = { type: 'Text', fontFamily: 'cursive', fontSize: 20, x: 323, y: 195, text: address1, lineHeight: 1.5 }
+        const add2 = { type: 'Text', fontFamily: 'cursive', fontSize: 20, x: 323, y: 235, text: address2, lineHeight: 1.5 }
+        const add3 = { type: 'Text', fontFamily: 'cursive', fontSize: 20, x: 323, y: 275, text: address3, lineHeight: 1.5 }
+        const add4 = { type: 'Text', fontFamily: 'cursive', fontSize: 20, x: 323, y: 315, text: address4, lineHeight: 1.5 }
         setAddress1Ojb(add1);
         setAddress2Ojb(add2);
         setAddress3Ojb(add3);
@@ -159,7 +159,7 @@ function BackEditor({finishBack}) {
                     onChange={messageChange}
                 />
             </div>
-            <button onClick={submitCard}>Create Postcard</button>
+            <button className={styles.button__submit} onClick={submitCard}>Create Postcard</button>
             <div id='hidden-message' className={styles.hidden__message}></div>
             <div id='hidden-line' className={styles.hidden__line}></div>
             <div className={styles.address__container}>
