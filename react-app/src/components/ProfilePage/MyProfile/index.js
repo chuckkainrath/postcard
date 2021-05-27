@@ -62,7 +62,7 @@ function MyProfile() {
     const history = useHistory();
     const profile = useSelector(state => state.profile);
     const photos = useSelector(state => state.photos);
-    const postcardsDict = useSelector(state => state.postcards.postcards);
+    const postcardsDict = useSelector(state => state.postcards);
     const { followers, following } = useSelector(state => state.follows);
     const [category, setCategory] = useState('photo-public');
     const [followersArr, setFollowersArr] = useState([]);
@@ -71,7 +71,7 @@ function MyProfile() {
         photos.likedPhotos ? likeSort(photos.likedPhotos) : null
     );
     const [postcards, setPostcards] = useState(
-        postcardsDict ? postcardFilter(Object.values(postcardsDict)) : null
+        postcardsDict && postcardsDict.postcards ? postcardFilter(Object.values(postcardsDict.postcards)) : null
     );
     const [publicPhotos, setPublicPhotos] = useState(
         profile.photos ? photoFilter(Object.values(profile.photos), 'public') : null
@@ -87,20 +87,19 @@ function MyProfile() {
 
     useEffect(() => {
         setFollowingArr(followSort(following));
-    }, [following])
+    }, [following]);
 
     useEffect(() => {
         setFollowersArr(followSort(followers));
-    }, [followers])
+    }, [followers]);
 
     useEffect(() => {
-        console.log('HERE');
-        setPostcards(postcardsDict ? postcardFilter(Object.values(postcardsDict)) : null)
+        setPostcards(postcardsDict && postcardsDict.postcards ? postcardFilter(Object.values(postcardsDict.postcards)) : null)
     }, [postcardsDict]);
 
     useEffect(() => {
         setLikedPhotos(photos.likedPhotos ? likeSort(photos.likedPhotos) : null);
-    }, [photos])
+    }, [photos]);
 
     useEffect(() => {
         setPrivatePhotos(
@@ -109,7 +108,7 @@ function MyProfile() {
         setPublicPhotos(
             profile.photos ? photoFilter(Object.values(profile.photos), 'public') : null
         );
-    }, [profile])
+    }, [profile]);
 
     const setPictureCategory = (cat) => {
         const lastNode = document.getElementById(category);
