@@ -11,13 +11,15 @@ import { deleteFollow } from '../../../store/followers';
 import blankProfile from '../../MainPage/PhotoCard/blank-profile-img.png';
 
 const photoFilter = (photos, photoType) => {
-    return photos.filter(photo => {
+    const filteredPhotos = photos.filter(photo => {
         if (photo.public) {
             return photoType === 'public';
         } else {
             return photoType === 'private';
         }
     });
+    filteredPhotos.reverse();
+    return filteredPhotos.length ? filteredPhotos : null;
 }
 
 const postcardFilter = (postcards) => {
@@ -29,12 +31,14 @@ const postcardFilter = (postcards) => {
             fPostcards[card.postcard_front_url].push(card);
         }
     });
+    if (!Object.keys(fPostcards).length) return null;
     return fPostcards;
 }
 
 const followSort = (follows) => {
-    if (!follows) return [];
+    if (!follows) return null;
     const sortedFollows = Object.values(follows);
+    if (!sortedFollows.length) return null;
     sortedFollows.sort((follow1, follow2) => {
         return follow1.username.toLowerCase() - follow2.username.toLowerCase();
     })
@@ -42,8 +46,9 @@ const followSort = (follows) => {
 }
 
 const likeSort = likes => {
-    if (!likes) return [];
+    if (!likes) return null;
     const sortedLikes = Object.values(likes);
+    if (!sortedLikes.length) return null;
     sortedLikes.sort((like1, like2) => {
         return like2.liked - like1.liked;
     })
@@ -61,16 +66,16 @@ function MyProfile() {
     const [followersArr, setFollowersArr] = useState([]);
     const [followingArr, setFollowingArr] = useState([]);
     const [likedPhotos, setLikedPhotos] = useState(
-        photos.likedPhotos ? likeSort(photos.likedPhotos) : []
+        photos.likedPhotos ? likeSort(photos.likedPhotos) : null
     );
     const [postcards, setPostcards] = useState(
-        postcardsDict ? postcardFilter(Object.values(postcardsDict.postcards)) : {}
+        postcardsDict ? postcardFilter(Object.values(postcardsDict.postcards)) : null
     );
     const [publicPhotos, setPublicPhotos] = useState(
-        profile.photos ? photoFilter(Object.values(profile.photos).reverse(), 'public') : []
+        profile.photos ? photoFilter(Object.values(profile.photos), 'public') : null
     );
     const [privatePhotos, setPrivatePhotos] = useState(
-        profile.photos ? photoFilter(Object.values(profile.photos).reverse(), 'private') : []
+        profile.photos ? photoFilter(Object.values(profile.photos), 'private') : null
     );
 
     useEffect(() => {
@@ -87,19 +92,19 @@ function MyProfile() {
     }, [followers])
 
     useEffect(() => {
-        setPostcards(postcardsDict ? postcardFilter(Object.values(postcardsDict.postcards)) : {})
+        setPostcards(postcardsDict ? postcardFilter(Object.values(postcardsDict.postcards)) : null)
     }, [postcardsDict]);
 
     useEffect(() => {
-        setLikedPhotos(photos.likedPhotos ? likeSort(photos.likedPhotos) : []);
+        setLikedPhotos(photos.likedPhotos ? likeSort(photos.likedPhotos) : null);
     }, [photos])
 
     useEffect(() => {
         setPrivatePhotos(
-            profile.photos ? photoFilter(Object.values(profile.photos), 'private').reverse() : []
+            profile.photos ? photoFilter(Object.values(profile.photos), 'private') : null
         );
         setPublicPhotos(
-            profile.photos ? photoFilter(Object.values(profile.photos), 'public').reverse() : []
+            profile.photos ? photoFilter(Object.values(profile.photos), 'public') : null
         );
     }, [profile])
 
@@ -144,6 +149,9 @@ function MyProfile() {
                         {publicPhotos && publicPhotos.map(photo => (
                             <ProfileCard userProfile={true} key={photo.id} photo={photo} />
                         ))}
+                        {!publicPhotos &&
+                            <h1>You don't have any public images!</h1>
+                        }
                     </div>
                 }
                 {category === 'photo-private' &&
@@ -151,6 +159,9 @@ function MyProfile() {
                         {privatePhotos && privatePhotos.map(photo => (
                             <ProfileCard userProfile={true} key={photo.id} photo={photo} />
                         ))}
+                        {!privatePhotos &&
+                            <h1>You don't have any private images!</h1>
+                        }
                     </div>
                 }
                 {category === 'liked-photos' &&
@@ -158,6 +169,9 @@ function MyProfile() {
                         {likedPhotos && likedPhotos.map(photo => (
                             <PhotoCard userProfile={false} key={photo.id} photo={photo} />
                         ))}
+                        {!likedPhotos &&
+                            <h1>You don't have any liked photos!</h1>
+                        }
                     </div>
                 }
                 {category === 'postcards' &&
@@ -165,6 +179,9 @@ function MyProfile() {
                         {postcards && Object.keys(postcards).map((key, idx) => (
                             <PostcardCard cards={postcards[key]} key={idx} />
                         ))}
+                        {!postcards &&
+                            <h1>You don't have any postcards!</h1>
+                        }
                     </div>
                 }
             </div>
@@ -185,6 +202,9 @@ function MyProfile() {
                             </div>
                         )
                     })}
+                    {!followingArr &&
+                        <h1 className={styles.no_follow}>You aren't following anyone</h1>
+                    }
                 </div>
             </div>
             <div className={styles.right__container}>
@@ -203,6 +223,9 @@ function MyProfile() {
                             </div>
                         )
                     })}
+                    {!followingArr &&
+                        <h1 className={styles.no_follow}>You don't have any followers</h1>
+                    }
                 </div>
             </div>
         </div>
