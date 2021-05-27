@@ -22,6 +22,12 @@
     text-align: center;
 }
 
+.navbar__main span {
+    display: inline-block;
+    position: relative;
+    bottom: 8px;
+}
+
 .navbar__main a {
     text-decoration: none;
 }
@@ -97,8 +103,13 @@
     left: 50%;
     top: 40%;
     transform: translateY(-50%) translateX(-50%);
-    font-family: 'KoHo';
-    font-size: 2rem;
+    font-family: 'Open Sans';
+    color: rgb(218, 207, 126);
+    text-shadow: -1px 1px 1px black,
+                  1px 1px 1px black,
+                  1px -1px 0 black,
+                  -1px -1px 0 black;
+    font-size: 3rem;
 }
 
 .login_signup__container li {
@@ -107,7 +118,7 @@
 
 .login__link, .signup__link {
     text-decoration: none;
-    color: black;
+    /* color: black; */
 }
 
 .login__link:hover, .signup__link:hover {
@@ -117,6 +128,7 @@
 
 .login__link:visited, .signup__link:visited {
     text-decoration: none;
+    color: rgb(218, 207, 126);
 }
 
 .modal__container {
@@ -125,4 +137,8 @@
     left: 99%;
     width: fit-content !important;
     transform: translateX(-50%) !important;
+}
+
+.logo {
+    width: 40px;
 }

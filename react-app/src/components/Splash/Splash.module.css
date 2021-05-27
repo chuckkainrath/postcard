@@ -8,6 +8,28 @@
 }
 
 .splash__message {
-    font-family: 'KoHo';
-    font-size: 2.5rem;
+    font-family: 'Open Sans';
+    color: rgb(218, 207, 126);
+
+    /* color: rgba(222, 72, 17, 0.92); */
+    text-shadow: -1px 1px 1px black,
+                  1px 1px 1px black,
+                  1px -1px 0 black,
+                  -1px -1px 0 black;
+    font-size: 3rem;
+}
+
+/* background-color: #f3f4ed;
+font-family: 'KoHo';
+}
+
+i {
+color: #536162; */
+
+.page__container {
+    background-image: url('/images/splash-back.jpeg');
+    background-repeat: none;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
 }
