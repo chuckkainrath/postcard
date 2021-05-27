@@ -24,3 +24,19 @@
     width: 260px;
     line-height: 1.5em;
 }
+
+.hidden__line {
+    width: fit-content;
+    min-width: 1px;
+}
+
+.address__container {
+    position: fixed;
+    left: 102%;
+    bottom: 50%;
+}
+
+.address__container input {
+    font-size: 1.2rem;
+    margin-top: 13px;
+}

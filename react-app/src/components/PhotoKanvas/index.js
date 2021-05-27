@@ -17,7 +17,7 @@ function PhotoKanvas({ photoSrc, frontSrc }) {
     const [ cardBack, setCardBack ] = useState();
     const [ frontUrl, setFrontUrl ] = useState('');
     const [ backUrl, setBackUrl ] = useState('');
-    const [ stage, setStage ] = useState('card');
+    const [ stage, setStage ] = useState('back');  // CHANGE BACK TO 'card';
     const [ frontName, setFrontName ] = useState('');
     const [ backName, setBackName ] = useState('');
     const [ cardSaved, setCardSaved ] = useState(false);
