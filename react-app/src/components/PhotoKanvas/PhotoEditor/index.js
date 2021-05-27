@@ -175,20 +175,33 @@ function PhotoEditor({ photoSrc, finishFront }) {
             {!loading &&
             <div id='kanvas'>
                 <div className={styles.kanvas__options}>
-                    <button disabled={!currObject} onClick={() => deleteCurrObj()}>Delete</button>
-                    <button onClick={() => newTextInput()}>
-                        Text
-                    </button>
-                    <input id='textInput' className={styles.kanvas__text_input} value={textValue} onChange={(e) => textChange(e)} />
-                    <label>Font Size</label>
-                    <input type='number' value={fontSize} onChange={(e) => changeFontSize(e)} />
-                    <label>Color</label>
-                    <input type="color" value={color} onChange={(e) => changeColor(e)} />
-                    <FontSelector fontFamily={fontFamily} changeFontFamily={changeFontFamily} />
-                    <FilterSelector filter={filter} setFilter={setFilter} />
-                    <button disabled={!currObject} onClick={() => changeBold()}>B</button>
-                    <button disabled={!currObject} onClick={() => changeItalic()}>I</button>
-                    <button disabled={!currObject} onClick={() => changeUnderline()}>U</button>
+                    <div className={styles.text__edit}>
+                        <button onClick={() => newTextInput()}>
+                            + Text
+                        </button>
+                        <input id='textInput' className={styles.kanvas__text_input} value={textValue} onChange={(e) => textChange(e)} />
+                        <button disabled={!currObject} onClick={() => deleteCurrObj()}>Delete</button>
+                    </div>
+                    <div className={styles.text__options}>
+                        <div>
+                            <label>Font Size: </label>
+                            <input type='number' value={fontSize} onChange={(e) => changeFontSize(e)} />
+                        </div>
+                        <div>
+                            <label>Color: </label>
+                            <input type="color" value={color} onChange={(e) => changeColor(e)} />
+                        </div>
+                        <FontSelector fontFamily={fontFamily} changeFontFamily={changeFontFamily} />
+                        <div>
+                            <button disabled={!currObject} onClick={() => changeBold()}>B</button>
+                            <button disabled={!currObject} onClick={() => changeItalic()}>I</button>
+                            <button disabled={!currObject} onClick={() => changeUnderline()}>U</button>
+                        </div>
+                    </div>
+                    <div className={styles.filter}>
+                        <label>Photo Filter: </label>
+                        <FilterSelector filter={filter} setFilter={setFilter} />
+                    </div>
                 </div>
                 <Stage ref={frontRef} width={WIDTH} height={HEIGHT}>
                     <Layer onClick={() => imageClick()}>
@@ -201,7 +214,7 @@ function PhotoEditor({ photoSrc, finishFront }) {
                         })}
                     </Layer>
                 </Stage>
-                <button onClick={doneEditing}>
+                <button className={styles.continue} onClick={doneEditing}>
                     Continue
                 </button>
             </div>

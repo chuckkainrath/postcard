@@ -2,9 +2,40 @@
     position: relative;
     width: fit-content;
     background-color: white;
-    padding: 30px;
+    padding: 30px 30px 10px 30px;
     border-radius: 5px;
     box-shadow: 0 0 1px 1px lightgray;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.text__edit {
+    display: flex;
+}
+
+.text__edit input {
+    flex-grow: 2;
+}
+
+.text__options {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.filter * {
+    display: inline;
+}
+
+.continue {
+    margin-top: 5px;
+    padding: 5px 10px;
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
 }
