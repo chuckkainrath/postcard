@@ -94,6 +94,7 @@ function MyProfile() {
     }, [followers])
 
     useEffect(() => {
+        console.log('HERE');
         setPostcards(postcardsDict ? postcardFilter(Object.values(postcardsDict)) : null)
     }, [postcardsDict]);
 
