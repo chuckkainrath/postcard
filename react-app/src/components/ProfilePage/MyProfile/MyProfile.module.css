@@ -91,18 +91,20 @@
 
 .follow__profile_img {
     width: 40px;
+    /* flex-basis: 40px; */
+    flex-grow: 0;
+    flex-shrink: 0;
     border-radius: 50%;
     padding-left: 5px;
 }
 
 .follow__name {
-    display: inline-block;
-    position: relative;
-    bottom: -4px;
-    left: 15px;
     font-size: 1.5rem;
-    margin-bottom: 10px;
-    width: 62%;
+    flex-grow: 1;
+    flex-shrink: 2;
+    align-self: center;
+    padding: 0 8px;
+    flex-basis: auto;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -112,18 +114,29 @@
 }
 
 .unfollow {
-    display: inline-block;
-    position: relative;
-    left: 3%;
-    bottom: 15px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-self: center;
+    padding: 5px;
 }
 
 .following__container:hover, .follower__container:hover {
     background-color: rgb(164, 187, 183);
 }
 
-.folower__img {
+.following__container, .follower__container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.follower__img {
     width: 40px;
+    flex-grow: 0;
+    flex-shrink: 0;
     border-radius: 50%;
     padding-left: 5px;
+}
+
+.no_follow {
+    font-size: 1.4rem;
 }
