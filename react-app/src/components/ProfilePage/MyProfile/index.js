@@ -62,7 +62,7 @@ function MyProfile() {
     const history = useHistory();
     const profile = useSelector(state => state.profile);
     const photos = useSelector(state => state.photos);
-    const postcardsDict = useSelector(state => state.postcards);
+    const postcardsDict = useSelector(state => state.postcards.postcards);
     const { followers, following } = useSelector(state => state.follows);
     const [category, setCategory] = useState('photo-public');
     const [followersArr, setFollowersArr] = useState([]);
@@ -71,7 +71,7 @@ function MyProfile() {
         photos.likedPhotos ? likeSort(photos.likedPhotos) : null
     );
     const [postcards, setPostcards] = useState(
-        postcardsDict ? postcardFilter(Object.values(postcardsDict.postcards)) : null
+        postcardsDict ? postcardFilter(Object.values(postcardsDict)) : null
     );
     const [publicPhotos, setPublicPhotos] = useState(
         profile.photos ? photoFilter(Object.values(profile.photos), 'public') : null
@@ -94,7 +94,7 @@ function MyProfile() {
     }, [followers])
 
     useEffect(() => {
-        setPostcards(postcardsDict ? postcardFilter(Object.values(postcardsDict.postcards)) : null)
+        setPostcards(postcardsDict ? postcardFilter(Object.values(postcardsDict)) : null)
     }, [postcardsDict]);
 
     useEffect(() => {
@@ -192,7 +192,7 @@ function MyProfile() {
                 <div className={styles.follows__container}>
                     {followingArr && followingArr.map(follow => {
                         return (
-                            <div className={styles.following__container}>
+                            <div key={follow.id} className={styles.following__container}>
                                 {follow.profile_img_url &&
                                     <img onClick={() => history.push(`/profiles/${follow.username}`)} className={styles.follow__profile_img} src={follow.profile_img_url}/>
                                 }
@@ -214,7 +214,7 @@ function MyProfile() {
                 <div className={styles.follows__container}>
                     {followersArr && followersArr.map(follow => {
                         return (
-                            <div className={styles.follower__container}>
+                            <div key={follow.id} className={styles.follower__container}>
                                 {follow.profile_img_url &&
                                     <img className={styles.follower__img} onClick={() => history.push(`/profiles/${follow.username}`)} className={styles.follow__profile_img} src={follow.profile_img_url}/>
                                 }

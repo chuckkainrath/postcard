@@ -14,7 +14,7 @@ function PhotosComponent() {
 
     useEffect(() => {
         setPhotosArr(photos.photos ? Object.values(photos.photos).reverse() : [])
-    }, photos);
+    }, [photos]);
 
     useEffect(() => {
         dispatch(getPhotos());
