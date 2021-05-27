@@ -20,8 +20,10 @@ function Splash() {
     }
 
     return (
-        <div className={styles.splash__container}>
-            <h1 className={styles.splash__message}>Welcome to Postacard where you create postcards from photos!</h1>
+        <div className={styles.page__container}>
+            <div className={styles.splash__container}>
+                <h1 className={styles.splash__message}>Welcome to Postacard where you create postcards from photos!</h1>
+            </div>
         </div>
     );
 }

@@ -43,7 +43,8 @@ const NavBar = () => {
                 activeClassName="active"
                 className={styles.navbar__name}
               >
-                Postacard
+                <img className={styles.logo} src='/images/postcard-stamp.png'/>
+                <span>Postacard</span>
               </NavLink>
             </li>
             <li className={styles.navbar__right}>
