@@ -3,6 +3,7 @@ import { Stage, Layer, Text, Line, Rect, Image } from 'react-konva';
 import useImage from 'use-image';
 import FontSelector from '../FontSelector';
 import styles from './BackEditor.module.css';
+import postcardStamp from '../../../images/postcard-stamp.png';
 
 const WIDTH = 600;
 const HEIGHT = 400;
@@ -14,7 +15,7 @@ const typeMap = {
 }
 
 function BackEditor({finishBack}) {
-    const [stamp, stampStatus] = useImage('/images/postcard-stamp.png');
+    const [stamp, stampStatus] = useImage(postcardStamp);
     const stampRef = useRef(null);
     const [ maxLen, setMaxLen ] = useState(1000);
     const [ backObjs, setBackObjs ] = useState([]);
