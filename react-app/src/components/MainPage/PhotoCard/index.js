@@ -27,7 +27,7 @@ function PhotoCard({ photo }) {
             <img
                 className={styles.photo__img}
                 src={photo.photo_url}
-                // TODO: ADD MODAL HERE ?
+                onClick={() => history.push(`/profiles/${photo.username}`)}
             />
             <div className={styles.photo__options}>
                 <img
