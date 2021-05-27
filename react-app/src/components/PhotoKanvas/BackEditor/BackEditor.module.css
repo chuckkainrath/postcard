@@ -10,6 +10,9 @@
     margin-top: 20px;
 }
 
+.message__container {
+    margin-left: 8px;
+}
 
 .kanvas__container {
     position: relative;
@@ -26,8 +29,11 @@
 }
 
 .hidden__line {
+    position: absolute;
+    left: -100000px;
     width: fit-content;
     min-width: 1px;
+    font-size: 20px;
 }
 
 .address__container {
@@ -39,4 +45,11 @@
 .address__container input {
     font-size: 1.2rem;
     margin-top: 13px;
+}
+
+.button__submit {
+    position: relative;
+    padding: 5px 10px;
+    left: 50%;
+    transform: translateX(-50%);
 }
