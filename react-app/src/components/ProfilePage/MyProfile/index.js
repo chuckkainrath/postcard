@@ -11,6 +11,7 @@ import { deleteFollow } from '../../../store/followers';
 import blankProfile from '../../MainPage/PhotoCard/blank-profile-img.png';
 
 const photoFilter = (photos, photoType) => {
+    if (!photos) return null;
     const filteredPhotos = photos.filter(photo => {
         if (photo.public) {
             return photoType === 'public';
@@ -23,6 +24,7 @@ const photoFilter = (photos, photoType) => {
 }
 
 const postcardFilter = (postcards) => {
+    if (!postcards) return null;
     const fPostcards = {};
     postcards.forEach(card => {
         if (!fPostcards[card.postcard_front_url]) {
