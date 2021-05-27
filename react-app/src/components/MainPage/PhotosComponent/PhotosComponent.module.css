@@ -4,5 +4,10 @@
     left: 10%;
     display: flex;
     flex-flow: row wrap;
-    /* justify-content: space-between; */
+    justify-content: space-evenly;
 }
+
+/* .card__container::after {
+    content: '';
+    flex: auto;
+} */
