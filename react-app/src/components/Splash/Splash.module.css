@@ -27,7 +27,7 @@ i {
 color: #536162; */
 
 .page__container {
-    background-image: url('/images/splash-back.jpeg');
+    background-image: url('../../images/splash-back.jpeg');
     background-repeat: none;
     background-size: cover;
     width: 100%;

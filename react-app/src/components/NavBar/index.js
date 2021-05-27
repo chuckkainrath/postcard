@@ -5,7 +5,7 @@ import { logout } from '../../store/session';
 import Modal from 'react-bootstrap/Modal';
 import styles from './NavBar.module.css';
 import blankProfile from '../MainPage/PhotoCard/blank-profile-img.png';
-
+import postcardStamp from '../../images/postcard-stamp.png';
 
 const NavBar = () => {
   const history = useHistory();
@@ -43,7 +43,7 @@ const NavBar = () => {
                 activeClassName="active"
                 className={styles.navbar__name}
               >
-                <img className={styles.logo} src='/images/postcard-stamp.png'/>
+                <img className={styles.logo} src={postcardStamp} />
                 <span>Postacard</span>
               </NavLink>
             </li>
