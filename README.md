@@ -21,18 +21,26 @@ Postacard is a photo website where users can upload and browse photos.  Users ca
 ## Installation
 
 1. Clone the repo and install dependencies
-`git clone https://github.com/chuckkainrath/postcard.git`
-`pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt`
+
+```
+git clone https://github.com/chuckkainrath/postcard.git
+pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
+```
+
 2. Create a .env file based on the example.
 3. Setup database user, password and database.
 4. Migrate/Seed database
 pipenv shell
-`flask db upgrade`
-`flask db seed all`
-`flask db run`
+```
+flask db upgrade
+flask db seed all
+flask db run
+```
 5. Install the frontend dependencies and run
-`cd react-app`
-`npm install`
-`npm start`
+```
+cd react-app
+npm install
+npm start
+```
 
 ## Features
