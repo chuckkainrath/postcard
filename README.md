@@ -44,3 +44,15 @@ npm start
 ```
 
 ## Features
+# Photo Upload
+Users can upload photos and set them to private or public.  Uploaded photos are cropped.
+![Upload](https://drive.google.com/uc?export=view&id=1KwunpEREyx_4B6G5ua6n-_CMcW7uBVyM)
+
+# Likes/Follows
+Users can like/unlike follows and follow/unfollow users.
+![LikesAndFollows](https://drive.google.com/uc?export=view&id=1FiKhjL1qxzOq7OVUTpHbNhMkOv2lXTkW)
+
+# Creating a Postcard
+Users can create postcards from photos.  Users can save/download postcards.  Users can reuse postcards they've created.
+![PostcardFront](https://drive.google.com/uc?export=view&id=1UThncz1Xtw8QJ3-n6AfT49Vi779gHxK6)
+![PostcardBack](https://drive.google.com/uc?export=view&id=1x5Sezxbdiwl6Xl5HOjJjEZlrM80-z3Gq)
