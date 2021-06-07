@@ -17,6 +17,7 @@ const typeMap = {
 function BackEditor({finishBack}) {
     const [stamp, stampStatus] = useImage(postcardStamp);
     const stampRef = useRef(null);
+    const [ loading, setLoading ] = useState(true);
     const [ maxLen, setMaxLen ] = useState(1000);
     const [ backObjs, setBackObjs ] = useState([]);
     const [ messageObj, setMessageObj ] = useState();
@@ -38,7 +39,7 @@ function BackEditor({finishBack}) {
         if (stampStatus === 'loaded') {
             stamp.width = 100;
             stamp.height = 110;
-            // setLoading(false);
+            setLoading(false);
         }
     }, [stampStatus]);
 
@@ -138,46 +139,53 @@ function BackEditor({finishBack}) {
     }
 
     return (
-        <div className={styles.kanvas__container}>
-            <Stage ref={backRef} width={WIDTH} height={HEIGHT}>
-                <Layer>
-                    {backObjs && backObjs.map(object => {
-                            const Comp = typeMap[object.type]
-                            return <Comp {...object} key={object.id} />
-                        })
-                    }
-                </Layer>
-                <Layer>
-                    <Image x={480} y={20} ref={stampRef} image={stamp} />
-                </Layer>
-            </Stage>
-            <div className={styles.message__container}>
-                <label>Postcard Message:</label>
-                <textarea
-                    maxLength={`${maxLen}`}
-                    className={styles.message__textarea}
-                    value={message}
-                    onChange={messageChange}
-                />
-            </div>
-            <button className={styles.button__submit} onClick={submitCard}>Create Postcard</button>
-            <div id='hidden-message' className={styles.hidden__message}></div>
-            <div id='hidden-line' className={styles.hidden__line}></div>
-            <div className={styles.address__container}>
-                <input
-                    placeholder='Line 1 ...'
-                    className={styles.address__input} value={address1} onChange={(e) => lineChange(e, setAddress1, address1Obj)} />
-                <input
-                    placeholder='Line 2 ...'
-                    className={styles.address__input} value={address2} onChange={(e) => lineChange(e, setAddress2, address2Obj)} />
-                <input
-                    placeholder='Line 3 ...'
-                    className={styles.address__input} value={address3} onChange={(e) => lineChange(e, setAddress3, address3Obj)} />
-                <input
-                    placeholder='Line 4 ...'
-                    className={styles.address__input} value={address4} onChange={(e) => lineChange(e, setAddress4, address4Obj)} />
-            </div>
-        </div>
+        <>
+            {loading &&
+                <h1>Loading...</h1>
+            }
+            {!loading &&
+                <div className={styles.kanvas__container}>
+                    <Stage ref={backRef} width={WIDTH} height={HEIGHT}>
+                        <Layer>
+                            {backObjs && backObjs.map(object => {
+                                    const Comp = typeMap[object.type]
+                                    return <Comp {...object} key={object.id} />
+                                })
+                            }
+                        </Layer>
+                        <Layer>
+                            <Image x={480} y={20} ref={stampRef} image={stamp} />
+                        </Layer>
+                    </Stage>
+                    <div className={styles.message__container}>
+                        <label>Postcard Message:</label>
+                        <textarea
+                            maxLength={`${maxLen}`}
+                            className={styles.message__textarea}
+                            value={message}
+                            onChange={messageChange}
+                        />
+                    </div>
+                    <button className={styles.button__submit} onClick={submitCard}>Create Postcard</button>
+                    <div id='hidden-message' className={styles.hidden__message}></div>
+                    <div id='hidden-line' className={styles.hidden__line}></div>
+                    <div className={styles.address__container}>
+                        <input
+                            placeholder='Line 1 ...'
+                            className={styles.address__input} value={address1} onChange={(e) => lineChange(e, setAddress1, address1Obj)} />
+                        <input
+                            placeholder='Line 2 ...'
+                            className={styles.address__input} value={address2} onChange={(e) => lineChange(e, setAddress2, address2Obj)} />
+                        <input
+                            placeholder='Line 3 ...'
+                            className={styles.address__input} value={address3} onChange={(e) => lineChange(e, setAddress3, address3Obj)} />
+                        <input
+                            placeholder='Line 4 ...'
+                            className={styles.address__input} value={address4} onChange={(e) => lineChange(e, setAddress4, address4Obj)} />
+                    </div>
+                </div>
+            }
+        </>
     )
 }
 
