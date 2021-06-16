@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Modal, Button } from 'react-bootstrap';
+import LoginForm from '../auth/LoginForm';
 import styles from './Splash.module.css';
 
 function Splash() {
     const history = useHistory();
+    const [showLogin, setShowLogin] = useState(false);
     const user = useSelector(state => state.session.user);
 
     if (user) {
@@ -24,15 +27,21 @@ function Splash() {
             <div className={styles.splash__container}>
                 <h1 className={styles.splash__message}>Welcome to Postacard where you create postcards from photos!</h1>
                 <h1 className={styles.login_signup__container}>
-                    <NavLink to="/login" exact={true} className={styles.login__link} activeClassName="active">
+                    <Button onClick={() => setShowLogin(true)} className={styles.login__link}>
                         Login
-                    </NavLink>
+                    </Button>
                     <span> or </span>
-                    <NavLink to="/sign-up" exact={true} className={styles.signup__link} activeClassName="active">
+                    <Button className={styles.signup__link}>
                         Sign Up
-                    </NavLink>
+                    </Button>
                 </h1>
             </div>
+            <Modal
+                show={showLogin}
+                onHide={() => setShowLogin(false)}
+            >
+                <LoginForm />
+            </Modal>
         </div>
     );
 }
