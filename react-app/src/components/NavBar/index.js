@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, useHistory, useLocation } from 'react-router-dom';
+import { NavLink, useHistory, Redirect } from 'react-router-dom';
 import { logout } from '../../store/session';
 import Modal from 'react-bootstrap/Modal';
 import styles from './NavBar.module.css';
@@ -9,7 +9,6 @@ import postcardStamp from '../../images/postcard-stamp.png';
 
 const NavBar = () => {
   const history = useHistory();
-  const location = useLocation();
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
   let profileSrc;
@@ -76,21 +75,7 @@ const NavBar = () => {
             </li>
           </ul>
         }
-        {/* {(!user && location.pathname === '/') &&
-          <ul className={styles.login_signup__container}>
-            <li>
-              <NavLink to="/login" exact={true} className={styles.login__link} activeClassName="active">
-                Login
-              </NavLink>
-            </li>
-            <li> or </li>
-            <li>
-              <NavLink to="/sign-up" exact={true} className={styles.signup__link} activeClassName="active">
-                Sign Up
-              </NavLink>
-            </li>
-          </ul>
-        } */}
+        {!user && <Redirect to='/'/>}
     </nav>
   );
 }
