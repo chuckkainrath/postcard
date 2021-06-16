@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styles from './Splash.module.css';
 
@@ -23,6 +23,15 @@ function Splash() {
         <div className={styles.page__container}>
             <div className={styles.splash__container}>
                 <h1 className={styles.splash__message}>Welcome to Postacard where you create postcards from photos!</h1>
+                <h1 className={styles.login_signup__container}>
+                    <NavLink to="/login" exact={true} className={styles.login__link} activeClassName="active">
+                        Login
+                    </NavLink>
+                    <span> or </span>
+                    <NavLink to="/sign-up" exact={true} className={styles.signup__link} activeClassName="active">
+                        Sign Up
+                    </NavLink>
+                </h1>
             </div>
         </div>
     );

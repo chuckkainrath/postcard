@@ -92,7 +92,6 @@
 
 .upload__icon i {
     font-size: 2.5rem;
-    /* color: rgb(164, 187, 183); */
     margin-right: 20px;
 
 }
@@ -118,7 +117,6 @@
 
 .login__link, .signup__link {
     text-decoration: none;
-    /* color: black; */
 }
 
 .login__link:hover, .signup__link:hover {

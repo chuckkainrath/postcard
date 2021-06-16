@@ -65,24 +65,18 @@ const NavBar = () => {
                 <Modal
                     show={profileMenu}
                     onHide={() => showProfileMenu(false)}
-                    dialogClassName={styles.modal__container}
+                    // dialogClassName={styles.modal__container}
                 >
                   <div className={styles.profile__dropdown}>
                       <li onClick={toProfile}>My Profile</li>
                       <li onClick={onLogout}>Logout</li>
                   </div>
                 </Modal>
-                {/* {profileMenu &&
-                  <div className={styles.profile__dropdown}>
-                      <li onClick={toProfile}>My Profile</li>
-                      <li onClick={onLogout}>Logout</li>
-                  </div>
-                } */}
               </div>
             </li>
           </ul>
         }
-        {(!user && location.pathname === '/') &&
+        {/* {(!user && location.pathname === '/') &&
           <ul className={styles.login_signup__container}>
             <li>
               <NavLink to="/login" exact={true} className={styles.login__link} activeClassName="active">
@@ -96,7 +90,7 @@ const NavBar = () => {
               </NavLink>
             </li>
           </ul>
-        }
+        } */}
     </nav>
   );
 }
