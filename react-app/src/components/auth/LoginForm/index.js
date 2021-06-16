@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from "react-router-dom";
+import Modal from 'react-bootstrap/Modal'
+
 import { login } from "../../../store/session";
 import styles from './LoginForm.module.css';
 
@@ -40,7 +42,8 @@ const LoginForm = () => {
   }
 
   return (
-    <div className={styles.login_form__container}>
+    // <div className={styles.login_form__container}>
+    <>
       <form className={styles.login_form} onSubmit={onLogin}>
         <h1>Login</h1>
         <div>
@@ -71,12 +74,12 @@ const LoginForm = () => {
         <button className={styles.submit__btn} type="submit">Login</button>
       </form>
       <div className={styles.other__options}>
-            <div>Don't have an account?
-              <span className={styles.redirect} onClick={() => history.push('/sign-up')}> Sign Up </span>
-            </div>
-            <div>or login as a <span className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</span></div>
+          <div>Don't have an account?
+            <span className={styles.redirect} onClick={() => history.push('/sign-up')}> Sign Up </span>
           </div>
-    </div>
+        <div>or login as a <span className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</span></div>
+      </div>
+    </>
   );
 };
 
