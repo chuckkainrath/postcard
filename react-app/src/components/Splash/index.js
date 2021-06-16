@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Modal, Button } from 'react-bootstrap';
-import LoginForm from '../auth/LoginForm';
+import { Button } from 'react-bootstrap';
+import LoginModal from '../auth/LoginModal';
 import styles from './Splash.module.css';
 
 function Splash() {
@@ -36,12 +36,7 @@ function Splash() {
                     </Button>
                 </h1>
             </div>
-            <Modal
-                show={showLogin}
-                onHide={() => setShowLogin(false)}
-            >
-                <LoginForm />
-            </Modal>
+            <LoginModal showLogin={showLogin} setShowLogin={setShowLogin} />
         </div>
     );
 }
