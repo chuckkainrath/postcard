@@ -33,3 +33,31 @@ color: #536162; */
     width: 100%;
     height: 100vh;
 }
+
+.login_signup__container {
+    font-family: 'Open Sans';
+    color: rgb(218, 207, 126);
+    text-shadow: -1px 1px 1px black,
+                  1px 1px 1px black,
+                  1px -1px 0 black,
+                  -1px -1px 0 black;
+    font-size: 3rem;
+}
+
+.login_signup__container li {
+    display: inline;
+}
+
+.login__link, .signup__link {
+    text-decoration: none;
+}
+
+.login__link:hover, .signup__link:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.login__link:visited, .signup__link:visited {
+    text-decoration: none;
+    color: rgb(218, 207, 126);
+}
