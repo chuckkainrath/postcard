@@ -12,12 +12,9 @@ const LoginModal = ({ showLogin, setShowLogin }) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
   const [errors, setErrors] = useState([]);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const onLogin = async (e) => {
-    e.preventDefault();
-    const data = await dispatch(login(email, password));
+  const onLogin = async values => {
+    const data = await dispatch(login(values.email, values.password));
     if (data.errors) {
       setErrors(data.errors);
     }
@@ -29,14 +26,6 @@ const LoginModal = ({ showLogin, setShowLogin }) => {
       setErrors(data.errors);
     }
   }
-
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const updatePassword = (e) => {
-    setPassword(e.target.value);
-  };
 
   if (user) {
     return <Redirect to="/photos" />;
@@ -63,7 +52,7 @@ const LoginModal = ({ showLogin, setShowLogin }) => {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={values => console.log(values)}
+            onSubmit={onLogin}
           >
             {({
               handleSubmit,
