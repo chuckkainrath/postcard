@@ -38,6 +38,12 @@
     font-size: 1.1rem;
 }
 
+.error__signin {
+    color: red;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
 .button__disable {
     cursor: not-allowed;
 }

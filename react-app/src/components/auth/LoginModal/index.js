@@ -11,20 +11,31 @@ const LoginModal = ({ showLogin, setShowLogin }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
-  const [errors, setErrors] = useState([]);
+  const [error, setError] = useState('');
 
   const onLogin = async values => {
     const data = await dispatch(login(values.email, values.password));
     if (data.errors) {
-      setErrors(data.errors);
+      setError('The email and password combination is invalid.');
+      setTimeout(() => {
+        setError('');
+      }, 5000);
     }
   };
 
   const signInAsDemo = async () => {
     const data = await dispatch(login('demo@aa.io', 'password'))
     if (data.errors) {
-      setErrors(data.errors);
+      setError('There was an issue with Demo Login.  Please try again.');
+      setTimeout(() => {
+        setError('');
+      }, 5000);
     }
+  }
+
+  const hideLogin = () => {
+    setShowLogin(false);
+    setError('');
   }
 
   if (user) {
@@ -44,7 +55,7 @@ const LoginModal = ({ showLogin, setShowLogin }) => {
   return (
       <Modal
         show={showLogin}
-        onHide={() => setShowLogin(false)}
+        onHide={hideLogin}
         dialogClassName={styles.modal__login}
         centered
       >
@@ -66,11 +77,7 @@ const LoginModal = ({ showLogin, setShowLogin }) => {
             }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <h1>Login</h1>
-                <div>
-                  {errors.length > 0 && errors.map((error) => (
-                    <div>{error}</div>
-                  ))}
-                </div>
+                <div className={styles.error__signin}>{error}</div>
                 <Form.Group controlId="formEmail">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
