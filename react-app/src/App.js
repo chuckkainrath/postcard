@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import LoginForm from "./components/auth/LoginForm";
+import LoginModal from "./components/auth/LoginModal";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
 import Splash from './components/Splash';
@@ -35,9 +35,9 @@ function App() {
         <Route path="/" exact={true}>
           <Splash />
         </Route>
-        <Route path="/login" exact={true}>
-          <LoginForm />
-        </Route>
+        {/* <Route path="/login" exact={true}>
+          <LoginModal />
+        </Route> */}
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
