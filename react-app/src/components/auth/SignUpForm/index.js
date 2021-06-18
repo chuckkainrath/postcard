@@ -123,7 +123,7 @@ const SignUpForm = () => {
               {!picture &&
                 <div className={styles.picture_input__container}>
                   <label>Profile Picture (Optional)</label>
-                  <button onClick={() => setChoosingPicture(true)}>Choose a Photo</button>
+                  <Button onClick={() => setChoosingPicture(true)}>Choose a Photo</Button>
                 </div>
               }
               {picture &&
@@ -132,7 +132,7 @@ const SignUpForm = () => {
                     src={URL.createObjectURL(picture)}
                     className={styles.cropped__profile}
                   />
-                  <button onClick={() => setPicture()}>Delete Photo</button>
+                  <Button onClick={() => setPicture()}>Delete Photo</Button>
                 </div>
               }
               <Form.Group controlId="formPassword">
@@ -163,80 +163,20 @@ const SignUpForm = () => {
                 />
                 <ErrorMessage name="confirmPassword" component="span" className={styles.error__input} />
               </Form.Group>
+              <Button type="submit">Create Account</Button>
+              <div className={styles.other__options}>
+                <div>Have an account?
+                  <span className={styles.redirect} onClick={() => history.push('/login')}> Sign In </span>
+                </div>
+                <div>or login as a <span className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</span></div>
+              </div>
             </Form>
           )}
       </Formik>
-
-      {/* {!choosingPicture &&
-        <form className={styles.signup_form} onSubmit={onSignUp}>
-          <h1>Sign Up</h1>
-          <div className={styles.input__container}>
-            <label>User Name</label>
-            <input
-              type="text"
-              name="username"
-              onChange={updateUsername}
-              value={username}
-            ></input>
-          </div>
-          <div className={styles.input__container}>
-            <label>Email</label>
-            <input
-              type="text"
-              name="email"
-              onChange={updateEmail}
-              value={email}
-            ></input>
-          </div>
-          {!picture &&
-            <div className={styles.picture_input__container}>
-              <label>Profile Picture (Optional)</label>
-              <button onClick={() => setChoosingPicture(true)}>Choose a Photo</button>
-            </div>
-          }
-          {picture &&
-            <div className={styles.picture__container}>
-              <img
-                src={URL.createObjectURL(picture)}
-                className={styles.cropped__profile}
-              />
-              <button onClick={() => setPicture()}>Delete Photo</button>
-            </div>
-          }
-          <div className={styles.input__container}>
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              onChange={updatePassword}
-              value={password}
-            ></input>
-          </div>
-          <div className={styles.input__container}>
-            <label>Repeat Password</label>
-            <input
-              type="password"
-              name="repeat_password"
-              onChange={updateRepeatPassword}
-              value={repeatPassword}
-              required={true}
-            ></input>
-          </div>
-          <button className={styles.submit__btn} type="submit">Create Account</button>
-          <div className={styles.other__options}>
-            <div>Have an account?
-              <span className={styles.redirect} onClick={() => history.push('/login')}> Sign In </span>
-            </div>
-            <div>or login as a <span className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</span></div>
-          </div>
-        </form>
-      }
-      {choosingPicture &&
-        <div className={styles.picture__input}>
-          <label>Profile Picture (Optional)</label>
-          <AvatarInput setPicture={setPicture} setChoosingPicture={setChoosingPicture} />
-        </div>
-      } */}
+      <AvatarInput
+        setPicture={setPicture}
+        setChoosingPicture={setChoosingPicture}
+        choosingPicture={choosingPicture} />
     </div>
   );
 };
