@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { signUp, login } from '../../../store/session';
+import { Form, Button } from 'react-bootstrap';
+import { Formik, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import AvatarInput from './AvatarInput';
 import styles from './SignUpForm.module.css';
 
