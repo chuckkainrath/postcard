@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from "react-router-dom";
 import { Form, Button, Modal } from 'react-bootstrap';
-import { login } from "../../../store/session";
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { login } from "../../../store/session";
 import styles from './LoginModal.module.css';
 
 const LoginModal = ({ showLogin, setShowLogin }) => {
