@@ -69,7 +69,8 @@ const SignUpForm = () => {
     username: Yup.string().required('Username is required.'),
     email: Yup.string().email().required('Email is required.'),
     password: Yup.string().required('Password is required.'),
-    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match.')
+    confirmPassword: Yup.string().required('Confirm Password is required.')
+        .oneOf([Yup.ref('password'), null], 'Passwords must match.')
   });
 
   return (
@@ -90,7 +91,7 @@ const SignUpForm = () => {
             dirty
           }) => (
             <Form noValidate onSubmit={handleSubmit}>
-              <h1>Sign up</h1>
+              <h1 className={styles.signup__title}>Sign up</h1>
               <div className={styles.error__signin}>{}</div>
               <Form.Group controlId="formUsername">
                 <Form.Label>Username</Form.Label>
@@ -163,7 +164,12 @@ const SignUpForm = () => {
                 />
                 <ErrorMessage name="confirmPassword" component="span" className={styles.error__input} />
               </Form.Group>
-              <Button type="submit">Create Account</Button>
+              <Button
+                className={!(dirty && isValid) ? styles.button__disable : ""}
+                disabled={!(dirty && isValid)}
+                variant="primary"
+                type="submit">
+                  Create Account</Button>
               <div className={styles.other__options}>
                 <div>Have an account?
                   <span className={styles.redirect} onClick={() => history.push('/login')}> Sign In </span>

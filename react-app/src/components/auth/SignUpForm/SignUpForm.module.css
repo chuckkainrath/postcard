@@ -24,78 +24,21 @@
     background-color: white;
 }
 
-.signup_form {
-    width: fit-content;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.signup_form > button {
-    display: block;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.signup_form > div {
-    margin: 10px 0;
-}
-
-.signup_form h1 {
-    text-align: center;
-    font-size: 2.5rem;
-}
-
-.input__container {
-    width: 100%;
-    position: relative;
-}
-
-.input__container label {
-    display: block;
-    font-size: 1.4rem;
-    padding: 3px;
-}
-
-.input__container input {
-    font-family: 'KoHo';
-    font-size: 1.4rem;
-    padding: 3px;
-    width: 100%;
-}
-
-.picture_input__container label {
-    display: block;
-    font-size: 1.4rem;
-    font-family: 'KoHo';
-}
-
-.picture_input__container button {
-    font-family: 'KoHo';
+.signup_form__container label, .signup_form__container input {
     font-size: 1.2rem;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+}
+
+.signup__title {
+    text-align: center;
+    font-size: 3rem;
 }
 
 .redirect {
     cursor: pointer;
 }
 
-.submit__btn {
-    font-family: 'KoHo';
-    font-size: 1.2rem;
-    margin-top: 20px;
-}
-
 .other__options {
     text-align: center;
-}
-
-.picture__input {
-    text-align: center;
-    font-size: 1.5rem;
 }
 
 .picture__container {
@@ -113,4 +56,15 @@
 
 .redirect:hover {
     font-weight: bold;
+}
+
+.error__input {
+    color: red;
+    position: relative;
+    left: 1%;
+    font-size: 1.1rem;
+}
+
+.button__disable {
+    cursor: not-allowed;
 }
