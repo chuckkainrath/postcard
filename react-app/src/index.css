@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=KoHo:wght@200&display=swap');
 
-body {
+#root {
     margin: 0;
     padding: 0;
     background-color: #f3f4ed;

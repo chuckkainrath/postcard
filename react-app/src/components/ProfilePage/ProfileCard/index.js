@@ -52,7 +52,7 @@ function ProfileCard({ userProfile, photo }) {
                 <div
                     onClick={() => history.push(`/create-postcard/${photo.id}`)}
                     className={styles.photo__card_create}>
-                    <i class="fal fa-envelope"></i>
+                    <i title="Create a Postcard" class="fal fa-envelope"></i>
                 </div>
             </div>
                 <Modal

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { signUp, login } from '../../../store/session';
+import { Form, Button } from 'react-bootstrap';
+import { Formik, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import AvatarInput from './AvatarInput';
 import styles from './SignUpForm.module.css';
 
@@ -54,78 +57,138 @@ const SignUpForm = () => {
     return <Redirect to="/photos" />;
   }
 
+  const initialValues = {
+    username: '',
+    email: '',
+    password: '',
+    repeatPassword: '',
+    profileImage: null
+  }
+
+  const validationSchema = Yup.object().shape({
+    username: Yup.string().required('Username is required.'),
+    email: Yup.string().email().required('Email is required.'),
+    password: Yup.string().required('Password is required.'),
+    confirmPassword: Yup.string().required('Confirm Password is required.')
+        .oneOf([Yup.ref('password'), null], 'Passwords must match.')
+  });
+
   return (
-    <div className={styles.signup_form__container}>
-      {!choosingPicture &&
-        <form className={styles.signup_form} onSubmit={onSignUp}>
-          <h1>Sign Up</h1>
-          <div className={styles.input__container}>
-            <label>User Name</label>
-            <input
-              type="text"
-              name="username"
-              onChange={updateUsername}
-              value={username}
-            ></input>
-          </div>
-          <div className={styles.input__container}>
-            <label>Email</label>
-            <input
-              type="text"
-              name="email"
-              onChange={updateEmail}
-              value={email}
-            ></input>
-          </div>
-          {!picture &&
-            <div className={styles.picture_input__container}>
-              <label>Profile Picture (Optional)</label>
-              <button onClick={() => setChoosingPicture(true)}>Choose a Photo</button>
-            </div>
-          }
-          {picture &&
-            <div className={styles.picture__container}>
-              <img
-                src={URL.createObjectURL(picture)}
-                className={styles.cropped__profile}
-              />
-              <button onClick={() => setPicture()}>Delete Photo</button>
-            </div>
-          }
-          <div className={styles.input__container}>
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              onChange={updatePassword}
-              value={password}
-            ></input>
-          </div>
-          <div className={styles.input__container}>
-            <label>Repeat Password</label>
-            <input
-              type="password"
-              name="repeat_password"
-              onChange={updateRepeatPassword}
-              value={repeatPassword}
-              required={true}
-            ></input>
-          </div>
-          <button className={styles.submit__btn} type="submit">Create Account</button>
-          <div className={styles.other__options}>
-            <div>Have an account?
-              <span className={styles.redirect} onClick={() => history.push('/login')}> Sign In </span>
-            </div>
-            <div>or login as a <span className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</span></div>
-          </div>
-        </form>
-      }
-      {choosingPicture &&
-        <div className={styles.picture__input}>
-          <label>Profile Picture (Optional)</label>
-          <AvatarInput setPicture={setPicture} setChoosingPicture={setChoosingPicture} />
-        </div>
-      }
+    <div>
+      <div className={styles.postcard__title}>
+        
+      </div>
+      <div className={styles.signup_form__container}>
+        <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSignUp}
+          >
+            {({
+              handleSubmit,
+              handleChange,
+              handleBlur,
+              values,
+              touched,
+              isValid,
+              errors,
+              dirty
+            }) => (
+              <Form noValidate onSubmit={handleSubmit}>
+                <h1 className={styles.signup__title}>Sign up</h1>
+                <div className={styles.error__signin}>{}</div>
+                <Form.Group controlId="formUsername">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control
+                    required
+                    type="text"
+                    name="username"
+                    placeholder="Enter username"
+                    value={values.username}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isValid={touched.username && !errors.username}
+                  />
+                  <ErrorMessage name="username" component="span" className={styles.error__input} />
+                </Form.Group>
+                <Form.Group controlId="formEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    required
+                    type="email"
+                    name="email"
+                    placeholder="Enter email"
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isValid={touched.email && !errors.email}
+                  />
+                  <ErrorMessage name="email" component="span" className={styles.error__input} />
+                </Form.Group>
+                {!picture &&
+                  <div className={styles.picture_input__container}>
+                    <label>Profile Picture (Optional)</label>
+                    <Button onClick={() => setChoosingPicture(true)}>Choose a Photo</Button>
+                  </div>
+                }
+                {picture &&
+                  <div className={styles.picture__container}>
+                    <img
+                      src={URL.createObjectURL(picture)}
+                      className={styles.cropped__profile}
+                    />
+                    <Button onClick={() => setPicture()}>Delete Photo</Button>
+                  </div>
+                }
+                <Form.Group controlId="formPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    required
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isValid={touched.password && !errors.password}
+                  />
+                  <ErrorMessage name="password" component="span" className={styles.error__input} />
+                </Form.Group>
+                <Form.Group controlId="formConfirmPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    required
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    value={values.confirmPassword}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isValid={touched.confirmPassword && !errors.confirmPassword}
+                  />
+                  <ErrorMessage name="confirmPassword" component="span" className={styles.error__input} />
+                </Form.Group>
+                <Button
+                  className={!(dirty && isValid) ?
+                              `${styles.button__disable} ${styles.submit__btn}` : styles.submit__btn}
+                  disabled={!(dirty && isValid)}
+                  variant="primary"
+                  type="submit">
+                    Create Account</Button>
+                <div className={styles.other__options}>
+                  <div>Have an account?
+                    <a tabindex='0' className={styles.redirect} onClick={() => history.push('/login')}> Sign In </a>
+                  </div>
+                  <div>Or login as a <a tabindex='0' className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</a></div>
+                </div>
+              </Form>
+            )}
+        </Formik>
+        <AvatarInput
+          setPicture={setPicture}
+          setChoosingPicture={setChoosingPicture}
+          choosingPicture={choosingPicture} />
+      </div>
     </div>
   );
 };

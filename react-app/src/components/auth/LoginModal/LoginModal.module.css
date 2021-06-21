@@ -1,0 +1,49 @@
+.modal__login {
+    font-family: 'KoHo';
+    font-weight: bold;
+}
+
+.modal__login h1 {
+    text-align: center;
+    font-size: 3rem;
+}
+
+.modal__login label, .modal__login input {
+    font-size: 1.2rem;
+}
+
+.modal__login button {
+    display: block;
+    position: relative;
+    font-size: 1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.login__other_options {
+    font-size: 1.2rem;
+    margin-top: 5%;
+    text-align: center;
+}
+
+.redirect:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.error__input {
+    color: red;
+    position: relative;
+    left: 1%;
+    font-size: 1.1rem;
+}
+
+.error__signin {
+    color: red;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.button__disable {
+    cursor: not-allowed;
+}
