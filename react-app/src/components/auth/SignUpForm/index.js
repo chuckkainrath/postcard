@@ -74,115 +74,121 @@ const SignUpForm = () => {
   });
 
   return (
-    <div className={styles.signup_form__container}>
-      <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={onSignUp}
-        >
-          {({
-            handleSubmit,
-            handleChange,
-            handleBlur,
-            values,
-            touched,
-            isValid,
-            errors,
-            dirty
-          }) => (
-            <Form noValidate onSubmit={handleSubmit}>
-              <h1 className={styles.signup__title}>Sign up</h1>
-              <div className={styles.error__signin}>{}</div>
-              <Form.Group controlId="formUsername">
-                <Form.Label>Username</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  name="username"
-                  placeholder="Enter username"
-                  value={values.username}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  isValid={touched.username && !errors.username}
-                />
-                <ErrorMessage name="username" component="span" className={styles.error__input} />
-              </Form.Group>
-              <Form.Group controlId="formEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  required
-                  type="email"
-                  name="email"
-                  placeholder="Enter email"
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  isValid={touched.email && !errors.email}
-                />
-                <ErrorMessage name="email" component="span" className={styles.error__input} />
-              </Form.Group>
-              {!picture &&
-                <div className={styles.picture_input__container}>
-                  <label>Profile Picture (Optional)</label>
-                  <Button onClick={() => setChoosingPicture(true)}>Choose a Photo</Button>
-                </div>
-              }
-              {picture &&
-                <div className={styles.picture__container}>
-                  <img
-                    src={URL.createObjectURL(picture)}
-                    className={styles.cropped__profile}
+    <div>
+      <div className={styles.postcard__title}>
+        
+      </div>
+      <div className={styles.signup_form__container}>
+        <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSignUp}
+          >
+            {({
+              handleSubmit,
+              handleChange,
+              handleBlur,
+              values,
+              touched,
+              isValid,
+              errors,
+              dirty
+            }) => (
+              <Form noValidate onSubmit={handleSubmit}>
+                <h1 className={styles.signup__title}>Sign up</h1>
+                <div className={styles.error__signin}>{}</div>
+                <Form.Group controlId="formUsername">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control
+                    required
+                    type="text"
+                    name="username"
+                    placeholder="Enter username"
+                    value={values.username}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isValid={touched.username && !errors.username}
                   />
-                  <Button onClick={() => setPicture()}>Delete Photo</Button>
+                  <ErrorMessage name="username" component="span" className={styles.error__input} />
+                </Form.Group>
+                <Form.Group controlId="formEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    required
+                    type="email"
+                    name="email"
+                    placeholder="Enter email"
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isValid={touched.email && !errors.email}
+                  />
+                  <ErrorMessage name="email" component="span" className={styles.error__input} />
+                </Form.Group>
+                {!picture &&
+                  <div className={styles.picture_input__container}>
+                    <label>Profile Picture (Optional)</label>
+                    <Button onClick={() => setChoosingPicture(true)}>Choose a Photo</Button>
+                  </div>
+                }
+                {picture &&
+                  <div className={styles.picture__container}>
+                    <img
+                      src={URL.createObjectURL(picture)}
+                      className={styles.cropped__profile}
+                    />
+                    <Button onClick={() => setPicture()}>Delete Photo</Button>
+                  </div>
+                }
+                <Form.Group controlId="formPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    required
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isValid={touched.password && !errors.password}
+                  />
+                  <ErrorMessage name="password" component="span" className={styles.error__input} />
+                </Form.Group>
+                <Form.Group controlId="formConfirmPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    required
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirm Password"
+                    value={values.confirmPassword}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isValid={touched.confirmPassword && !errors.confirmPassword}
+                  />
+                  <ErrorMessage name="confirmPassword" component="span" className={styles.error__input} />
+                </Form.Group>
+                <Button
+                  className={!(dirty && isValid) ?
+                              `${styles.button__disable} ${styles.submit__btn}` : styles.submit__btn}
+                  disabled={!(dirty && isValid)}
+                  variant="primary"
+                  type="submit">
+                    Create Account</Button>
+                <div className={styles.other__options}>
+                  <div>Have an account?
+                    <a tabindex='0' className={styles.redirect} onClick={() => history.push('/login')}> Sign In </a>
+                  </div>
+                  <div>Or login as a <a tabindex='0' className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</a></div>
                 </div>
-              }
-              <Form.Group controlId="formPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  required
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  isValid={touched.password && !errors.password}
-                />
-                <ErrorMessage name="password" component="span" className={styles.error__input} />
-              </Form.Group>
-              <Form.Group controlId="formConfirmPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  required
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="Confirm Password"
-                  value={values.confirmPassword}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  isValid={touched.confirmPassword && !errors.confirmPassword}
-                />
-                <ErrorMessage name="confirmPassword" component="span" className={styles.error__input} />
-              </Form.Group>
-              <Button
-                className={!(dirty && isValid) ? styles.button__disable : ""}
-                disabled={!(dirty && isValid)}
-                variant="primary"
-                type="submit">
-                  Create Account</Button>
-              <div className={styles.other__options}>
-                <div>Have an account?
-                  <span className={styles.redirect} onClick={() => history.push('/login')}> Sign In </span>
-                </div>
-                <div>or login as a <span className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</span></div>
-              </div>
-            </Form>
-          )}
-      </Formik>
-      <AvatarInput
-        setPicture={setPicture}
-        setChoosingPicture={setChoosingPicture}
-        choosingPicture={choosingPicture} />
+              </Form>
+            )}
+        </Formik>
+        <AvatarInput
+          setPicture={setPicture}
+          setChoosingPicture={setChoosingPicture}
+          choosingPicture={choosingPicture} />
+      </div>
     </div>
   );
 };
