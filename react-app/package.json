@@ -9,8 +9,11 @@
     "bootstrap": "^4.6.0",
     "fabric": "^4.4.0",
     "file-saver": "^2.0.5",
+    "formik": "^2.2.9",
     "http-proxy-middleware": "^1.0.5",
+    "jquery": "^3.6.0",
     "konva": "^7.2.5",
+    "popper.js": "^1.16.1",
     "react": "^17.0.0",
     "react-avatar-editor": "^11.1.0",
     "react-bootstrap": "^1.6.0",
@@ -25,7 +28,8 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
-    "use-image": "^1.0.7"
+    "use-image": "^1.0.7",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",
