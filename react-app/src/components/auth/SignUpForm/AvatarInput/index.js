@@ -37,13 +37,14 @@ function AvatarInput({setPicture, setChoosingPicture, choosingPicture}) {
     }
 
     const cancelImage = () => {
+        setImageUrl('');
         setChoosingPicture(false);
     }
 
     return (
         <Modal
             show={choosingPicture}
-            onHide={() => setChoosingPicture(false)}
+            onHide={cancelImage}
             dialogClassName={styles.modal__profile_img}
             centered
         >
