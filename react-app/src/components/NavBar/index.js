@@ -37,54 +37,56 @@ const NavBar = () => {
   }
 
   return (
-    <nav>
-        {user &&
-          <ul className={styles.navbar__container}>
-            <li className={styles.navbar__welcome}>
-              <h1>Welcome, {user && user.username}</h1>
-            </li>
-            <li className={styles.navbar__main}>
-              <NavLink
-                to="/photos"
-                exact={true}
-                activeClassName="active"
-                className={styles.navbar__name}
-              >
-                <img className={styles.logo} src={postcardStamp} />
-                <span>Postacard</span>
-              </NavLink>
-            </li>
-            <li className={styles.navbar__right}>
-              <div>
+    <>
+      <nav className={styles.navbar}>
+          {user &&
+            <ul className={styles.navbar__container}>
+              <li className={styles.navbar__welcome}>
+                <h1>Welcome, {user && user.username}</h1>
+              </li>
+              <li className={styles.navbar__main}>
                 <NavLink
-                  to='/photo-upload'
+                  to="/photos"
                   exact={true}
                   activeClassName="active"
-                  className={styles.upload__icon}
+                  className={styles.navbar__name}
                 >
-                  <i class="far fa-file-upload"></i>
+                  <img className={styles.logo} src={postcardStamp} />
+                  <span>Postacard</span>
                 </NavLink>
-                <img
-                  className={styles.profile__icon}
-                  src={profileSrc}
-                  onClick={() => showProfileMenu(!profileMenu)}
-                />
-                <Modal
-                    show={profileMenu}
-                    onHide={() => showProfileMenu(false)}
-                    // dialogClassName={styles.modal__container}
-                >
-                  <div className={styles.profile__dropdown}>
-                      <li onClick={toProfile}>My Profile</li>
-                      <li onClick={onLogout}>Logout</li>
-                  </div>
-                </Modal>
-              </div>
-            </li>
-          </ul>
-        }
-        {!user && redirect}
-    </nav>
+              </li>
+              <li className={styles.navbar__right}>
+                <div>
+                  <NavLink
+                    to='/photo-upload'
+                    exact={true}
+                    activeClassName="active"
+                    className={styles.upload__icon}
+                  >
+                    <i class="far fa-file-upload"></i>
+                  </NavLink>
+                  <img
+                    className={styles.profile__icon}
+                    src={profileSrc}
+                    onClick={() => showProfileMenu(!profileMenu)}
+                  />
+                  <Modal
+                      show={profileMenu}
+                      onHide={() => showProfileMenu(false)}
+                      // dialogClassName={styles.modal__container}
+                  >
+                    <div className={styles.profile__dropdown}>
+                        <li onClick={toProfile}>My Profile</li>
+                        <li onClick={onLogout}>Logout</li>
+                    </div>
+                  </Modal>
+                </div>
+              </li>
+            </ul>
+          }
+      </nav>
+      {!user && redirect}
+    </>
   );
 }
 
