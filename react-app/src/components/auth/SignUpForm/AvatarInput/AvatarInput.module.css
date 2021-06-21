@@ -14,10 +14,12 @@
 
 .picture__input {
     height: 25vh;
+    cursor: pointer;
 }
 
 .picture__container {
     margin-top: 20px;
+    text-align: center;
 }
 
 .picture__container input {
@@ -49,4 +51,8 @@
     position: relative;
     top: 40%;
     transform: translateY(-50%);
+}
+
+.scale__slider * {
+    font-size: 1.5rem;
 }
