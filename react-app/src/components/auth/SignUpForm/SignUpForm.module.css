@@ -55,7 +55,8 @@
 }
 
 .redirect:hover {
-    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .error__input {
@@ -67,4 +68,18 @@
 
 .button__disable {
     cursor: not-allowed;
+}
+
+.submit__btn {
+    display: block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+}
+
+.other__options {
+    font-size: 1.2rem;
+    margin-top: 5%;
+    text-align: center;
 }
