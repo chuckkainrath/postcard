@@ -83,3 +83,12 @@
     margin-top: 5%;
     text-align: center;
 }
+
+.photo__select {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.picture_input__container {
+    margin-bottom: 20px;
+}

@@ -44,7 +44,7 @@ function AvatarInput({setPicture, setChoosingPicture, choosingPicture}) {
         <Modal
             show={choosingPicture}
             onHide={() => setChoosingPicture(false)}
-            // dialogClassName={styles.modal__profile_img}
+            dialogClassName={styles.modal__profile_img}
             centered
         >
             <Modal.Header>
