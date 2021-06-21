@@ -31,3 +31,8 @@
     margin-top: 20px;
     margin-bottom: 10px;
 }
+
+.modal__profile_img {
+    font-family: 'KoHo';
+    font-size: 1.4rem;
+}

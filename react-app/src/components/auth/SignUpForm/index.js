@@ -76,7 +76,7 @@ const SignUpForm = () => {
   return (
     <div>
       <div className={styles.postcard__title}>
-        
+
       </div>
       <div className={styles.signup_form__container}>
         <Formik
@@ -128,7 +128,7 @@ const SignUpForm = () => {
                 {!picture &&
                   <div className={styles.picture_input__container}>
                     <label>Profile Picture (Optional)</label>
-                    <Button onClick={() => setChoosingPicture(true)}>Choose a Photo</Button>
+                    <Button className={styles.photo__select} onClick={() => setChoosingPicture(true)}>Choose a Photo</Button>
                   </div>
                 }
                 {picture &&

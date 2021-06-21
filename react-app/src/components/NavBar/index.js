@@ -28,6 +28,14 @@ const NavBar = () => {
     history.push(`/profiles/${user.username}`);
   }
 
+  const redirect = () => {
+    if (history.length > 0) {
+      history.goBack();
+    } else {
+      history.push('/');
+    }
+  }
+
   return (
     <nav>
         {user &&
@@ -75,7 +83,7 @@ const NavBar = () => {
             </li>
           </ul>
         }
-        {!user && <Redirect to='/'/>}
+        {!user && redirect}
     </nav>
   );
 }
