@@ -75,8 +75,12 @@ ul {
 .upload__icon i {
     font-size: 2.4rem;
     margin-right: 20px;
-
 }
+
+.upload__icon:hover i {
+    color: black;
+}
+
 .profile__icon {
     width: 40px;
     height: 40px;
