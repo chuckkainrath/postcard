@@ -40,13 +40,14 @@ const NavBar = () => {
     <Tooltip id="upload-tooltip" {...props}>Upload an image</Tooltip>
   );
 
-
-
   useEffect(() => {
     const eventFunc = e => {
+      let profImg = document.getElementById('profileImg');
       let profDrpdwn = document.getElementById('profDrpDwn');
       if (profileMenu && profDrpdwn && !profDrpdwn.contains(e.target)) {
         showProfileMenu(false);
+      } else if (profImg.contains(e.target)) {
+        showProfileMenu(!profileMenu);
       }
     };
     document.addEventListener('click', eventFunc);
@@ -89,9 +90,10 @@ const NavBar = () => {
                     </OverlayTrigger>
                   </NavLink>
                   <img
+                    id='profileImg'
                     className={styles.profile__icon}
                     src={profileSrc}
-                    onClick={() => showProfileMenu(!profileMenu)}
+                    // onClick={profileClick}
                   />
                   {profileMenu &&
                     <div id='profDrpDwn' className={styles.profile__dropdown}>
