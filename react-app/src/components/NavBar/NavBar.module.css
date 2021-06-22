@@ -93,6 +93,10 @@ ul {
     box-shadow: 0 0 2px 2px gray;
 }
 
+.profile__icon:hover {
+    box-shadow: 0 0 2px 2px black;
+}
+
 .profile__dropdown {
     position: absolute;
     background-color: white;
