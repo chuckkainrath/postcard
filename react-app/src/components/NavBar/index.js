@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useHistory, Redirect } from 'react-router-dom';
 import { logout } from '../../store/session';
-import { Modal, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import styles from './NavBar.module.css';
 import blankProfile from '../MainPage/PhotoCard/blank-profile-img.png';
 import postcardStamp from '../../images/postcard-stamp.png';
@@ -40,6 +40,18 @@ const NavBar = () => {
     <Tooltip id="upload-tooltip" {...props}>Upload an image</Tooltip>
   );
 
+
+
+  useEffect(() => {
+    const eventFunc = e => {
+      let profDrpdwn = document.getElementById('profDrpDwn');
+      if (profileMenu && profDrpdwn && !profDrpdwn.contains(e.target)) {
+        showProfileMenu(false);
+      }
+    };
+    document.addEventListener('click', eventFunc);
+    return () => document.removeEventListener('click', eventFunc);
+  }, [profileMenu]);
 
   return (
     <>
@@ -81,16 +93,12 @@ const NavBar = () => {
                     src={profileSrc}
                     onClick={() => showProfileMenu(!profileMenu)}
                   />
-                  <Modal
-                      show={profileMenu}
-                      onHide={() => showProfileMenu(false)}
-                      // dialogClassName={styles.modal__container}
-                  >
-                    <div className={styles.profile__dropdown}>
+                  {profileMenu &&
+                    <div id='profDrpDwn' className={styles.profile__dropdown}>
                         <li onClick={toProfile}>My Profile</li>
                         <li onClick={onLogout}>Logout</li>
                     </div>
-                  </Modal>
+                  }
                 </div>
               </li>
             </ul>
