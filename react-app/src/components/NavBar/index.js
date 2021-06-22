@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useHistory, Redirect } from 'react-router-dom';
 import { logout } from '../../store/session';
-import Modal from 'react-bootstrap/Modal';
+import { Modal, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import styles from './NavBar.module.css';
 import blankProfile from '../MainPage/PhotoCard/blank-profile-img.png';
 import postcardStamp from '../../images/postcard-stamp.png';
@@ -36,6 +36,11 @@ const NavBar = () => {
     }
   }
 
+  const uploadTooltip = props => (
+    <Tooltip id="upload-tooltip" {...props}>Upload an image</Tooltip>
+  );
+
+
   return (
     <>
       <nav className={styles.navbar}>
@@ -63,7 +68,13 @@ const NavBar = () => {
                     activeClassName="active"
                     className={styles.upload__icon}
                   >
-                    <i class="far fa-file-upload"></i>
+                    <OverlayTrigger
+                      placement="left"
+                      delay={{ show: 250, hide: 250 }}
+                      overlay={uploadTooltip}
+                    >
+                      <i class="far fa-file-upload"></i>
+                    </OverlayTrigger>
                   </NavLink>
                   <img
                     className={styles.profile__icon}
