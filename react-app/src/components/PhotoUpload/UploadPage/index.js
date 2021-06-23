@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import { Modal, Button } from 'react-bootstrap';
 import AvatarEditor from 'react-avatar-editor';
@@ -12,7 +11,6 @@ const HEIGHT = 400;
 
 function UploadPage({uploadImage, showUploadImage}) {
     const dispatch = useDispatch();
-    const history = useHistory();
     const [imageUrl, setImageUrl] = useState();
     const [scale, setScale] = useState(1.2);
     const [editor, setEditor] = useState();
@@ -35,23 +33,30 @@ function UploadPage({uploadImage, showUploadImage}) {
             // Get image and convert to format for upload
             editor.getImage().toBlob(async blob => {
                 await dispatch(postPhoto(blob, privatePhoto));
-                history.push('/photos');
+                showUploadImage(false);
+                setImageUrl('');
+                setEditor(null);
+                setPrivatePhoto(false);
+                setImageUploaded(false);
             });
         }
     }
 
     const chooseDiff = () => {
         setImageUrl('');
+        setEditor(null);
+        setImageUploaded(false);
+        setPrivatePhoto(false);
     }
 
     return (
-        <Modal
-            show={uploadImage}
-            onHide={() => showUploadImage(false)}
-            centered
-        >
-            <div>
-                {!imageUrl &&
+        <>
+            {!imageUrl &&
+                <Modal
+                    show={uploadImage}
+                    onHide={() => showUploadImage(false)}
+                    centered
+                >
                     <div className={styles.image__select} {...getRootProps()}>
                         <input {...getInputProps()} />
                         { isDragActive ?
@@ -59,8 +64,15 @@ function UploadPage({uploadImage, showUploadImage}) {
                             <p className={styles.upload__msg}>Drag 'n' drop a file here, <br /> or click to select files</p>
                         }
                     </div>
-                }
-                {imageUrl &&
+                </Modal>
+            }
+            {imageUrl &&
+                <Modal
+                    show={uploadImage}
+                    onHide={() => showUploadImage(false)}
+                    dialogClassName={styles.modal__image_edit}
+                    centered
+                >
                     <div className={styles.image__crop}>
                         <AvatarEditor
                             image={imageUrl}
@@ -92,13 +104,15 @@ function UploadPage({uploadImage, showUploadImage}) {
                                 onChange={() => setPrivatePhoto(!privatePhoto)}
                             />
                         </div>
-                        <Button disabled={imageUploaded} onClick={uploadPhoto}>Upload Photo</Button>
-                        <Button onClick={chooseDiff}>Choose a Different Photo</Button>
-                        <Button onClick={() => showUploadImage(false)}>Cancel</Button>
+                        <Modal.Footer>
+                            <Button disabled={imageUploaded} onClick={uploadPhoto}>Upload Photo</Button>
+                            <Button onClick={chooseDiff}>'Select a Different Photo'</Button>
+                            <Button onClick={() => showUploadImage(false)}>Cancel</Button>
+                        </Modal.Footer>
                     </div>
-                }
-            </div>
-        </Modal>
+                </Modal>
+            }
+        </>
     )
 }
 
