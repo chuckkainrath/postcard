@@ -30,27 +30,29 @@ function PhotoCard({ photo }) {
                 onClick={() => history.push(`/profiles/${photo.username}`)}
             />
             <div className={styles.photo__options}>
-                <img
-                    className={styles.photo__user_profile}
-                    src={profileSrc}
-                    onClick={() => history.push(`/profiles/${photo.username}`)}
-                />
-                {photo.user_id !== user.id &&
-                    <div
-                        onClick={toggleLike}
-                        className={styles.photo__heart}>
-                        {liked &&
-                            <i class="fas fa-heart"></i>
-                        }
-                        {!liked &&
-                            <i class="fal fa-heart"></i>
-                        }
-                    </div>
-                }
+                <div className={styles.left__container}>
+                    <img
+                        className={styles.photo__user_profile}
+                        src={profileSrc}
+                        onClick={() => history.push(`/profiles/${photo.username}`)}
+                    />
+                    {photo.user_id !== user.id &&
+                        <div
+                            onClick={toggleLike}
+                            className={styles.photo__heart}>
+                            {liked &&
+                                <i class="fas fa-heart"></i>
+                            }
+                            {!liked &&
+                                <i class="fal fa-heart"></i>
+                            }
+                        </div>
+                    }
+                </div>
                 <div
                     onClick={() => history.push(`/create-postcard/${photo.id}`)}
                     className={styles.photo__card_create}>
-                    <i title="Create a Postcard" class="fal fa-envelope"></i>
+                    <i class={"fal fa-envelope"}></i>
                 </div>
             </div>
         </div>
