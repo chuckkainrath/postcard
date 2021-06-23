@@ -27,7 +27,11 @@
 }
 
 .image__crop {
-    /* height: 50vh; */
+    width: 60vw !important;
+}
+
+.modal__image_edit {
+    width: 60vw !important;
     background-color: black;
-    
+
 }
