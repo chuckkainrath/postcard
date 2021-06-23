@@ -7,3 +7,27 @@
     left: 50%;
     transform: translateX(-50%);
 }
+
+.image__select {
+    height: 30vh;
+}
+
+.upload__msg {
+    height: 30vh;
+    width: 100%;
+    padding: 10vh 0;
+    font-family: 'KoHo';
+    font-size: 2rem;
+    text-align: center;
+    place-self: center;
+}
+
+.upload__msg:hover {
+    cursor: pointer;
+}
+
+.image__crop {
+    /* height: 50vh; */
+    background-color: black;
+    
+}
