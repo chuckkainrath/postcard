@@ -45,17 +45,19 @@ const NavBar = () => {
 
   useEffect(() => {
     const eventFunc = e => {
-      let profImg = document.getElementById('profileImg');
-      let profDrpdwn = document.getElementById('profDrpDwn');
-      if (profileMenu && profDrpdwn && !profDrpdwn.contains(e.target)) {
-        showProfileMenu(false);
-      } else if (profImg.contains(e.target)) {
-        showProfileMenu(!profileMenu);
+      if (user) {
+        let profImg = document.getElementById('profileImg');
+        let profDrpdwn = document.getElementById('profDrpDwn');
+        if (profileMenu && profDrpdwn && !profDrpdwn.contains(e.target)) {
+          showProfileMenu(false);
+        } else if (profImg.contains(e.target)) {
+          showProfileMenu(!profileMenu);
+        }
       }
     };
     document.addEventListener('click', eventFunc);
     return () => document.removeEventListener('click', eventFunc);
-  }, [profileMenu]);
+  }, [profileMenu, user]);
 
   return (
     <>

@@ -1,7 +1,7 @@
 .photo__card {
     position: relative;
     margin: 30px 30px;
-    height: 350px;
+    height: auto;
     padding: 5px;
     box-shadow: 0 0 2px 1px rgb(112, 112, 112);
     border-radius: 5px;
@@ -10,7 +10,7 @@
 
 .photo__img {
     display: block;
-    width: 400px;
+    width: 100%;
     height: auto;
     max-height: 275px;
 }

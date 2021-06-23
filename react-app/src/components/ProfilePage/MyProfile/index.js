@@ -147,44 +147,60 @@ function MyProfile() {
             </div>
             <div className={styles.center__container}>
                 {category === 'photo-public' &&
-                    <div className={styles.photos__container}>
-                        {publicPhotos && publicPhotos.map(photo => (
-                            <ProfileCard userProfile={true} key={photo.id} photo={photo} />
-                        ))}
-                        {!publicPhotos &&
-                            <h1>You don't have any public images!</h1>
+                    <>
+                        {publicPhotos &&
+                            <div className={styles.photos__container}>
+                                {publicPhotos.map(photo => (
+                                    <ProfileCard userProfile={true} key={photo.id} photo={photo} />
+                                ))}
+                            </div>
                         }
-                    </div>
+                        {!publicPhotos &&
+                            <h1 className={styles.no_photo}>You don't have any public images!</h1>
+                        }
+                    </>
                 }
                 {category === 'photo-private' &&
-                    <div className={styles.photos__container}>
-                        {privatePhotos && privatePhotos.map(photo => (
-                            <ProfileCard userProfile={true} key={photo.id} photo={photo} />
-                        ))}
-                        {!privatePhotos &&
-                            <h1>You don't have any private images!</h1>
+                    <>
+                        {privatePhotos &&
+                            <div className={styles.photos__container}>
+                                {privatePhotos.map(photo => (
+                                    <ProfileCard userProfile={true} key={photo.id} photo={photo} />
+                                ))}
+                            </div>
                         }
-                    </div>
+                        {!privatePhotos &&
+                            <h1 className={styles.no_photo}>You don't have any private images!</h1>
+                        }
+                    </>
                 }
                 {category === 'liked-photos' &&
-                    <div className={styles.photos__container}>
-                        {likedPhotos && likedPhotos.map(photo => (
-                            <PhotoCard userProfile={false} key={photo.id} photo={photo} />
-                        ))}
-                        {!likedPhotos &&
-                            <h1>You don't have any liked photos!</h1>
+                    <>
+                        {likedPhotos &&
+                            <div className={styles.photos__container}>
+                                {likedPhotos.map(photo => (
+                                    <PhotoCard userProfile={false} key={photo.id} photo={photo} />
+                                ))}
+                            </div>
                         }
-                    </div>
+                        {!likedPhotos &&
+                            <h1 className={styles.no_photo}>You don't have any liked photos!</h1>
+                        }
+                    </>
                 }
                 {category === 'postcards' &&
-                    <div className={styles.photos__container}>
-                        {postcards && Object.keys(postcards).map((key, idx) => (
-                            <PostcardCard cards={postcards[key]} key={idx} />
-                        ))}
-                        {!postcards &&
-                            <h1>You don't have any postcards!</h1>
+                    <>
+                        {postcards &&
+                            <div className={styles.photos__container}>
+                                {Object.keys(postcards).map((key, idx) => (
+                                    <PostcardCard cards={postcards[key]} key={idx} />
+                                ))}
+                            </div>
                         }
-                    </div>
+                        {!postcards &&
+                            <h1 className={styles.no_photo}>You don't have any postcards!</h1>
+                        }
+                    </>
                 }
             </div>
             <div className={styles.left__container}>
