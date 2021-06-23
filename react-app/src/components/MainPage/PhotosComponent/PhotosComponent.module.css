@@ -2,12 +2,6 @@
     position: relative;
     width: 80%;
     left: 10%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
-
-/* .card__container::after {
-    content: '';
-    flex: auto;
-} */
