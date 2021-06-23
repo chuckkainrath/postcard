@@ -13,20 +13,20 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(state => state.session.user);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [picture, setPicture] = useState(null);
-  const [repeatPassword, setRepeatPassword] = useState("");
   const [choosingPicture, setChoosingPicture] = useState(false);
-  const [errors, setErrors] = useState([]);
+  const [error, setError] = useState([]);
 
-  const onSignUp = async (e) => {
-    e.preventDefault();
-    if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password, picture));
-      if (data && data.errors) {
-        setErrors(data.errors);
+  const onSignUp = async values => {
+    if (values.password === values.repeatPassword) {
+      console.log('hereere');
+      const data = await dispatch(
+        signUp(values.username, values.email, values.password, picture));
+      if (data.errors) {
+        setError('.......');
+        setTimeout(() => {
+          setError('');
+        }, 5000);
       }
     }
   };
@@ -34,25 +34,9 @@ const SignUpForm = () => {
   const signInAsDemo = async () => {
     const data = await dispatch(login('demo@aa.io', 'password'))
     if (data.errors) {
-      setErrors(data.errors);
+      setError(data.errors);
     }
   }
-
-  const updateUsername = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const updatePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const updateRepeatPassword = (e) => {
-    setRepeatPassword(e.target.value);
-  };
 
   if (user) {
     return <Redirect to="/photos" />;
@@ -62,7 +46,7 @@ const SignUpForm = () => {
     username: '',
     email: '',
     password: '',
-    repeatPassword: '',
+    confirmPassword: '',
     profileImage: null
   }
 
@@ -98,7 +82,7 @@ const SignUpForm = () => {
             }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <h1 className={styles.signup__title}>Sign up</h1>
-                <div className={styles.error__signin}>{}</div>
+                <div className={styles.error__signin}>{error}</div>
                 <Form.Group controlId="formUsername">
                   <Form.Label>Username</Form.Label>
                   <Form.Control
@@ -157,7 +141,7 @@ const SignUpForm = () => {
                   <ErrorMessage name="password" component="span" className={styles.error__input} />
                 </Form.Group>
                 <Form.Group controlId="formConfirmPassword">
-                  <Form.Label>Password</Form.Label>
+                  <Form.Label>Confirm Password</Form.Label>
                   <Form.Control
                     required
                     type="password"
