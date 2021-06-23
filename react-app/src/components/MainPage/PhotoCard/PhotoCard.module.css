@@ -14,10 +14,14 @@
 }
 
 .photo__img {
-    display: block;
+    display: inline-block;
     width: 400px;
+    position: relative;
     height: auto;
     max-height: 275px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 3px;
 }
 
 .photo__options {
