@@ -31,14 +31,6 @@ const NavBar = () => {
     history.push(`/profiles/${user.username}`);
   }
 
-  const redirect = () => {
-    if (history.length > 0) {
-      history.goBack();
-    } else {
-      history.push('/');
-    }
-  }
-
   const uploadTooltip = props => (
     <Tooltip id="upload-tooltip" {...props}>Upload an image</Tooltip>
   );
@@ -59,62 +51,61 @@ const NavBar = () => {
     return () => document.removeEventListener('click', eventFunc);
   }, [profileMenu, user]);
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <>
-      {user &&
-        <>
-          <nav className={styles.navbar}>
-            <ul className={styles.navbar__container}>
-              <li className={styles.navbar__welcome}>
-                <h1>Welcome, {user && user.username}</h1>
-              </li>
-              <li className={styles.navbar__main}>
-                <NavLink
-                  to="/photos"
-                  exact={true}
-                  activeClassName="active"
-                  className={styles.navbar__name}
+      <nav className={styles.navbar}>
+        <ul className={styles.navbar__container}>
+          <li className={styles.navbar__welcome}>
+            <h1>Welcome, {user && user.username}</h1>
+          </li>
+          <li className={styles.navbar__main}>
+            <NavLink
+              to="/photos"
+              exact={true}
+              activeClassName="active"
+              className={styles.navbar__name}
+            >
+              <img className={styles.logo} src={postcardStamp} />
+              <span>Postacard</span>
+            </NavLink>
+          </li>
+          <li className={styles.navbar__right}>
+            <div>
+              <div
+                className={styles.upload__icon}
+                onClick={() => showUploadPhoto(!uploadPhoto)}
+              >
+                <OverlayTrigger
+                  placement="left"
+                  delay={{ show: 250, hide: 250 }}
+                  overlay={uploadTooltip}
                 >
-                  <img className={styles.logo} src={postcardStamp} />
-                  <span>Postacard</span>
-                </NavLink>
-              </li>
-              <li className={styles.navbar__right}>
-                <div>
-                  <div
-                    className={styles.upload__icon}
-                    onClick={() => showUploadPhoto(!uploadPhoto)}
-                  >
-                    <OverlayTrigger
-                      placement="left"
-                      delay={{ show: 250, hide: 250 }}
-                      overlay={uploadTooltip}
-                    >
-                      <i class="far fa-file-upload"></i>
-                    </OverlayTrigger>
-                  </div>
-                  <img
-                    id='profileImg'
-                    className={styles.profile__icon}
-                    src={profileSrc}
-                  />
-                  {profileMenu &&
-                    <div id='profDrpDwn' className={styles.profile__dropdown}>
-                        <li onClick={toProfile}>My Profile</li>
-                        <li onClick={onLogout}>Logout</li>
-                    </div>
-                  }
+                  <i class="far fa-file-upload"></i>
+                </OverlayTrigger>
+              </div>
+              <img
+                id='profileImg'
+                className={styles.profile__icon}
+                src={profileSrc}
+              />
+              {profileMenu &&
+                <div id='profDrpDwn' className={styles.profile__dropdown}>
+                    <li onClick={toProfile}>My Profile</li>
+                    <li onClick={onLogout}>Logout</li>
                 </div>
-              </li>
-            </ul>
-          </nav>
-          <PhotoUpload
-            uploadImage={uploadPhoto}
-            showUploadImage={showUploadPhoto}
-          />
-        </>
-      }
-      {!user && redirect}
+              }
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <PhotoUpload
+        uploadImage={uploadPhoto}
+        showUploadImage={showUploadPhoto}
+      />
     </>
   );
 }
