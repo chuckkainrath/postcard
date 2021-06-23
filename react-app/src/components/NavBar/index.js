@@ -61,8 +61,9 @@ const NavBar = () => {
 
   return (
     <>
-      <nav className={styles.navbar}>
-          {user &&
+      {user &&
+        <>
+          <nav className={styles.navbar}>
             <ul className={styles.navbar__container}>
               <li className={styles.navbar__welcome}>
                 <h1>Welcome, {user && user.username}</h1>
@@ -106,13 +107,14 @@ const NavBar = () => {
                 </div>
               </li>
             </ul>
-          }
-      </nav>
+          </nav>
+          <PhotoUpload
+            uploadImage={uploadPhoto}
+            showUploadImage={showUploadPhoto}
+          />
+        </>
+      }
       {!user && redirect}
-      <PhotoUpload
-        uploadImage={uploadPhoto}
-        showUploadImage={showUploadPhoto}
-      />
     </>
   );
 }

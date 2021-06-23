@@ -179,9 +179,9 @@ const SignUpForm = () => {
                     Create Account</Button>
                 <div className={styles.other__options}>
                   <div>Have an account?
-                    <a tabindex='0' className={styles.redirect} onClick={() => history.push('/login')}> Sign In </a>
+                    <a tabIndex='0' className={styles.redirect} onClick={() => history.push('/login')}> Sign In </a>
                   </div>
-                  <div>Or login as a <a tabindex='0' className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</a></div>
+                  <div>Or login as a <a tabIndex='0' className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</a></div>
                 </div>
               </Form>
             )}
