@@ -18,8 +18,7 @@ const SignUpForm = () => {
   const [error, setError] = useState([]);
 
   const onSignUp = async values => {
-    if (values.password === values.repeatPassword) {
-      console.log('hereere');
+    if (values.password === values.confirmPassword) {
       const data = await dispatch(
         signUp(values.username, values.email, values.password, picture));
       if (data.errors) {
