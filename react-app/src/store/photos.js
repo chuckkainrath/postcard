@@ -55,6 +55,7 @@ export const postPhoto = (photo, pvtPhoto) => async dispatch => {
         return;
     }
     dispatch(postPhotoAction(data.photo))
+    return data.photo;
 }
 
 export const likePhoto = photoId => async dispatch => {
