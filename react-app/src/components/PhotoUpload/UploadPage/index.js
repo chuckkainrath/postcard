@@ -70,10 +70,10 @@ function UploadPage({uploadImage, showUploadImage}) {
                 <Modal
                     show={uploadImage}
                     onHide={() => showUploadImage(false)}
-                    dialogClassName={styles.modal__image_edit}
+                    className={styles.modal__image_edit}
                     centered
                 >
-                    <div className={styles.image__crop}>
+                    <Modal.Body className={styles.image__crop}>
                         <AvatarEditor
                             image={imageUrl}
                             width={WIDTH}
@@ -85,8 +85,8 @@ function UploadPage({uploadImage, showUploadImage}) {
                             rotate={0}
                             ref={(e) => setEditor(e)}
                         />
-                        <div>
-                            <label>Scale</label>
+                        <div className={`${styles.edit__input} ${styles.edit__first}`}>
+                            <label>Scale:</label>
                             <input
                                 type='range'
                                 step='0.1'
@@ -96,20 +96,21 @@ function UploadPage({uploadImage, showUploadImage}) {
                                 onChange={(e) => setScale(parseFloat(e.target.value))}
                             />
                         </div>
-                        <div>
-                            <label>Make Photo Private</label>
+                        <div className={styles.edit__input}>
+                            <label for='privatePhoto'>Private:</label>
                             <input
+                                id='privatePhoto'
                                 type='checkbox'
                                 checked={privatePhoto}
                                 onChange={() => setPrivatePhoto(!privatePhoto)}
                             />
                         </div>
-                        <Modal.Footer>
+                        <div className={styles.buttons}>
                             <Button disabled={imageUploaded} onClick={uploadPhoto}>Upload Photo</Button>
                             <Button onClick={chooseDiff}>Select a Different Photo</Button>
                             <Button onClick={() => showUploadImage(false)}>Cancel</Button>
-                        </Modal.Footer>
-                    </div>
+                        </div>
+                    </Modal.Body>
                 </Modal>
             }
         </>
