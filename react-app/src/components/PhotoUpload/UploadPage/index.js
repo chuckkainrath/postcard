@@ -4,6 +4,7 @@ import { useDropzone } from 'react-dropzone';
 import { Modal, Button } from 'react-bootstrap';
 import AvatarEditor from 'react-avatar-editor';
 import { postPhoto } from '../../../store/photos';
+import { addPicture } from '../../../store/profile';
 import styles from './UploadPage.module.css';
 
 const WIDTH = 600;
@@ -32,7 +33,8 @@ function UploadPage({uploadImage, showUploadImage}) {
             setImageUploaded(true);
             // Get image and convert to format for upload
             editor.getImage().toBlob(async blob => {
-                await dispatch(postPhoto(blob, privatePhoto));
+                let photo = await dispatch(postPhoto(blob, privatePhoto));
+                dispatch(addPicture(photo));
                 showUploadImage(false);
                 setImageUrl('');
                 setEditor(null);
