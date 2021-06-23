@@ -106,7 +106,7 @@ function UploadPage({uploadImage, showUploadImage}) {
                         </div>
                         <Modal.Footer>
                             <Button disabled={imageUploaded} onClick={uploadPhoto}>Upload Photo</Button>
-                            <Button onClick={chooseDiff}>'Select a Different Photo'</Button>
+                            <Button onClick={chooseDiff}>Select a Different Photo</Button>
                             <Button onClick={() => showUploadImage(false)}>Cancel</Button>
                         </Modal.Footer>
                     </div>
