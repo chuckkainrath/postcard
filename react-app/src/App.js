@@ -35,17 +35,11 @@ function App() {
         <Route path="/" exact={true}>
           <Splash />
         </Route>
-        {/* <Route path="/login" exact={true}>
-          <LoginModal />
-        </Route> */}
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
         <ProtectedRoute path="/photos" exact={true}>
           <PhotosComponent />
-        </ProtectedRoute>
-        <ProtectedRoute path="/photo-upload" exact={true}>
-          <UploadPage />
         </ProtectedRoute>
         <ProtectedRoute path="/create-postcard/:photoId" exact={true}>
           <PostCard />

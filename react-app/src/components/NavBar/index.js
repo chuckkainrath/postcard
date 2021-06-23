@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useHistory, Redirect } from 'react-router-dom';
 import { logout } from '../../store/session';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import PhotoUpload from '../PhotoUpload/UploadPage';
 import styles from './NavBar.module.css';
 import blankProfile from '../MainPage/PhotoCard/blank-profile-img.png';
 import postcardStamp from '../../images/postcard-stamp.png';
@@ -11,6 +12,8 @@ const NavBar = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
+  const [uploadPhoto, showUploadPhoto] = useState(false);
+
   let profileSrc;
   if (user) {
     profileSrc = user.profile_img_url ? user.profile_img_url : blankProfile;
@@ -75,11 +78,9 @@ const NavBar = () => {
               </li>
               <li className={styles.navbar__right}>
                 <div>
-                  <NavLink
-                    to='/photo-upload'
-                    exact={true}
-                    activeClassName="active"
+                  <div
                     className={styles.upload__icon}
+                    onClick={() => showUploadPhoto(!uploadPhoto)}
                   >
                     <OverlayTrigger
                       placement="left"
@@ -88,12 +89,11 @@ const NavBar = () => {
                     >
                       <i class="far fa-file-upload"></i>
                     </OverlayTrigger>
-                  </NavLink>
+                  </div>
                   <img
                     id='profileImg'
                     className={styles.profile__icon}
                     src={profileSrc}
-                    // onClick={profileClick}
                   />
                   {profileMenu &&
                     <div id='profDrpDwn' className={styles.profile__dropdown}>
@@ -107,6 +107,10 @@ const NavBar = () => {
           }
       </nav>
       {!user && redirect}
+      <PhotoUpload
+        uploadImage={uploadPhoto}
+        showUploadImage={showUploadPhoto}
+      />
     </>
   );
 }
