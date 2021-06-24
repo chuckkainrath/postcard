@@ -19,11 +19,11 @@ const SignUpForm = () => {
 
   const onSignUp = async values => {
     if (values.password === values.confirmPassword) {
-      const data = await dispatch(
+      const errors = await dispatch(
         signUp(values.username, values.email, values.password, picture));
-      if (data.errors) {
-        console.log(data.errors);
-        setError('.......');
+      if (errors) {
+        console.log(errors);
+        setError(errors);
         setTimeout(() => {
           setError('');
         }, 5000);
@@ -82,7 +82,11 @@ const SignUpForm = () => {
             }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <h1 className={styles.signup__title}>Sign up</h1>
-                <div className={styles.error__signin}>{error}</div>
+                <div className={styles.error__signin}>
+                  {error && Object.values(error).map(err => (
+                    <h4>{err}</h4>
+                  ))}
+                </div>
                 <Form.Group controlId="formUsername">
                   <Form.Label>Username</Form.Label>
                   <Form.Control
