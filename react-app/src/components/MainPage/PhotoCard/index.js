@@ -32,7 +32,7 @@ function PhotoCard({ photo }) {
     );
 
     const photoTooltip = props => (
-    <Tooltip id="photo-tooltip" {...props}>Create a Postcard</Tooltip>
+        <Tooltip id="photo-tooltip" {...props}>Create a Postcard</Tooltip>
     );
 
     return (
