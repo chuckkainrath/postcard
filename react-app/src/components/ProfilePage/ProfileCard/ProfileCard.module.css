@@ -8,6 +8,10 @@
     background-color: white;
 }
 
+.photo__card:hover {
+    box-shadow: 0 0 2px 2px gray;
+}
+
 .photo__img {
     display: block;
     width: 100%;
