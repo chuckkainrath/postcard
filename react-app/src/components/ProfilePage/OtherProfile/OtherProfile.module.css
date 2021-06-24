@@ -17,29 +17,25 @@
 
 .profile__header {
     text-align: center;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .profile__header img {
     width: 60px;
-    display: inline-block;
     border-radius: 50%;
-    position: relative;
-    right: 30px;
 }
 
 .profile__header span {
     display: inline-block;
-    position: relative;
-    bottom: 10px;
-    right: 20px;
     font-size: 3rem;
     margin-left: 20px;
 }
 
 .follow__btn {
     display: inline-block;
-    position: relative;
-    bottom: 20px;
-    left: 10px;
+    margin-left: 20px;
     font-size: 1.2rem;
 }
