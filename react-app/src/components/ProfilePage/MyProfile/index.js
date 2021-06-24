@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import styles from './MyProfile.module.css';
 import ProfileCard from '../ProfileCard';
 import PhotoCard from '../../MainPage/PhotoCard';
@@ -216,7 +217,7 @@ function MyProfile() {
                                     <img onClick={() => history.push(`/profiles/${follow.username}`)} className={styles.follow__profile_img} src={blankProfile}/>
                                 }
                                 <span className={styles.follow__name} onClick={() => history.push(`/profiles/${follow.username}`)} key={follow.id}>{follow.username}</span>
-                                <button className={styles.unfollow} onClick={() => unfollow(follow)}>Unfollow</button>
+                                <Button className={styles.unfollow} onClick={() => unfollow(follow)}>Unfollow</Button>
                             </div>
                         )
                     })}
