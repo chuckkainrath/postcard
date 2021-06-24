@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addFollow, deleteFollow } from '../../../store/followers';
+import { Button } from 'react-bootstrap';
 import ProfileCard from '../ProfileCard';
 import styles from './OtherProfile.module.css';
 import blankProfile from '../../MainPage/PhotoCard/blank-profile-img.png';
@@ -44,10 +45,10 @@ function OtherProfile() {
                     }
                     <span>{profile.username}'s Profile</span>
                     {following &&
-                        <button className={styles.follow__btn} onClick={unfollow}>Unfollow</button>
+                        <Button className={styles.follow__btn} onClick={unfollow}>Unfollow</Button>
                     }
                     {!following &&
-                        <button className={styles.follow__btn} onClick={follow}>Follow</button>
+                        <Button className={styles.follow__btn} onClick={follow}>Follow</Button>
                     }
                 </div>
             }

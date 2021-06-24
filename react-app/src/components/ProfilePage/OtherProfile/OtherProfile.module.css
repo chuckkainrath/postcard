@@ -10,9 +10,9 @@
 }
 
 .photos__container {
-    display: flex;
+    display: grid;
     width: 100%;
-    flex-wrap: wrap;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .profile__header {
