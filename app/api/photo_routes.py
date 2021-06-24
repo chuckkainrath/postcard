@@ -71,7 +71,11 @@ def post_photo():
     )
     db.session.add(photo)
     db.session.commit()
-    return { 'photo': photo.to_dict() }
+    photo_dict = photo.to_dict()
+    photo_dict['username'] = current_user.username
+    photo_dict['profile_img_url'] = current_user.profile_img_url
+    photo_dict['liked'] = None
+    return { 'photo': photo_dict }
 
 
 @photo_routes.route('/<int:photo_id>', methods=['DELETE'])

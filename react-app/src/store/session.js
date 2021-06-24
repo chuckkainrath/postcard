@@ -70,11 +70,14 @@ export const authenticate = () => async dispatch => {
     });
     const data = await response.json();
     if (data.errors) {
-      console.log(data.errors);
-      return data.errors;
+      let errors = [];
+      data.errors.forEach(err => {
+        let errArr = err.split(':')
+        errors.push(errArr[1]);
+      })
+      return errors;
     }
     dispatch(setUser(data));
-    return data;
   }
 
 const initialState = {

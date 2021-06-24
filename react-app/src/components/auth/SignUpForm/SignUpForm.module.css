@@ -113,3 +113,8 @@
     height: auto;
     margin-right: 10px;
 }
+
+.error__signin {
+    font-size: 2rem;
+    color: red;
+}
