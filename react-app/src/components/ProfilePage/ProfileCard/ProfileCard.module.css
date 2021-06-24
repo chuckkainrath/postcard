@@ -30,6 +30,11 @@
     color: rgb(164, 187, 183);
 }
 
+.photo__card_create:hover i {
+    font-size: 3.2rem;
+    right: 2px;
+}
+
 .delete_popup {
     position: fixed;
     top: 50%;
@@ -45,6 +50,10 @@
     font-size: 2.5rem;
     margin-left: 5px;
     color: rgb(164, 187, 183);
+}
+
+.photo__delete:hover i {
+    font-size: 2.7rem;
 }
 
 .photo__heart {
