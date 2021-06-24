@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal'
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import { Button } from 'react-bootstrap'
 import { deletePostcards, deletePostcard } from '../../../store/postcards';
 import { saveAs } from 'file-saver';
 import styles from './PostcardCard.module.css';
@@ -51,8 +52,8 @@ function ProfileCard({ cards }) {
             />
             <div className={styles.postcard__options}>
                 <span className={styles.delete__card} onClick={() => setDeleteConfirm(true)}><i class="fas fa-trash"></i></span>
-                <button className={styles.reuse} onClick={reuseCard}>Reuse Card</button>
-                <button className={styles.view__msgs} onClick={() => setShowBack(true)}>Show Messages</button>
+                <Button className={styles.reuse} onClick={reuseCard}>Reuse Card</Button>
+                <Button className={styles.view__msgs} onClick={() => setShowBack(true)}>Show Messages</Button>
                 <Modal
                     show={showBack}
                     onHide={() => setShowBack(false)}
