@@ -50,10 +50,6 @@
     background-color: rgb(164, 187, 183);
 }
 
-.modal__title {
-    text-align: center;
-}
-
 .modal__close {
     cursor: pointer;
     position: absolute;
@@ -70,9 +66,7 @@
 }
 
 .modal__delete, .modal__download {
-    font-size: 2rem;
-    color: rgb(164, 187, 183);
-    cursor: pointer;
+    font-family: 'KoHo';
 }
 
 .modal__download {
@@ -86,6 +80,10 @@
     font-size: 2.5rem;
     margin-left: 5px;
     color: rgb(164, 187, 183);
+}
+
+.modal__delete p {
+    font-size: 1.2rem;
 }
 
 .delete__card:hover i {
