@@ -93,8 +93,8 @@ function ProfileCard({ cards }) {
             <Modal
                 show={deleteConfirm}
                 onHide={() => setDeleteConfirm(false)}
-                // backdrop='static'
-                dialogClassName={styles.modal_delete__container}
+                className={styles.modal__delete}
+                centered
             >
                 <Modal.Header>
                     <h1 className={styles.modal__title}>Delete Postcard</h1>
@@ -104,8 +104,8 @@ function ProfileCard({ cards }) {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className={styles.delete_or_cancel}>
-                        <button onClick={dltPostcards}>Delete</button>
-                        <button onClick={() => setDeleteConfirm(false)}>Cancel</button>
+                        <Button onClick={dltPostcards}>Delete</Button>
+                        <Button onClick={() => setDeleteConfirm(false)}>Cancel</Button>
                     </div>
                 </Modal.Footer>
             </Modal>
