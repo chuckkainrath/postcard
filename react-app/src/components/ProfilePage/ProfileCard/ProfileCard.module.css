@@ -71,26 +71,6 @@
     font-size: 3.2rem;
 }
 
-.modal__container {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    width: fit-content !important;
-    transform: translateX(-50%) !important;
-}
-
-.modal__container > div {
-    background-color: rgb(164, 187, 183);
-}
-
-.modal__title {
-    text-align: center;
-}
-
-.modal__container p {
-    font-size: 1.2rem;
-}
-
 .delete_or_cancel {
     text-align: center;
 }
@@ -98,4 +78,12 @@
 .delete_or_cancel button {
     font-size: 1.2rem;
     margin: 0 10px;
+}
+
+.delete__modal {
+    font-family: 'KoHo';
+}
+
+.delete__modal p {
+    font-size: 1.4rem;
 }

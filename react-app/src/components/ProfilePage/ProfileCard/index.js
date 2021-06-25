@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { deletePhoto } from '../../../store/photos';
-import { Modal, OverlayTrigger, Tooltip }from 'react-bootstrap'
+import { Modal, OverlayTrigger, Tooltip, Button }from 'react-bootstrap'
 import { likePhoto, unlikePhoto } from '../../../store/photos';
 import styles from './ProfileCard.module.css';
 
@@ -88,10 +88,10 @@ function ProfileCard({ userProfile, photo }) {
                 <Modal
                     show={deleteConfirm}
                     onHide={() => setDeleteConfirm(false)}
-                    // backdrop='static'
-                    dialogClassName={styles.modal__container}
+                    centered
+                    className={styles.delete__modal}
                 >
-                    <Modal.Header dialogClassName={styles.modal__header}>
+                    <Modal.Header>
                         <h1 className={styles.modal__title}>Delete Photo</h1>
                     </Modal.Header>
                     <Modal.Body>
@@ -99,8 +99,8 @@ function ProfileCard({ userProfile, photo }) {
                     </Modal.Body>
                     <Modal.Footer>
                         <div className={styles.delete_or_cancel}>
-                            <button onClick={dltPhoto}>Delete</button>
-                            <button onClick={() => setDeleteConfirm(false)}>Cancel</button>
+                            <Button onClick={dltPhoto}>Delete</Button>
+                            <Button onClick={() => setDeleteConfirm(false)}>Cancel</Button>
                         </div>
                     </Modal.Footer>
                 </Modal>
