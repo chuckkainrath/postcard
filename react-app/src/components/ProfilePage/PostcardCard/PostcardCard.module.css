@@ -20,7 +20,9 @@
 }
 
 .postcard__options {
-    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 15px;
     width: 100%;
 }
@@ -80,6 +82,7 @@
 }
 
 .delete__card {
+    display: block;
     font-size: 2.5rem;
     margin-left: 5px;
     color: rgb(164, 187, 183);
@@ -90,26 +93,17 @@
 }
 
 .reuse {
-    display: inline-block;
-    position: absolute;
-    left: 35%;
-    transform: translateX(-50%);
+    display: block;
     padding: 5px;
-    border-radius: 5px;
+    margin-right: 4px;
     font-size: 1.1rem;
-    top: 25%;
-    background-color: white;
 }
 
 .view__msgs {
-    display: inline-block;
-    position: absolute;
-    right: 5%;
+    display: block;
     padding: 5px;
-    border-radius: 5px;
+    margin-right: 10px;
     font-size: 1.1rem;
-    top: 25%;
-    background-color: white;
 }
 
 .modal_delete__container {
