@@ -47,6 +47,14 @@ function ProfileCard({ cards }) {
         <Tooltip id="delete-tooltip" {...props}>Delete Postcards</Tooltip>
     );
 
+    const deleteMsgTooltip = props => (
+        <Tooltip id="delete-msg--tooltip" {...props}>Delete Message</Tooltip>
+    );
+
+    const downloadMsgTooltip = props => (
+        <Tooltip id="download-msg-tooltip" {...props}>Download Postcard</Tooltip>
+    );
+
     return (
         <div className={styles.postcard__card}>
             <img
@@ -69,21 +77,33 @@ function ProfileCard({ cards }) {
             <Modal
                 show={showBack}
                 onHide={() => setShowBack(false)}
-                // backdrop='static'
-                dialogClassName={styles.modal__container}
+                centered
+                className={styles.modal__messages}
             >
-                <Modal.Header>
+                <Modal.Header className={styles.modal__component}>
                     <h1 className={styles.modal__title}>Postcard Messages</h1>
-                    <div className={styles.modal__close} onClick={() => setShowBack(false)}><i class="fal fa-times"></i></div>
+                    <Button  onClick={() => setShowBack(false)}>Close</Button>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className={styles.modal__component}>
                     {cards.map(card => {
                         return (
                             <div className={styles.modal__message} key={card.id}>
                                 <img src={card.postcard_back_url} />
-                                <div>
-                                    <span className={styles.modal__delete} onClick={() => deleteCard(card)}><i class="fas fa-trash"></i></span>
-                                    <span className={styles.modal__download} onClick={() => downloadCard(card)}><i class="fas fa-download"></i></span>
+                                <div className={styles.modal__msg_options}>
+                                    <OverlayTrigger
+                                        placement="right"
+                                        delay={{ show: 250, hide: 250 }}
+                                        overlay={deleteMsgTooltip}
+                                    >
+                                        <span className={styles.modal__msg_delete} onClick={() => deleteCard(card)}><i class="fas fa-trash"></i></span>
+                                    </OverlayTrigger>
+                                    <OverlayTrigger
+                                        placement="left"
+                                        delay={{ show: 250, hide: 250 }}
+                                        overlay={downloadMsgTooltip}
+                                    >
+                                        <span className={styles.modal__msg_download} onClick={() => downloadCard(card)}><i class="fas fa-download"></i></span>
+                                    </OverlayTrigger>
                                 </div>
                             </div>
                         )
