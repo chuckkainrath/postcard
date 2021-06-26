@@ -63,14 +63,16 @@ const NavBar = () => {
     let val = e.target.value;
     if (val) {
       const res = await search(`/api/users/${val}/search`);
-      if (res) {
-        console.log('DATA', res);
+      if (Object.keys(res).length) {
         setSearchResults(res);
         setNoResults(false);
       } else {
-        console.log('No data/?');
+        setSearchResults({});
         setNoResults(true);
       }
+    } else {
+      setSearchResults({});
+      setNoResults(true);
     }
     setSearchInput(val);
   }
@@ -87,10 +89,10 @@ const NavBar = () => {
               onChange={searchInputChange}
             />
             <div>
-              {noResults && <h1>No results found.</h1>}
+              {(searchInput && noResults) && <h1>No results found.</h1>}
               {searchResults &&
                 Object.values(searchResults).map(result => (
-                  <li><span>{result.username}</span>, <span>{result.email}</span></li>
+                  <li><span>{result.username}</span></li>
                 ))
               }
             </div>
