@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useHistory, Redirect } from 'react-router-dom';
 import { logout } from '../../store/session';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { search } from '../../util/search';
 import PhotoUpload from '../PhotoUpload/UploadPage';
 import styles from './NavBar.module.css';
 import blankProfile from '../MainPage/PhotoCard/blank-profile-img.png';
@@ -13,6 +14,9 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
   const [uploadPhoto, showUploadPhoto] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+  const [searchResults, setSearchResults] = useState({});
+  const [noResults, setNoResults] = useState(true);
 
   let profileSrc;
   if (user) {
@@ -55,12 +59,41 @@ const NavBar = () => {
     return null;
   }
 
+  const searchInputChange = async e => {
+    let val = e.target.value;
+    if (val) {
+      const res = await search(`/api/users/${val}/search`);
+      if (res) {
+        console.log('DATA', res);
+        setSearchResults(res);
+        setNoResults(false);
+      } else {
+        console.log('No data/?');
+        setNoResults(true);
+      }
+    }
+    setSearchInput(val);
+  }
+
   return (
     <>
       <nav className={styles.navbar}>
         <ul className={styles.navbar__container}>
           <li className={styles.navbar__welcome}>
             <h1>Welcome, {user && user.username}</h1>
+            <input
+              type='search'
+              value={searchInput}
+              onChange={searchInputChange}
+            />
+            <div>
+              {noResults && <h1>No results found.</h1>}
+              {searchResults &&
+                Object.values(searchResults).map(result => (
+                  <li><span>{result.username}</span>, <span>{result.email}</span></li>
+                ))
+              }
+            </div>
           </li>
           <li className={styles.navbar__main}>
             <NavLink
