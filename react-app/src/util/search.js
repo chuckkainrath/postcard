@@ -13,7 +13,7 @@ const searchCreator = () => {
         signal = controller.signal;
         try {
             searching = true;
-            const res = await fetch(query, { signal});
+            const res = await fetch(query, {signal});
             const results = await res.json();
             return results;
         } catch(error) {
