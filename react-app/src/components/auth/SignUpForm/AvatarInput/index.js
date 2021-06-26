@@ -37,26 +37,27 @@ function AvatarInput({setPicture, setChoosingPicture, choosingPicture}) {
     }
 
     const cancelImage = () => {
+        setImageUrl('');
         setChoosingPicture(false);
     }
 
     return (
         <Modal
             show={choosingPicture}
-            onHide={() => setChoosingPicture(false)}
-            // dialogClassName={styles.modal__profile_img}
+            onHide={cancelImage}
+            dialogClassName={styles.modal__profile_img}
             centered
         >
-            <Modal.Header>
+            <Modal.Header className={styles.header__block}>
                 <label>Profile Picture (Optional)</label>
                 <Button className={styles.cancel__picture} onClick={cancelImage}>Cancel</Button>
             </Modal.Header>
             {!imageUrl &&
                 <div className={styles.picture__input} {...getRootProps()}>
-                    <input {...getInputProps()} />
+                    <input className={styles.input__field} {...getInputProps()} />
                     { isDragActive ?
-                        <p>Drop the file here...</p> :
-                        <p>Drag 'n' drop a file here, or click to select files</p>
+                        <p className={styles.input__text}>Drop the file here...</p> :
+                        <p className={styles.input__text}>Drag 'n' drop a file here, or click to select files</p>
                     }
                 </div>
             }

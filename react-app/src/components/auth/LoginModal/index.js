@@ -118,9 +118,9 @@ const LoginModal = ({ showLogin, setShowLogin }) => {
           </Formik>
           <div className={styles.login__other_options}>
               <div>Don't have an account?
-                <a tabindex='0' className={styles.redirect} onClick={() => history.push('/sign-up')}> Sign Up </a>
+                <a tabIndex='0' className={styles.redirect} onClick={() => history.push('/sign-up')}> Sign Up </a>
               </div>
-            <div>Or login as a <a tabindex='0' className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</a></div>
+            <div>Or login as a <a tabIndex='0' className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</a></div>
           </div>
         </Modal.Body>
       </Modal>

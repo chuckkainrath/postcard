@@ -10,6 +10,8 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    margin-bottom: 10px;
+    box-shadow: 0 0 3px 3px gray;
 }
 
 .signup_form__container {
@@ -82,4 +84,37 @@
     font-size: 1.2rem;
     margin-top: 5%;
     text-align: center;
+}
+
+.photo__select {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.picture_input__container {
+    margin-bottom: 20px;
+}
+
+.postcard__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+    background-color: white;
+}
+
+.postcard__title h1 {
+    font-size: 4rem;
+    margin-left: 10px;
+}
+
+.postcard__logo {
+    width: 4%;
+    height: auto;
+    margin-right: 10px;
+}
+
+.error__signin {
+    font-size: 2rem;
+    color: red;
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Modal from 'react-bootstrap/Modal'
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import { Button, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { deletePostcards, deletePostcard } from '../../../store/postcards';
 import { saveAs } from 'file-saver';
 import styles from './PostcardCard.module.css';
@@ -43,6 +43,18 @@ function ProfileCard({ cards }) {
         })();
     }
 
+    const deleteTooltip = props => (
+        <Tooltip id="delete-tooltip" {...props}>Delete Postcards</Tooltip>
+    );
+
+    const deleteMsgTooltip = props => (
+        <Tooltip id="delete-msg--tooltip" {...props}>Delete Message</Tooltip>
+    );
+
+    const downloadMsgTooltip = props => (
+        <Tooltip id="download-msg-tooltip" {...props}>Download Postcard</Tooltip>
+    );
+
     return (
         <div className={styles.postcard__card}>
             <img
@@ -50,53 +62,73 @@ function ProfileCard({ cards }) {
                 src={cards[0].postcard_front_url}
             />
             <div className={styles.postcard__options}>
-                <span className={styles.delete__card} onClick={() => setDeleteConfirm(true)}><i class="fas fa-trash"></i></span>
-                <button className={styles.reuse} onClick={reuseCard}>Reuse Card</button>
-                <button className={styles.view__msgs} onClick={() => setShowBack(true)}>Show Messages</button>
-                <Modal
-                    show={showBack}
-                    onHide={() => setShowBack(false)}
-                    // backdrop='static'
-                    dialogClassName={styles.modal__container}
+                <OverlayTrigger
+                    placement="left"
+                    delay={{ show: 250, hide: 250 }}
+                    overlay={deleteTooltip}
                 >
-                    <Modal.Header>
-                        <h1 className={styles.modal__title}>Postcard Messages</h1>
-                        <div className={styles.modal__close} onClick={() => setShowBack(false)}><i class="fal fa-times"></i></div>
-                    </Modal.Header>
-                    <Modal.Body>
-                        {cards.map(card => {
-                            return (
-                                <div className={styles.modal__message} key={card.id}>
-                                    <img src={card.postcard_back_url} />
-                                    <div>
-                                        <span className={styles.modal__delete} onClick={() => deleteCard(card)}><i class="fas fa-trash"></i></span>
-                                        <span className={styles.modal__download} onClick={() => downloadCard(card)}><i class="fas fa-download"></i></span>
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </Modal.Body>
-                </Modal>
-                <Modal
-                    show={deleteConfirm}
-                    onHide={() => setDeleteConfirm(false)}
-                    // backdrop='static'
-                    dialogClassName={styles.modal_delete__container}
-                >
-                    <Modal.Header>
-                        <h1 className={styles.modal__title}>Delete Postcard</h1>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <p>Deleting this postcard will also delete all associate messages.</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <div className={styles.delete_or_cancel}>
-                            <button onClick={dltPostcards}>Delete</button>
-                            <button onClick={() => setDeleteConfirm(false)}>Cancel</button>
-                        </div>
-                    </Modal.Footer>
-                </Modal>
+                    <span className={styles.delete__card} onClick={() => setDeleteConfirm(true)}><i class="fas fa-trash"></i></span>
+                </OverlayTrigger>
+                <div>
+                    <Button className={styles.view__msgs} onClick={() => setShowBack(true)}>Show Messages</Button>
+                    <Button className={styles.reuse} onClick={reuseCard}>Reuse Card</Button>
+                </div>
             </div>
+            <Modal
+                show={showBack}
+                onHide={() => setShowBack(false)}
+                centered
+                className={styles.modal__messages}
+            >
+                <Modal.Header className={styles.modal__component}>
+                    <h1 className={styles.modal__title}>Postcard Messages</h1>
+                    <Button  onClick={() => setShowBack(false)}>Close</Button>
+                </Modal.Header>
+                <Modal.Body className={styles.modal__component}>
+                    {cards.map(card => {
+                        return (
+                            <div className={styles.modal__message} key={card.id}>
+                                <img src={card.postcard_back_url} />
+                                <div className={styles.modal__msg_options}>
+                                    <OverlayTrigger
+                                        placement="right"
+                                        delay={{ show: 250, hide: 250 }}
+                                        overlay={deleteMsgTooltip}
+                                    >
+                                        <span className={styles.modal__msg_delete} onClick={() => deleteCard(card)}><i class="fas fa-trash"></i></span>
+                                    </OverlayTrigger>
+                                    <OverlayTrigger
+                                        placement="left"
+                                        delay={{ show: 250, hide: 250 }}
+                                        overlay={downloadMsgTooltip}
+                                    >
+                                        <span className={styles.modal__msg_download} onClick={() => downloadCard(card)}><i class="fas fa-download"></i></span>
+                                    </OverlayTrigger>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </Modal.Body>
+            </Modal>
+            <Modal
+                show={deleteConfirm}
+                onHide={() => setDeleteConfirm(false)}
+                className={styles.modal__delete}
+                centered
+            >
+                <Modal.Header>
+                    <h1 className={styles.modal__title}>Delete Postcard</h1>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>Deleting this postcard will also delete all associate messages.</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className={styles.delete_or_cancel}>
+                        <Button onClick={dltPostcards}>Delete</Button>
+                        <Button onClick={() => setDeleteConfirm(false)}>Cancel</Button>
+                    </div>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }

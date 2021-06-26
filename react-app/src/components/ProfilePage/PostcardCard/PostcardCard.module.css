@@ -1,32 +1,31 @@
 .postcard__card {
     position: relative;
     margin: 30px 30px;
-    height: 350px;
+    height: auto;
     padding: 5px;
     box-shadow: 0 0 2px 1px rgb(182, 182, 182);
     border-radius: 5px;
     background-color: white;
 }
 
+.postcard__card:hover {
+    box-shadow: 0 0 2px 2px gray;
+}
+
 .postcard__img {
     display: block;
-    width: 400px;
+    width: 100%;
     height: auto;
     max-height: 275px;
 }
 
 .postcard__options {
-    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 15px;
     width: 100%;
 }
-
-/* .photo__card_create {
-    display: inline-block;
-    position: absolute;
-    right: 5px;
-    font-size: 3rem;
-} */
 
 .delete_popup {
     position: fixed;
@@ -39,27 +38,15 @@
     padding: 0 20px 10px 20px;
 }
 
-.modal__container {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    width: fit-content !important;
-    transform: translateX(-50%) !important;
-}
-
 .modal__container > div {
     background-color: rgb(164, 187, 183);
 }
 
-.modal__title {
-    text-align: center;
-}
-
-.modal__close {
-    cursor: pointer;
-    position: absolute;
-    right: 5%;
-    top: 5%;
+.modal__component {
+    width: 652px !important;
+    background-color: white;
+    position: relative;
+    right: 15.5%;
 }
 
 .modal__message {
@@ -70,10 +57,8 @@
     background-color: #f3f4ed;
 }
 
-.modal__delete, .modal__download {
-    font-size: 2rem;
-    color: rgb(164, 187, 183);
-    cursor: pointer;
+.modal__delete, .modal__messages {
+    font-family: 'KoHo';
 }
 
 .modal__download {
@@ -83,32 +68,32 @@
 }
 
 .delete__card {
+    display: block;
     font-size: 2.5rem;
     margin-left: 5px;
     color: rgb(164, 187, 183);
 }
 
+.modal__delete p {
+    font-size: 1.2rem;
+}
+
+.delete__card:hover i {
+    font-size: 2.7rem;
+}
+
 .reuse {
-    display: inline-block;
-    position: absolute;
-    left: 35%;
-    transform: translateX(-50%);
+    display: block;
     padding: 5px;
-    border-radius: 5px;
+    margin-right: 4px;
     font-size: 1.1rem;
-    top: 25%;
-    background-color: white;
 }
 
 .view__msgs {
-    display: inline-block;
-    position: absolute;
-    right: 5%;
+    display: block;
     padding: 5px;
-    border-radius: 5px;
+    margin-right: 10px;
     font-size: 1.1rem;
-    top: 25%;
-    background-color: white;
 }
 
 .modal_delete__container {
@@ -123,10 +108,6 @@
     background-color: rgb(164, 187, 183);
 }
 
-.modal__title {
-    text-align: center;
-}
-
 .modal_delete__container p {
     font-size: 1.2rem;
 }
@@ -138,4 +119,34 @@
 .delete_or_cancel button {
     font-size: 1.2rem;
     margin: 0 10px;
+}
+
+.modal__msg_options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal__msg_delete, .modal__msg_download {
+    display: block;
+    font-size: 2.5rem;
+    margin-top: 5px;
+}
+
+.modal__msg_delete i {
+    margin-left: 5px;
+}
+
+.modal__msg_download i {
+    margin-right: 5px;
+}
+
+.modal__msg_delete:hover i {
+    font-size: 2.7rem;
+    margin-left: 3px;
+}
+
+.modal__msg_download:hover i {
+    font-size: 2.7rem;
+    margin-right: 3px;
 }

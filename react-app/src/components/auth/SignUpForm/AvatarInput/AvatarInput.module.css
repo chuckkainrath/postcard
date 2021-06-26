@@ -13,11 +13,13 @@
 }
 
 .picture__input {
-    margin: 100px 0;
+    height: 25vh;
+    cursor: pointer;
 }
 
 .picture__container {
     margin-top: 20px;
+    text-align: center;
 }
 
 .picture__container input {
@@ -30,4 +32,27 @@
     font-size: 1.2rem;
     margin-top: 20px;
     margin-bottom: 10px;
+}
+
+.modal__profile_img {
+    font-family: 'KoHo';
+    font-size: 1.4rem;
+}
+
+.header__block button {
+    display: inline-block;
+    position: relative;
+    top: 0;
+    right: 0;
+}
+
+.input__text {
+    text-align: center;
+    position: relative;
+    top: 40%;
+    transform: translateY(-50%);
+}
+
+.scale__slider * {
+    font-size: 1.5rem;
 }

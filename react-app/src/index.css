@@ -10,6 +10,7 @@
     padding: 0;
     background-color: #f3f4ed;
     font-family: 'KoHo';
+    box-sizing: border-box;
 }
 
 i {

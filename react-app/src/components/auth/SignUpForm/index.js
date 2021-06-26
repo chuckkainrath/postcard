@@ -7,25 +7,26 @@ import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import AvatarInput from './AvatarInput';
 import styles from './SignUpForm.module.css';
+import postcardStamp from '../../../images/postcard-stamp.png';
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(state => state.session.user);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [picture, setPicture] = useState(null);
-  const [repeatPassword, setRepeatPassword] = useState("");
   const [choosingPicture, setChoosingPicture] = useState(false);
-  const [errors, setErrors] = useState([]);
+  const [error, setError] = useState([]);
 
-  const onSignUp = async (e) => {
-    e.preventDefault();
-    if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password, picture));
-      if (data && data.errors) {
-        setErrors(data.errors);
+  const onSignUp = async values => {
+    if (values.password === values.confirmPassword) {
+      const errors = await dispatch(
+        signUp(values.username, values.email, values.password, picture));
+      if (errors) {
+        console.log(errors);
+        setError(errors);
+        setTimeout(() => {
+          setError('');
+        }, 5000);
       }
     }
   };
@@ -33,25 +34,9 @@ const SignUpForm = () => {
   const signInAsDemo = async () => {
     const data = await dispatch(login('demo@aa.io', 'password'))
     if (data.errors) {
-      setErrors(data.errors);
+      setError(data.errors);
     }
   }
-
-  const updateUsername = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const updatePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const updateRepeatPassword = (e) => {
-    setRepeatPassword(e.target.value);
-  };
 
   if (user) {
     return <Redirect to="/photos" />;
@@ -61,7 +46,7 @@ const SignUpForm = () => {
     username: '',
     email: '',
     password: '',
-    repeatPassword: '',
+    confirmPassword: '',
     profileImage: null
   }
 
@@ -76,7 +61,8 @@ const SignUpForm = () => {
   return (
     <div>
       <div className={styles.postcard__title}>
-        
+        <img className={styles.postcard__logo} src={postcardStamp} />
+        <h1>Postacard</h1>
       </div>
       <div className={styles.signup_form__container}>
         <Formik
@@ -96,7 +82,11 @@ const SignUpForm = () => {
             }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <h1 className={styles.signup__title}>Sign up</h1>
-                <div className={styles.error__signin}>{}</div>
+                <div className={styles.error__signin}>
+                  {error && Object.values(error).map(err => (
+                    <h4>{err}</h4>
+                  ))}
+                </div>
                 <Form.Group controlId="formUsername">
                   <Form.Label>Username</Form.Label>
                   <Form.Control
@@ -128,7 +118,7 @@ const SignUpForm = () => {
                 {!picture &&
                   <div className={styles.picture_input__container}>
                     <label>Profile Picture (Optional)</label>
-                    <Button onClick={() => setChoosingPicture(true)}>Choose a Photo</Button>
+                    <Button className={styles.photo__select} onClick={() => setChoosingPicture(true)}>Choose a Photo</Button>
                   </div>
                 }
                 {picture &&
@@ -155,7 +145,7 @@ const SignUpForm = () => {
                   <ErrorMessage name="password" component="span" className={styles.error__input} />
                 </Form.Group>
                 <Form.Group controlId="formConfirmPassword">
-                  <Form.Label>Password</Form.Label>
+                  <Form.Label>Confirm Password</Form.Label>
                   <Form.Control
                     required
                     type="password"
@@ -177,9 +167,9 @@ const SignUpForm = () => {
                     Create Account</Button>
                 <div className={styles.other__options}>
                   <div>Have an account?
-                    <a tabindex='0' className={styles.redirect} onClick={() => history.push('/login')}> Sign In </a>
+                    <a tabIndex='0' className={styles.redirect} onClick={() => history.push('/login')}> Sign In </a>
                   </div>
-                  <div>Or login as a <a tabindex='0' className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</a></div>
+                  <div>Or login as a <a tabIndex='0' className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</a></div>
                 </div>
               </Form>
             )}

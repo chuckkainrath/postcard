@@ -69,6 +69,14 @@ export const authenticate = () => async dispatch => {
       body: signupForm
     });
     const data = await response.json();
+    if (data.errors) {
+      let errors = [];
+      data.errors.forEach(err => {
+        let errArr = err.split(':')
+        errors.push(errArr[1]);
+      })
+      return errors;
+    }
     dispatch(setUser(data));
   }
 
