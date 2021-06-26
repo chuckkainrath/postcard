@@ -1,16 +1,31 @@
+.navbar {
+    background-color: lightblue;
+    border-bottom: 1px solid black;
+    padding-top: 10px;
+}
+
+ul {
+    padding: 0;
+}
+
 .navbar__container {
     list-style-type: none;
     display: flex;
     justify-content: space-between;
-    align-items: top;
+    align-items: center;
 }
 
 .navbar__container li {
-    width: 300px;
+    width: 30%;
 }
 
-.navbar__container {
-    padding-left: 0;
+.navbar__welcome {
+    padding-left: 10px;
+    text-align: left;
+}
+
+.navbar__welcome h1 {
+    font-size: 2rem;
 }
 
 .navbar__container > li {
@@ -22,13 +37,19 @@
     text-align: center;
 }
 
-.navbar__main span {
+.logo {
     display: inline-block;
     position: relative;
-    bottom: 8px;
+    transform: translateY(-10%);
+    margin-right: 5px;
+    width: 40px;
 }
 
-.navbar__main a {
+.navbar__main span {
+    margin-left: 5px;
+}
+
+.navbar__main a, .navbar__main a:hover {
     text-decoration: none;
 }
 
@@ -40,18 +61,40 @@
     color: black;
 }
 
-.navbar__welcome h1 {
-    margin-top: 0;
-    margin-left: 20px;
-    font-size: 2rem;
+
+.navbar__right {
+    text-align: right;
+}
+
+.upload__icon {
+    display: inline-block;
+    position: relative;
+    transform: translateY(16%);
+}
+
+.upload__icon i {
+    font-size: 2.4rem;
+    margin-right: 20px;
+}
+
+.upload__icon:hover i {
+    color: black;
 }
 
 .profile__icon {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
     border-radius: 50%;
     margin-right: 20px;
+    display: inline-block;
+    position: relative;
+    transform: translateY(-10%);
+    box-shadow: 0 0 2px 2px gray;
+}
+
+.profile__icon:hover {
+    box-shadow: 0 0 2px 2px black;
 }
 
 .profile__dropdown {
@@ -62,7 +105,7 @@
     box-shadow: 0 0 1px 1px rgb(179, 179, 179);
     z-index: 10;
     right: 25px;
-    top: 75px;
+    top: 65px;
     list-style-type: none;
 }
 
@@ -80,30 +123,10 @@
 
 }
 
-.navbar__right {
-    text-align: right;
-}
-
-.upload__icon {
-    display: inline-block;
-    position: relative;
-    bottom: 8px;
-}
-
-.upload__icon i {
-    font-size: 2.5rem;
-    margin-right: 20px;
-
-}
-
 .modal__container {
     position: absolute;
     top: 0%;
     left: 99%;
     width: fit-content !important;
     transform: translateX(-50%) !important;
-}
-
-.logo {
-    width: 40px;
 }

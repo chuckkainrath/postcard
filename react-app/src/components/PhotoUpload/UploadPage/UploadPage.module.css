@@ -1,9 +1,53 @@
-.upload__container {
-    width: 60%;
+.image__select {
+    height: 30vh;
+}
+
+.upload__msg {
+    height: 30vh;
+    width: 100%;
+    padding: 10vh 0;
+    font-family: 'KoHo';
+    font-size: 2rem;
     text-align: center;
-    font-size: 1.5rem;
-    position: absolute;
-    top: 20%;
+    place-self: center;
+}
+
+.upload__msg:hover {
+    cursor: pointer;
+}
+
+.image__crop {
+    width: 652px !important;
+    background-color: white;
+    position: relative;
+    right: 15.5%;
+}
+
+.edit__input {
+    width: fit-content;
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.edit__input label {
+    margin-right: 2px;
+}
+
+.edit__input input {
+    margin-left: 2px;
+}
+
+.edit__first {
+    margin-top: 10px;
+}
+
+.buttons {
+    position: relative;
+    /* left: 50%; */
+    transform: translateX(13%);
+}
+
+.buttons button {
+    margin: 5px 10px;
 }
