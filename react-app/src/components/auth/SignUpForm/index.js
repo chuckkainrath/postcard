@@ -123,6 +123,7 @@ const SignUpForm = () => {
                 }
                 {picture &&
                   <div className={styles.picture__container}>
+                    <div className={styles.picture__inserted}>Profile Picture (Optional)</div>
                     <img
                       src={URL.createObjectURL(picture)}
                       className={styles.cropped__profile}
