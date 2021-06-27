@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useHistory, Redirect } from 'react-router-dom';
 import { logout } from '../../store/session';
-import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { Tooltip, OverlayTrigger, Form } from 'react-bootstrap';
 import { search } from '../../util/search';
 import PhotoUpload from '../PhotoUpload/UploadPage';
 import styles from './NavBar.module.css';
@@ -63,7 +63,8 @@ const NavBar = () => {
     let val = e.target.value;
     if (val) {
       const res = await search(`/api/users/${val}/search`);
-      if (Object.keys(res).length) {
+      if (res && Object.keys(res).length) {
+        console.log(res);
         setSearchResults(res);
         setNoResults(false);
       } else {
@@ -77,22 +78,33 @@ const NavBar = () => {
     setSearchInput(val);
   }
 
+  const goToProfile = (e, user) => {
+    let username = e.target.innerText;
+    setSearchResults({});
+    setSearchInput('');
+    setNoResults(true);
+    history.push(`/profiles/${username}`)
+  }
+
   return (
     <>
       <nav className={styles.navbar}>
         <ul className={styles.navbar__container}>
           <li className={styles.navbar__welcome}>
             <h1>Welcome, {user && user.username}</h1>
+          </li>
+          <li>
             <input
+              className={styles.username__search}
               type='search'
               value={searchInput}
               onChange={searchInputChange}
             />
-            <div>
-              {(searchInput && noResults) && <h1>No results found.</h1>}
+            <div className={(!searchInput && noResults) ? styles.search__hide : styles.search__results}>
+              {(searchInput && noResults) && <span>No results found</span>}
               {searchResults &&
                 Object.values(searchResults).map(result => (
-                  <li><span>{result.username}</span></li>
+                  <li onClick={goToProfile}>{result.username}</li>
                 ))
               }
             </div>
