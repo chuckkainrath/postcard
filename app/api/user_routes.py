@@ -40,12 +40,7 @@ def user(username):
     return { 'user': user.to_dict(), 'photos': photos_list }
 
 
-@user_routes.route('/<searchInfo>/search')
-def search_users(searchInfo):
-    users = User.query.filter(User.username.like(searchInfo) or User.email.like(searchInfo)).all()
-
-    users_dict = {}
-    for user in users:
-        users_dict[user.id] = user
-
-    return { 'users': users_dict }
+@user_routes.route('/<string:username>/search')
+def search_users(username):
+    users = User.query.filter(User.username.ilike(f"%{username}%")).all()
+    return { user.id: user.to_dict() for user in users}
