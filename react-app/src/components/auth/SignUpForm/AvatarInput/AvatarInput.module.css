@@ -56,3 +56,11 @@
 .scale__slider * {
     font-size: 1.5rem;
 }
+
+@media screen and (max-width: 600px) {
+    /* .modal__profile_image {
+        width: 100px !important;
+        color: red !important;
+        background-color: pink !important;
+    } */
+}
