@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import AvatarEditor from 'react-avatar-editor';
 import styles from './AvatarInput.module.css';
 import { Modal, Button } from 'react-bootstrap';
+import useScreenDimensions from '../../../../util/useScreenDimensions';
 
 function AvatarInput({setPicture, setChoosingPicture, choosingPicture}) {
     const [imageUrl, setImageUrl] = useState();
@@ -10,18 +11,27 @@ function AvatarInput({setPicture, setChoosingPicture, choosingPicture}) {
     const [height, setHeight] = useState();
     const [scale, setScale] = useState(1.2);
     const [editor, setEditor] = useState();
+    const [imgWidth, setImgWidth] = useState(400);
+    const dimensions = useScreenDimensions();
     const onDrop = useCallback(acceptedFile => {
         const imageFile = acceptedFile[0];
         const imageUrl = URL.createObjectURL(imageFile)
         const img = new Image();
         img.src = imageUrl;
         img.onload = () => {
-            const width = Math.min(400, img.width);
+            setImgWidth(img.width);
+            const width = Math.min(400, img.width, dimensions.width - 100);
             setWidth(width)
             setHeight(width)
             setImageUrl(URL.createObjectURL(imageFile));
         }
     }, []);
+
+    useEffect(() => {
+        const width = Math.min(400, imgWidth, dimensions.width - 100);
+        setWidth(width);
+        setHeight(width);
+    }, [dimensions])
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({onDrop});
 
@@ -45,7 +55,7 @@ function AvatarInput({setPicture, setChoosingPicture, choosingPicture}) {
         <Modal
             show={choosingPicture}
             onHide={cancelImage}
-            dialogClassName={styles.modal__profile_img}
+            className={styles.modal__profile_img}
             centered
         >
             <Modal.Header className={styles.header__block}>
@@ -63,17 +73,19 @@ function AvatarInput({setPicture, setChoosingPicture, choosingPicture}) {
             }
             {imageUrl &&
                 <div className={styles.picture__container}>
-                    <AvatarEditor
-                        image={imageUrl}
-                        width={width}
-                        height={height}
-                        border={[10,10]}
-                        borderRadius={width}
-                        color={[255,255,255,0.6]}
-                        scale={scale}
-                        rotate={0}
-                        ref={(e) => setEditor(e)}
-                    />
+                    {width &&
+                        <AvatarEditor
+                            image={imageUrl}
+                            width={width}
+                            height={height}
+                            border={[10,10]}
+                            borderRadius={width}
+                            color={[255,255,255,0.6]}
+                            scale={scale}
+                            rotate={0}
+                            ref={(e) => setEditor(e)}
+                        />
+                    }
                     <div className={styles.scale__slider}>
                         <label>Scale Image:</label>
                         <input
