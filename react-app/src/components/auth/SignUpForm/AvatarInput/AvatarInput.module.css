@@ -58,9 +58,7 @@
 }
 
 @media screen and (max-width: 575px) {
-    .modal__profile_image {
-        width: 50% !important;
-        color: red !important;
-        background-color: pink !important;
+    .scale__slider {
+        font-size: 1rem;
     }
 }
