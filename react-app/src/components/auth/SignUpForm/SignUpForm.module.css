@@ -141,3 +141,13 @@
         max-width: 50px;
     }
 }
+
+@media only screen and (max-height: 600px) {
+    .postcard__title {
+        display: none;
+    }
+    .signup_form__container {
+        top: 50%;
+        transform: translateY(-50%) translateX(-50%);
+    }
+}

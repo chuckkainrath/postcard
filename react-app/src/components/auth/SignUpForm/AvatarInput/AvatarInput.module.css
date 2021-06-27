@@ -58,9 +58,9 @@
 }
 
 @media screen and (max-width: 600px) {
-    /* .modal__profile_image {
-        width: 100px !important;
+    .modal__profile_image {
+        width: 95% !important;
         color: red !important;
         background-color: pink !important;
-    } */
+    }
 }
