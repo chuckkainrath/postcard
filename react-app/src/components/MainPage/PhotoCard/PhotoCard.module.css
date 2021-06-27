@@ -9,7 +9,7 @@
 }
 
 .photo__card:hover {
-    box-shadow: 0 0 2px 1px black;
+    box-shadow: 0 0 2px 2px #B84D00;
     cursor: pointer;
 }
 
