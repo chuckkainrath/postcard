@@ -15,6 +15,7 @@
     margin-bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
+    background-color: #EDB458;
     width: fit-content;
     text-align: center;
     font-size: 1.4rem;
@@ -32,7 +33,7 @@
 
 .category_selection__selected {
     font-weight: bold;
-    background-color: rgb(164, 187, 183);
+    background-color: #CB8515;
 }
 
 .category_selection__left {
@@ -120,7 +121,7 @@
 }
 
 .following__container:hover, .follower__container:hover {
-    background-color: rgb(164, 187, 183);
+    background-color: #F7DEB5;
 }
 
 .following__container, .follower__container {
