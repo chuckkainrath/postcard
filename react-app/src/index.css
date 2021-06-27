@@ -5,14 +5,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=KoHo:wght@200&display=swap');
 
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100% !important;
+    background-color: #8388a1 !important;
+}
+
 #root {
     margin: 0;
     padding: 0;
-    background-color: #f3f4ed;
     font-family: 'KoHo';
     box-sizing: border-box;
+    /* height: 120vh; */
 }
 
-i {
-    color: #536162;
+i, a {
+    color: #BB4D00 !important;
+}
+
+i:hover, a:hover {
+    color: #662B00 !important;
+}
+
+button {
+    background-color: #EDB458 !important;
+    color: #050506 !important;
+    border-color: #EDB458 !important;
+}
+
+button:hover {
+    background-color: #EAA434 !important;
+    border-color: #EAA434 !important;
 }

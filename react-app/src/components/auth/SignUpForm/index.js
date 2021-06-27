@@ -59,7 +59,7 @@ const SignUpForm = () => {
   });
 
   return (
-    <div>
+    <div className={styles.signup__container}>
       <div className={styles.postcard__title}>
         <img className={styles.postcard__logo} src={postcardStamp} />
         <h1>Postacard</h1>

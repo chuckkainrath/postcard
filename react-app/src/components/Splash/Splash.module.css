@@ -9,7 +9,7 @@
 
 .splash__message {
     font-family: 'Open Sans';
-    color: rgb(218, 207, 126);
+    color: #EEB559;
 
     /* color: rgba(222, 72, 17, 0.92); */
     text-shadow: -1px 1px 1px black,
@@ -36,7 +36,7 @@ color: #536162; */
 
 .login_signup__container {
     font-family: 'Open Sans';
-    color: rgb(218, 207, 126);
+    color: #EEB559;
     text-shadow: -1px 1px 1px black,
                   1px 1px 1px black,
                   1px -1px 0 black,
