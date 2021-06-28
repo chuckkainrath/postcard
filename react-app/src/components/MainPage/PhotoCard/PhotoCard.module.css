@@ -3,6 +3,7 @@
     position: relative;
     margin: 30px 30px;
     height: auto;
+    max-width: 400px;
     padding: 5px;
     box-shadow: 0 0 2px 1px rgb(182, 182, 182);
     border-radius: 5px;
