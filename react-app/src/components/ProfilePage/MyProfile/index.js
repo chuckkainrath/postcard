@@ -151,7 +151,7 @@ function MyProfile() {
                     className={styles.category__following}
                     onClick={(e) => setPictureCategory('following')}>Following</span>
                 <span
-                    id='follower'
+                    id='followers'
                     className={styles.category__followers}
                     onClick={(e) => setPictureCategory('followers')}>Followers</span>
             </div>
@@ -211,6 +211,53 @@ function MyProfile() {
                             <h1 className={styles.no_photo}>You don't have any postcards!</h1>
                         }
                     </>
+                }
+                {category === 'following' &&
+                    <div className={styles.follow__main}>
+                        <h1>Following</h1>
+                        <div className={styles.follows__container}>
+                            {followingArr && followingArr.map(follow => {
+                                return (
+                                    <div key={follow.id} className={styles.following__container}>
+                                        {follow.profile_img_url &&
+                                            <img onClick={() => history.push(`/profiles/${follow.username}`)} className={styles.follow__profile_img} src={follow.profile_img_url}/>
+                                        }
+                                        {!follow.profile_img_url &&
+                                            <img onClick={() => history.push(`/profiles/${follow.username}`)} className={styles.follow__profile_img} src={blankProfile}/>
+                                        }
+                                        <span className={styles.follow__name} onClick={() => history.push(`/profiles/${follow.username}`)} key={follow.id}>{follow.username}</span>
+                                        <Button className={styles.unfollow} onClick={() => unfollow(follow)}>Unfollow</Button>
+                                    </div>
+                                )
+                            })}
+                            {!followingArr &&
+                                <h1 className={styles.no_follow}>You aren't following anyone</h1>
+                            }
+                        </div>
+                    </div>
+                }
+                {category === 'followers' &&
+                    <div className={styles.follow__main}>
+                        <h1>Followers</h1>
+                        <div className={styles.follows__container}>
+                            {followersArr && followersArr.map(follow => {
+                                return (
+                                    <div key={follow.id} className={styles.follower__container}>
+                                        {follow.profile_img_url &&
+                                            <img className={styles.follower__img} onClick={() => history.push(`/profiles/${follow.username}`)} className={styles.follow__profile_img} src={follow.profile_img_url}/>
+                                        }
+                                        {!follow.profile_img_url &&
+                                            <img className={styles.follower__img} onClick={() => history.push(`/profiles/${follow.username}`)} className={styles.follow__profile_img} src={blankProfile}/>
+                                        }
+                                        <span className={styles.follow__name} onClick={() => history.push(`/profiles/${follow.username}`)} key={follow.id}>{follow.username}</span>
+                                    </div>
+                                )
+                            })}
+                            {!followingArr &&
+                                <h1 className={styles.no_follow}>You don't have any followers</h1>
+                            }
+                        </div>
+                    </div>
                 }
             </div>
             <div className={styles.left__container}>
