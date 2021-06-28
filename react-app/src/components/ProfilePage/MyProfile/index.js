@@ -146,6 +146,14 @@ function MyProfile() {
                     id='postcards'
                     className={styles.category_selection__right}
                     onClick={(e) => setPictureCategory('postcards')}>Postcards</span>
+                <span
+                    id='following'
+                    className={styles.category__following}
+                    onClick={(e) => setPictureCategory('following')}>Following</span>
+                <span
+                    id='follower'
+                    className={styles.category__followers}
+                    onClick={(e) => setPictureCategory('followers')}>Followers</span>
             </div>
             <div className={styles.center__container}>
                 {category === 'photo-public' &&
