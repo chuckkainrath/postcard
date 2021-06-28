@@ -96,7 +96,7 @@
     }
 }
 
-@media only screen and (max-width: 700px) {
+/* @media only screen and (max-width: 700px) {
     .profile__container {
         font-size: 8px;
     }
@@ -108,7 +108,7 @@
     .profile__header button {
         font-size: 12px;
     }
-}
+} */
 
 @media only screen and (max-width: 450px) {
     .name__sfx {
