@@ -21,6 +21,7 @@
     position: relative;
     height: auto;
     max-height: 275px;
+    min-height: 78%;
     left: 50%;
     transform: translateX(-50%);
 }
