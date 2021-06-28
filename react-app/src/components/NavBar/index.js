@@ -118,7 +118,7 @@ const NavBar = () => {
               className={styles.navbar__name}
             >
               <img className={styles.logo} src={postcardStamp} />
-              <span>Postacard</span>
+              <span className={styles.site__name}>Postacard</span>
             </NavLink>
           </li>
           <li className={styles.navbar__right}>
