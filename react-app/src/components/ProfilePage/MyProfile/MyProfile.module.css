@@ -170,7 +170,7 @@
     .no_photo {
         width: 50%;
         position: relative;
-        left: 55%;
+        left: 50%;
         transform: translateX(-50%);
     }
 }
