@@ -84,14 +84,14 @@
 }
 
 .reuse {
-    display: block;
+    display: block !important;
     padding: 5px;
     margin-right: 4px;
     font-size: 1.1em;
 }
 
 .view__msgs {
-    display: block;
+    display: block !important;
     padding: 5px;
     margin-right: 10px;
     font-size: 1.1em;
