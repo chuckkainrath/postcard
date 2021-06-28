@@ -24,7 +24,7 @@
     position: absolute;
     padding: 20px;
     width: 500px;
-    left: 50%;
+    left: 50vw;
     top: 15%;
     transform: translateX(-50%);
     background-color: white;
@@ -32,6 +32,12 @@
 
 .signup_form__container label, .signup_form__container input {
     font-size: 1.2rem;
+}
+
+.picture__inserted {
+    font-size: 1.2rem;
+    text-align: left;
+    margin-bottom: 2px;
 }
 
 .signup__title {
@@ -103,7 +109,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 2%;
+    padding-top: 2vh;
 }
 
 .postcard__title h1 {
@@ -112,7 +118,7 @@
 }
 
 .postcard__logo {
-    width: 4%;
+    width: 50px;
     height: auto;
     margin-right: 10px;
 }
@@ -120,4 +126,34 @@
 .error__signin {
     font-size: 2rem;
     color: red;
+}
+
+@media only screen and (max-width: 525px) {
+    .signup__container {
+        width: 100%;
+    }
+
+    .signup_form__container {
+        width: 95%;
+        font-size: 2vw;
+    }
+
+    .postcard__title h1 {
+        font-size: 4rem !important;
+    }
+
+    .postcard__logo {
+        width: 15vw;
+        max-width: 50px;
+    }
+}
+
+@media only screen and (max-height: 600px) {
+    .postcard__title {
+        display: none;
+    }
+    .signup_form__container {
+        top: 50%;
+        transform: translateY(-50%) translateX(-50%);
+    }
 }

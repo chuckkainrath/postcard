@@ -3,6 +3,7 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+    font-size: 16px;
 }
 
 .profile__container h1 {
@@ -30,17 +31,87 @@
 
 .profile__header span {
     display: inline-block;
-    font-size: 3rem;
-    margin-left: 20px;
+    font-size: 3em;
 }
 
 .follow__btn {
     display: inline-block;
     margin-left: 20px;
-    font-size: 1.2rem;
+    font-size: 1.2em;
 }
 
 .no_photo_public {
     text-align: center;
     margin-top: 20%;
+}
+
+.profile__name {
+    display: block;
+}
+
+.name, .name__sfx  {
+    display: inline-block;
+}
+
+.name {
+    max-width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 20px;
+}
+
+@media only screen and (max-width: 1150px) {
+    .photos__container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .profile__container {
+        font-size: 12px;
+    }
+
+    .profile__header img {
+        width: 40px;
+    }
+
+    .profile__header button {
+        padding: 3px 6px;
+    }
+}
+
+@media only screen and (max-width: 940px) {
+    .name {
+        max-width: 40%;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .photos__container {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        left: 0;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .profile__container {
+        font-size: 8px;
+    }
+
+    .profile__header img {
+        width: 30px;
+    }
+
+    .profile__header button {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .name__sfx {
+        display: none !important;
+    }
 }

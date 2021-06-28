@@ -140,6 +140,7 @@ function MyProfile() {
                     onClick={(e) => setPictureCategory('photo-private')}>Private Photos</span>
                 <span
                     id='liked-photos'
+                    className={styles.category_selection__middle2}
                     onClick={(e) => setPictureCategory('liked-photos')}>Liked Photos</span>
                 <span
                     id='postcards'
