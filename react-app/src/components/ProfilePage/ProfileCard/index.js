@@ -79,11 +79,11 @@ function ProfileCard({ userProfile, photo }) {
                         delay={{ show: 250, hide: 250 }}
                         overlay={createTooltip}
                     >
-                        <div
+                        <span
                             onClick={() => history.push(`/create-postcard/${photo.id}`)}
                             className={styles.photo__card_create}>
-                            <i title="Create a Postcard" class="fal fa-envelope"></i>
-                        </div>
+                                <i title="Create a Postcard" class="fal fa-envelope"></i>
+                        </span>
                     </OverlayTrigger>
                 </div>
                 <Modal
