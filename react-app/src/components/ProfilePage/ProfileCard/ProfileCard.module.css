@@ -1,3 +1,8 @@
+.photo__container {
+    display: flex;
+    justify-content: center;
+}
+
 .photo__card {
     position: relative;
     font-size: 16px;
