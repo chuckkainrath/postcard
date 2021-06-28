@@ -197,3 +197,13 @@ ul {
         width: 155px;
     }
 }
+
+@media only screen and (max-width: 400px) {
+    .profile__icon {
+        margin-right: 10px;
+    }
+
+    .upload__icon i {
+        margin-right: 10px;
+    }
+}
