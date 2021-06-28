@@ -34,57 +34,58 @@ function ProfileCard({ userProfile, photo }) {
 
 
     return (
-        <div className={styles.photo__card}>
-            <img
-                className={styles.photo__img}
-                src={photo.photo_url}
-            />
-            <div className={styles.photo__options}>
-                {userProfile &&
-                    <OverlayTrigger
-                        placement="right"
-                        delay={{ show: 250, hide: 250 }}
-                        overlay={deleteTooltip}
-                    >
-                        <span className={styles.photo__delete} onClick={() => setDeleteConfirm(true)}><i class="fas fa-trash"></i></span>
-                    </OverlayTrigger>
-                }
-                {!userProfile &&
-                    <div
-                    onClick={toggleLike}
-                    className={styles.photo__heart}>
-                    {liked &&
+        <div className={styles.photo__container}>
+            <div className={styles.photo__card}>
+                <img
+                    className={styles.photo__img}
+                    src={photo.photo_url}
+                />
+                <div className={styles.photo__options}>
+                    {userProfile &&
                         <OverlayTrigger
                             placement="right"
                             delay={{ show: 250, hide: 250 }}
-                            overlay={unlikeTooltip}
+                            overlay={deleteTooltip}
                         >
-                            <i class="fas fa-heart"></i>
+                            <span className={styles.photo__delete} onClick={() => setDeleteConfirm(true)}><i class="fas fa-trash"></i></span>
                         </OverlayTrigger>
                     }
-                    {!liked &&
-                        <OverlayTrigger
-                            placement="right"
-                            delay={{ show: 250, hide: 250 }}
-                            overlay={likeTooltip}
-                        >
-                            <i class="fal fa-heart"></i>
-                        </OverlayTrigger>
-                    }
-                </div>
-                }
-                <OverlayTrigger
-                    placement="left"
-                    delay={{ show: 250, hide: 250 }}
-                    overlay={createTooltip}
-                >
-                    <div
-                        onClick={() => history.push(`/create-postcard/${photo.id}`)}
-                        className={styles.photo__card_create}>
-                        <i title="Create a Postcard" class="fal fa-envelope"></i>
+                    {!userProfile &&
+                        <div
+                        onClick={toggleLike}
+                        className={styles.photo__heart}>
+                        {liked &&
+                            <OverlayTrigger
+                                placement="right"
+                                delay={{ show: 250, hide: 250 }}
+                                overlay={unlikeTooltip}
+                            >
+                                <i class="fas fa-heart"></i>
+                            </OverlayTrigger>
+                        }
+                        {!liked &&
+                            <OverlayTrigger
+                                placement="right"
+                                delay={{ show: 250, hide: 250 }}
+                                overlay={likeTooltip}
+                            >
+                                <i class="fal fa-heart"></i>
+                            </OverlayTrigger>
+                        }
                     </div>
-                </OverlayTrigger>
-            </div>
+                    }
+                    <OverlayTrigger
+                        placement="left"
+                        delay={{ show: 250, hide: 250 }}
+                        overlay={createTooltip}
+                    >
+                        <div
+                            onClick={() => history.push(`/create-postcard/${photo.id}`)}
+                            className={styles.photo__card_create}>
+                            <i title="Create a Postcard" class="fal fa-envelope"></i>
+                        </div>
+                    </OverlayTrigger>
+                </div>
                 <Modal
                     show={deleteConfirm}
                     onHide={() => setDeleteConfirm(false)}
@@ -104,6 +105,7 @@ function ProfileCard({ userProfile, photo }) {
                         </div>
                     </Modal.Footer>
                 </Modal>
+            </div>
         </div>
     )
 }
