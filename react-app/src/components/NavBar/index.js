@@ -46,7 +46,7 @@ const NavBar = () => {
         let profDrpdwn = document.getElementById('profDrpDwn');
         if (profileMenu && profDrpdwn && !profDrpdwn.contains(e.target)) {
           showProfileMenu(false);
-        } else if (profImg.contains(e.target)) {
+        } else if (profImg && profImg.contains(e.target)) {
           showProfileMenu(!profileMenu);
         }
       }
@@ -97,6 +97,7 @@ const NavBar = () => {
             <input
               className={styles.username__search}
               type='search'
+              placeholder='Search for users'
               value={searchInput}
               onChange={searchInputChange}
             />

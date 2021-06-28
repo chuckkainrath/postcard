@@ -57,7 +57,7 @@ function OtherProfile() {
                     return <ProfileCard userProfile={false} key={photo.id} photo={photo} />
                 })}
             </div>
-            {!photosArr.length &&
+            {(!photosArr.length && profile) && 
                 <h1 className={styles.no_photo_public}>{profile.username} has no public photos</h1>
             }
         </div>
