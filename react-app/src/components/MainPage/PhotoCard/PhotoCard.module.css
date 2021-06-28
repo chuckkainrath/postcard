@@ -75,10 +75,10 @@
     margin-left: 9px;
 }
 
-.photo__card_create:hover {
+/* .photo__card_create:hover {
     font-size: 3.2em;
     margin-right: 3px;
-}
+} */
 
 .left__container {
     display: flex;

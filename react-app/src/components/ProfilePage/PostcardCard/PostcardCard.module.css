@@ -79,9 +79,9 @@
     font-size: 1.2em;
 }
 
-.delete__card:hover i {
+/* .delete__card:hover {
     font-size: 2.7em;
-}
+} */
 
 .reuse {
     display: inline-block;
