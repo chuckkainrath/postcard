@@ -56,18 +56,19 @@
 .photos__container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    width: fit-content;
+    width: 100%;
 }
 
 .photos__container > div {
     position: relative;
-    left: 10%;
+    /* left: 10%; */
 }
 
 .center__container {
     width: 55vw;
     position: absolute;
-    left: 20vw;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .left__container {
@@ -163,20 +164,13 @@
 
 @media only screen and (max-width: 1150px) {
     .photos__container {
-        display: flex;
-        width: fit-content;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .photos__container > div {
-        left: 5%;
+        grid-template-columns: 1fr;
     }
 
     .no_photo {
         width: 50%;
         position: relative;
-        left: 55%;
+        left: 50%;
         transform: translateX(-50%);
     }
 }
