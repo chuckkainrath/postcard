@@ -7,11 +7,13 @@
 
 html {
     height: 100%;
+    font-size: 100%;
 }
 
 body {
     min-height: 100% !important;
     background-color: #8388a1 !important;
+    font-size: 0.75em;
 }
 
 #root {
@@ -39,4 +41,10 @@ button {
 button:hover {
     background-color: #EAA434 !important;
     border-color: #EAA434 !important;
+}
+
+@media only screen and (max-width: 450px) {
+    html {
+        font-size: 75%;
+    }
 }

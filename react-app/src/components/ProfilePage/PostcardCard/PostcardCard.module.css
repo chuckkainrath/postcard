@@ -6,6 +6,7 @@
     box-shadow: 0 0 2px 1px rgb(182, 182, 182);
     border-radius: 5px;
     background-color: white;
+    font-size: 16px;
 }
 
 .postcard__card:hover {
@@ -23,7 +24,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
+    margin-top: 5px;
     width: 100%;
 }
 
@@ -69,31 +70,31 @@
 
 .delete__card {
     display: block;
-    font-size: 2.5rem;
+    font-size: 2.5em;
     margin-left: 5px;
     color: rgb(164, 187, 183);
 }
 
 .modal__delete p {
-    font-size: 1.2rem;
+    font-size: 1.2em;
 }
 
 .delete__card:hover i {
-    font-size: 2.7rem;
+    font-size: 2.7em;
 }
 
 .reuse {
     display: block;
     padding: 5px;
     margin-right: 4px;
-    font-size: 1.1rem;
+    font-size: 1.1em;
 }
 
 .view__msgs {
     display: block;
     padding: 5px;
     margin-right: 10px;
-    font-size: 1.1rem;
+    font-size: 1.1em;
 }
 
 .modal_delete__container {
@@ -149,4 +150,78 @@
 .modal__msg_download:hover i {
     font-size: 2.7rem;
     margin-right: 3px;
+}
+
+@media only screen and (max-width: 1450px) {
+    .postcard__card {
+        font-size: 16px;
+    }
+
+    .postcard__options {
+        margin-top: 0;
+    }
+
+    .postcard__options button {
+        font-size: 14px !important;
+    }
+}
+
+@media only screen and (max-width: 1300px) {
+    .postcard__card {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width: 1250px) {
+    .postcard__card {
+        font-size: 12px;
+    }
+
+    .postcard__options {
+        margin-top: 0;
+    }
+
+    .postcard__options button {
+        font-size: 12px !important;
+    }
+}
+
+@media only screen and (max-width: 1150px) {
+    .postcard__card {
+        font-size: 16px;
+        max-width: 400px;
+        justify-self: center !important;
+    }
+
+    .postcard__options {
+        margin-top: 0;
+    }
+
+    .postcard__options button {
+        font-size: 16px !important;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .postcard__card {
+        font-size: 12px;
+        max-width: 300px;
+    }
+
+    .postcard__options button {
+        font-size: 12px !important;
+        padding: 3px 6px !important;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .postcard__card {
+        font-size: 8px;
+        max-width: 300px;
+    }
+
+    .postcard__options button {
+        font-size: 8px !important;
+        padding: 2px 4px !important;
+    }
 }

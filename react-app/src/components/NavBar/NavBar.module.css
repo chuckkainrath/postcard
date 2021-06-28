@@ -2,6 +2,7 @@
     background-color: #F3F4F7;
     border-bottom: 1px solid black;
     padding-top: 10px;
+    font-size: 16px;
 }
 
 ul {
@@ -17,7 +18,7 @@ ul {
 }
 
 .username__search {
-    font-size: 1.4rem;
+    font-size: 1.4em;
 }
 
 .navbar__welcome {
@@ -26,7 +27,7 @@ ul {
 }
 
 .navbar__welcome h1 {
-    font-size: 2rem;
+    font-size: 2em;
 }
 
 .navbar__container > li {
@@ -34,7 +35,7 @@ ul {
 }
 
 .navbar__main {
-    font-size: 2rem;
+    font-size: 2em;
     text-align: center;
 }
 
@@ -74,7 +75,7 @@ ul {
 }
 
 .upload__icon i {
-    font-size: 2.4rem;
+    font-size: 2.4em;
     margin-right: 20px;
 }
 
@@ -115,7 +116,7 @@ ul {
     width: 120px;
     margin: 0;
     padding: 5px 10px;
-    font-size: 1.3rem;
+    font-size: 1.3em;
 }
 
 .profile__dropdown li:hover {
@@ -135,14 +136,14 @@ ul {
     position: absolute;
     z-index: 1000;
     background-color: white;
-    width: 15.5vw;
+    width: 200px;
     box-shadow: 0 0 2px 2px gray;
 }
 
 .search__results li, .search__results span {
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 1.2rem;
+    font-size: 1.2em;
     padding: 3px 5px;
 }
 
@@ -152,4 +153,47 @@ ul {
 
 .search__hide {
     display: none;
+}
+
+@media only screen and (max-width: 1100px) {
+    .navbar__welcome {
+        display: none;
+    }
+
+    .navbar__container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .username__search {
+        margin-left: 10px;
+    }
+
+    .search__results {
+        left: 10px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .site__name {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .navbar {
+        font-size: 12px;
+    }
+
+    .logo {
+        width: 30px;
+    }
+
+    .profile__icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .search__results {
+        width: 155px;
+    }
 }

@@ -43,7 +43,8 @@ function OtherProfile() {
                     {!profile.profile_img_url &&
                         <img src={blankProfile}/>
                     }
-                    <span>{profile.username}'s Profile</span>
+                    <span className={styles.name}>{profile.username}</span>
+                    <span className={styles.name__sfx}>'s Profile</span>
                     {following &&
                         <Button className={styles.follow__btn} onClick={unfollow}>Unfollow</Button>
                     }
@@ -57,7 +58,7 @@ function OtherProfile() {
                     return <ProfileCard userProfile={false} key={photo.id} photo={photo} />
                 })}
             </div>
-            {!photosArr.length &&
+            {(!photosArr.length && profile) &&
                 <h1 className={styles.no_photo_public}>{profile.username} has no public photos</h1>
             }
         </div>
