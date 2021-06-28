@@ -151,6 +151,21 @@
     text-align: center;
 }
 
+.follow__main {
+    width: 80%;
+    max-width: 400px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    box-shadow: 0 0 2px 2px rgb(182, 182, 182);
+    border-radius: 5px;
+}
+
+.follow__main:hover {
+    box-shadow: 0 0 2px 2px #F7DEB5;
+}
+
 @media only screen and (max-width: 1400px) {
     .left__container, .right__container {
         width: 250px;
@@ -168,8 +183,8 @@
 }
 
 @media only screen and (max-width: 1150px) {
-    .photos__container {
-        grid-template-columns: 1fr;
+    .center__container {
+        width: 90vw;
     }
 
     .no_photo {
@@ -178,9 +193,7 @@
         left: 50%;
         transform: translateX(-50%);
     }
-}
 
-@media only screen and (max-width: 900px) {
     .category__followers, .category__following {
         display: inline-block !important;
     }
@@ -218,6 +231,57 @@
 
     .category__following {
         border-right: 1px solid black;
+    }
+
+    .left__container, .right__container {
+        visibility: hidden;
+    }
+}
+
+@media only screen and (max-width: 825px) {
+    .photos__container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .category_selection {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .category_selection__left {
+        border-bottom-left-radius: 0px;
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
+    }
+
+    .category_selection__middle2 {
+        border-top-right-radius: 0px;
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
+    }
+
+    .category_selection__right {
+        border-bottom-left-radius: 0px;
+        border-right: none;
+        border-left: none;
+        border-bottom: 1px solid black;
+    }
+
+    .category_selection__middle {
+        border-bottom: 1px solid black;
+        border-right: none;
+        border-left: none;
+        border-top-right-radius: 5px;
+    }
+
+    .category__followers {
+        border-bottom-right-radius: 5px;
+    }
+
+    .category__following {
+        border-right: 1px solid black;
+        border-bottom-left-radius: 5px;
     }
 }
 
