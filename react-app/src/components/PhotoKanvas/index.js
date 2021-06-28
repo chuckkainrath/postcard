@@ -9,6 +9,8 @@ import styles from './PhotoKanvas.module.css';
 
 const WIDTH = 600;
 const HEIGHT = 400;
+const randomNum = Math.floor(Math.random() * 1000000);
+
 
 function PhotoKanvas({ photoSrc, frontSrc }) {
     const dispatch = useDispatch();
@@ -60,7 +62,7 @@ function PhotoKanvas({ photoSrc, frontSrc }) {
     useEffect(() => {
         if (frontSrc) {
             (async url => {
-                const res = await fetch(url);
+                const res = await fetch(`${url}?${randomNum}`);
                 const imageBlob = await res.blob();
                 const srcParts = frontSrc.split('/');
                 let filename = srcParts[srcParts.length - 1];
