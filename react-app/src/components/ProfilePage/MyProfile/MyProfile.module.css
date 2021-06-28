@@ -164,14 +164,7 @@
 
 @media only screen and (max-width: 1150px) {
     .photos__container {
-        display: flex;
-        width: fit-content;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .photos__container > div {
-        left: 5%;
+        grid-template-columns: 1fr;
     }
 
     .no_photo {
