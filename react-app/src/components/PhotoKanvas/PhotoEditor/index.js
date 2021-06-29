@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Stage, Layer, Text, Image, Line, Rect } from 'react-konva';
-import Konva from 'konva';
+import { Stage, Layer, Label, Text, Tag, Image, Line, Rect } from 'react-konva';
 import useImage from 'use-image';
 import styles from './PhotoEditor.module.css';
 import FontSelector from '../FontSelector';
@@ -22,7 +21,8 @@ function PhotoEditor({ photoSrc, finishFront }) {
     const [ loading, setLoading ] = useState(true);
     const [ textValue, setTextValue ] = useState('');
     const [ textInput, setTextInput ] = useState();
-    const [ objects, setObjects ] = useState([]);
+    const [ objects, setObjects ] = useState({});
+    const [ objectKey, setObjectKey ] = useState(0);
     const [ fontSize, setFontSize ] = useState(24);
     const [ currObject, setCurrObject ] = useState();
     const [ color, setColor ] = useState('#000000')
@@ -65,25 +65,31 @@ function PhotoEditor({ photoSrc, finishFront }) {
         setTextValue(newTextValue);
     }
 
+    const dragStart = (e) => {
+        let numChildren = e.target.children.length
+        let obj = objects[e.target.children[numChildren - 1].attrs.tId];
+        setCurrObject(obj);
+        setTextValue(obj.text);
+        textInput.disabled = false;
+    }
+
+    const dragEnd = (e) => {
+        textInput.focus();
+    }
+
     const newTextInput = () => {
-        const newText = {type: 'Text', fontFamily: fontFamily, fontSize: fontSize, fill: color, text: 'Text', x: 10, y: 10 }
+        const newText = {tId: objectKey, type: 'Text', fontFamily: fontFamily, fontSize: fontSize, fill: color, text: 'Text', x: 10, y: 10 }
         newText.onClick = () => {
             setTextValue(newText.text);
             setCurrObject(newText);
             textInput.disabled = false;
             textInput.focus();
         }
-        newText.onDragStart = () => {
-            setCurrObject(newText);
-            textInput.disabled = false;
-        }
-        newText.onDragEnd = (e) => {
-            newText.x = e.target.x();
-            newText.y = e.target.y();
-            textInput.focus();
-        }
 
-        setObjects([...objects, newText]);
+        let newObjs = Object.assign({}, objects);
+        newObjs[objectKey] = newText;
+        setObjectKey(objectKey + 1);
+        setObjects(newObjs);
         setCurrObject(newText);
         setTextValue(newText.text);
         textInput.disabled = false;
@@ -140,9 +146,9 @@ function PhotoEditor({ photoSrc, finishFront }) {
     }
 
     const deleteCurrObj = () => {
-        const objCopies = objects.filter(obj => {
-            return obj !== currObject;
-        })
+        const objCopies = Object.assign({}, objects);
+        objCopies[currObject.tId].x = -1000;
+        objCopies[currObject.tId].y = 1000;
         setObjects(objCopies);
         setTextValue('');
         textInput.disabled = true;
@@ -180,7 +186,7 @@ function PhotoEditor({ photoSrc, finishFront }) {
                             + Text
                         </button>
                         <input id='textInput' className={styles.kanvas__text_input} value={textValue} onChange={(e) => textChange(e)} />
-                        <button disabled={!currObject} onClick={() => deleteCurrObj()}>Delete</button>
+                        <button disabled={!currObject} onClick={deleteCurrObj}>Delete</button>
                     </div>
                     <div className={styles.text__options}>
                         <div>
@@ -208,9 +214,14 @@ function PhotoEditor({ photoSrc, finishFront }) {
                         <Image ref={photoRef} filters={filter} image={photo} />
                     </Layer>
                     <Layer>
-                        {objects && objects.map(object => {
+                        {objects && Object.values(objects).map(object => {
                             const Comp = typeMap[object.type]
-                            return <Comp draggable {...object} key={object.id} />
+                            return (
+                                <Label draggable onDragStart={dragStart} onDragEnd={dragEnd}>
+                                    {object === currObject && <Tag dash={[5, 5]} fill='rgba(255,255,255,0.5)' stroke='black' strokeWidth='2'/> }
+                                    <Comp {...object} key={object.id} padding='3' />
+                                </Label>
+                            )
                         })}
                     </Layer>
                 </Stage>
