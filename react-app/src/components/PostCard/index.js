@@ -8,14 +8,17 @@ function PostCard() {
     const { photoId } = useParams();
     const location = useLocation();
     const [ stage, setStage ] = useState('card');
+    const [ options, setOptions ] = useState({});
     const photos = useSelector(state => state.photos.photos);
     const profPhotos = useSelector(state => state.profile.photos);
 
     if (location.state) {
         return (
-            <div>
+            <div className={stage !== 'complete' ? styles.kanvas__container : null}>
                 <h1 className={styles.postcard_title}>Create a Postcard</h1>
-                <PhotoKanvas frontSrc={location.state.front_url} />
+                <div className={styles.kanvas}>
+                    <PhotoKanvas stage={stage} setStage={setStage} frontSrc={location.state.front_url} />
+                </div>
             </div>
         )
     }
