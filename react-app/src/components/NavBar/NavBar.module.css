@@ -81,6 +81,7 @@ ul {
 
 .upload__icon:hover i {
     color: black;
+    cursor: pointer;
 }
 
 .profile__icon {
