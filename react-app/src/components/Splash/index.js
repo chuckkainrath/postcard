@@ -17,7 +17,7 @@ function Splash() {
     return (
         <div className={styles.page__container}>
             <div className={styles.splash__container}>
-                <h1 className={styles.splash__message}>Welcome to Postacard where you create postcards from photos!</h1>
+                <h1 className={styles.splash__message}>Welcome to Postacard where you<br /> create postcards from photos!</h1>
                 <h1 className={styles.login_signup__container}>
                     <Button onClick={() => setShowLogin(true)}>
                         Login
