@@ -75,6 +75,10 @@
     color: rgb(164, 187, 183);
 }
 
+.delete__card:hover {
+    cursor: pointer;
+}
+
 .modal__delete p {
     font-size: 1.2em;
 }
