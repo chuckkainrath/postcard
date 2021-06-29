@@ -17,10 +17,15 @@ PHOTO_LIMIT = 40
 @login_required
 def get_public_photos():
     user_id = int(current_user.id)
-    raw_photos = db.session.execute('''SELECT photos.*, users.username, users.profile_img_url, likes.id FROM photos
-                                   JOIN users ON photos.user_id=users.id
-                                   LEFT JOIN likes ON likes.user_id=:user_id AND likes.photo_id=photos.id
-                                   WHERE public=true''', {'user_id': user_id})
+    raw_photos = db.session.execute('''SELECT photos.*, users.username, users.profile_img_url, liked.id as liked_id,
+                                       COUNT(likes_count.photo_id) as like_count
+                                    FROM photos
+                                    JOIN users ON photos.user_id=users.id
+                                    LEFT JOIN likes liked ON liked.user_id:=user_id AND liked.photo_id=photos.id
+                                    LEFT JOIN likes likes_count ON likes_count.photo_id=photos.id
+                                    WHERE public=true
+                                    GROUP BY liked.id, users.profile_img_url, users.username, photos.id;''', {'user_id': user_id})
+
 
     photos_list = []
     for photo in raw_photos:
@@ -32,7 +37,8 @@ def get_public_photos():
             'created_at': photo[4],
             'username': photo[5],
             'profile_img_url': photo[6],
-            'liked': photo[7]
+            'liked': photo[7],
+            'like_count': photo[8];
         }
         photos_list.append(photo_dict)
 
