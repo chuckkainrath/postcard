@@ -123,6 +123,10 @@
     padding: 5px;
 }
 
+.following__container:hover, .follower__container:hover {
+    cursor: pointer;
+}
+
 .unfollow {
     flex-grow: 0;
     flex-shrink: 0;
