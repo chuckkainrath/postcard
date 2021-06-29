@@ -64,9 +64,9 @@
     color: rgb(164, 187, 183);
 }
 
-.photo__delete:hover {
+/* .photo__delete:hover {
     font-size: 2.7em;
-}
+} */
 
 .photo__heart {
     display: inline-block;
@@ -75,9 +75,9 @@
     color: rgb(144, 37, 37);
 }
 
-.photo__heart:hover {
+/* .photo__heart:hover {
     font-size: 3.2em;
-}
+} */
 
 .delete_or_cancel {
     text-align: center;
