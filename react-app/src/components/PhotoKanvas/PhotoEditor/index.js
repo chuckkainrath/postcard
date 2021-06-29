@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Stage, Layer, Text, Image, Line, Rect } from 'react-konva';
-import Konva from 'konva';
+import { Stage, Layer, Label, Text, Tag, Image, Line, Rect } from 'react-konva';
 import useImage from 'use-image';
 import styles from './PhotoEditor.module.css';
 import FontSelector from '../FontSelector';
@@ -22,13 +21,15 @@ function PhotoEditor({ photoSrc, finishFront }) {
     const [ loading, setLoading ] = useState(true);
     const [ textValue, setTextValue ] = useState('');
     const [ textInput, setTextInput ] = useState();
-    const [ objects, setObjects ] = useState([]);
+    const [ objects, setObjects ] = useState({});
+    const [ objectKey, setObjectKey ] = useState(0);
     const [ fontSize, setFontSize ] = useState(24);
     const [ currObject, setCurrObject ] = useState();
     const [ color, setColor ] = useState('#000000')
     const [ fontFamily, setFontFamily ] = useState('Arial');
     const [ fontStyle, setFontStyle ] = useState('');
     const [ underline, setUnderline ] = useState('');
+    const [ align, setAlign ] = useState('left');
     const [ filter, setFilter ] = useState([]);
     const frontRef = useRef(null);
 
@@ -65,25 +66,36 @@ function PhotoEditor({ photoSrc, finishFront }) {
         setTextValue(newTextValue);
     }
 
+    const dragStart = (e) => {
+        let numChildren = e.target.children.length
+        let obj = objects[e.target.children[numChildren - 1].attrs.tId];
+        setCurrObject(obj);
+        setTextValue(obj.text);
+        textInput.disabled = false;
+    }
+
+    const dragEnd = (e) => {
+        textInput.focus();
+    }
+
     const newTextInput = () => {
-        const newText = {type: 'Text', fontFamily: fontFamily, fontSize: fontSize, fill: color, text: 'Text', x: 10, y: 10 }
+        const newText = {tId: objectKey, type: 'Text', align: align, fontFamily: fontFamily, fontSize: fontSize, fill: color, text: 'Text', x: 10, y: 10 }
         newText.onClick = () => {
             setTextValue(newText.text);
             setCurrObject(newText);
             textInput.disabled = false;
             textInput.focus();
         }
-        newText.onDragStart = () => {
-            setCurrObject(newText);
-            textInput.disabled = false;
+        newText.onMouseEnter = () => {
+            frontRef.current.container().style.cursor = 'move';
         }
-        newText.onDragEnd = (e) => {
-            newText.x = e.target.x();
-            newText.y = e.target.y();
-            textInput.focus();
+        newText.onMouseLeave = () => {
+            frontRef.current.container().style.cursor = 'default';
         }
-
-        setObjects([...objects, newText]);
+        let newObjs = Object.assign({}, objects);
+        newObjs[objectKey] = newText;
+        setObjectKey(objectKey + 1);
+        setObjects(newObjs);
         setCurrObject(newText);
         setTextValue(newText.text);
         textInput.disabled = false;
@@ -139,10 +151,17 @@ function PhotoEditor({ photoSrc, finishFront }) {
         }
     }
 
+    const changeAlign = dir => {
+        setAlign(dir);
+        if (currObject) {
+            currObject.align = dir;
+        }
+    }
+
     const deleteCurrObj = () => {
-        const objCopies = objects.filter(obj => {
-            return obj !== currObject;
-        })
+        const objCopies = Object.assign({}, objects);
+        objCopies[currObject.tId].x = -1000;
+        objCopies[currObject.tId].y = 1000;
         setObjects(objCopies);
         setTextValue('');
         textInput.disabled = true;
@@ -156,8 +175,9 @@ function PhotoEditor({ photoSrc, finishFront }) {
         textInput.disabled = true;
     }
 
-    const doneEditing = () => {
+    const doneEditing = async () => {
         // Convert canvas to image
+        await setCurrObject(null);
         const imageURL = frontRef.current.toDataURL();
         (async url => {
             const res = await fetch(url);
@@ -176,31 +196,38 @@ function PhotoEditor({ photoSrc, finishFront }) {
             <div id='kanvas'>
                 <div className={styles.kanvas__options}>
                     <div className={styles.text__edit}>
-                        <button onClick={() => newTextInput()}>
-                            + Text
-                        </button>
-                        <input id='textInput' className={styles.kanvas__text_input} value={textValue} onChange={(e) => textChange(e)} />
-                        <button disabled={!currObject} onClick={() => deleteCurrObj()}>Delete</button>
+                        <div className={styles.text__new_dlt}>
+                            <button onClick={() => newTextInput()}>
+                                New Text
+                            </button>
+                            <button disabled={!currObject} onClick={deleteCurrObj}>Delete</button>
+                        </div>
+                        <div className={styles.kanvas__text_container}>
+                            <textarea id='textInput' className={styles.kanvas__text_input} value={textValue} onChange={(e) => textChange(e)} />
+                        </div>
+                    </div>
+                    <div className={styles.filter}>
+                            <label>Filter:  </label>
+                            <FilterSelector filter={filter} setFilter={setFilter} />
                     </div>
                     <div className={styles.text__options}>
                         <div>
-                            <label>Font Size: </label>
-                            <input type='number' value={fontSize} onChange={(e) => changeFontSize(e)} />
+                            <label>Font Size:  </label>
+                            <input className={styles.font__input} type='number' value={fontSize} onChange={(e) => changeFontSize(e)} />
                         </div>
                         <div>
-                            <label>Color: </label>
+                            <label>Color:  </label>
                             <input type="color" value={color} onChange={(e) => changeColor(e)} />
                         </div>
                         <FontSelector fontFamily={fontFamily} changeFontFamily={changeFontFamily} />
                         <div>
-                            <button disabled={!currObject} onClick={() => changeBold()}>B</button>
-                            <button disabled={!currObject} onClick={() => changeItalic()}>I</button>
-                            <button disabled={!currObject} onClick={() => changeUnderline()}>U</button>
+                            <button disabled={!currObject} onClick={() => changeBold()}><i class="fas fa-bold"></i></button>
+                            <button disabled={!currObject} onClick={() => changeItalic()}><i class="fas fa-italic"></i></button>
+                            <button disabled={!currObject} onClick={() => changeUnderline()}><i class="fas fa-underline"></i></button>
+                            <button disabled={!currObject} onClick={() => changeAlign('left')}><i class="fal fa-align-left"></i></button>
+                            <button disabled={!currObject} onClick={() => changeAlign('center')}><i class="fal fa-align-center"></i></button>
+                            <button disabled={!currObject} onClick={() => changeAlign('right')}><i class="fal fa-align-right"></i></button>
                         </div>
-                    </div>
-                    <div className={styles.filter}>
-                        <label>Photo Filter: </label>
-                        <FilterSelector filter={filter} setFilter={setFilter} />
                     </div>
                 </div>
                 <Stage ref={frontRef} width={WIDTH} height={HEIGHT}>
@@ -208,9 +235,14 @@ function PhotoEditor({ photoSrc, finishFront }) {
                         <Image ref={photoRef} filters={filter} image={photo} />
                     </Layer>
                     <Layer>
-                        {objects && objects.map(object => {
+                        {objects && Object.values(objects).map(object => {
                             const Comp = typeMap[object.type]
-                            return <Comp draggable {...object} key={object.id} />
+                            return (
+                                <Label draggable onDragStart={dragStart} onDragEnd={dragEnd}>
+                                    {object === currObject && <Tag dash={[8, 5]} fill='rgba(255,255,255,0.5)' stroke='red' strokeWidth='2'/> }
+                                    <Comp {...object} key={object.id} padding='3' />
+                                </Label>
+                            )
                         })}
                     </Layer>
                 </Stage>

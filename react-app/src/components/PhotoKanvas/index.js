@@ -12,14 +12,14 @@ const HEIGHT = 400;
 const randomNum = Math.floor(Math.random() * 1000000);
 
 
-function PhotoKanvas({ photoSrc, frontSrc }) {
+function PhotoKanvas({ photoSrc, frontSrc, stage, setStage }) {
+    console.log('stage', stage);
     const dispatch = useDispatch();
     const history = useHistory();
     const [ cardFront, setCardFront ] = useState();
     const [ cardBack, setCardBack ] = useState();
     const [ frontUrl, setFrontUrl ] = useState('');
     const [ backUrl, setBackUrl ] = useState('');
-    const [ stage, setStage ] = useState('card');
     const [ frontName, setFrontName ] = useState('');
     const [ backName, setBackName ] = useState('');
     const [ cardSaved, setCardSaved ] = useState(false);
@@ -76,7 +76,7 @@ function PhotoKanvas({ photoSrc, frontSrc }) {
 
 
     return (
-        <div>
+        <div className={styles.kanvas__container}>
             {stage === 'card' &&
                 <PhotoEditor photoSrc={photoSrc} finishFront={finishFront} />
             }
