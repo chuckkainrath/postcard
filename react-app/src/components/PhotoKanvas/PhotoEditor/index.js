@@ -39,14 +39,6 @@ function PhotoEditor({ photoSrc, finishFront }) {
             const textInput = document.getElementById('textInput')
             setTextInput(textInput);
             textInput.disabled = true;
-            // const returnListener = e => {
-            //     if (e.keyCode == 13 && textInput.disabled === false) {
-            //         console.log(textValue + '\n');
-            //         setTextValue(textValue + '\n');
-            //     }
-            // }
-            // window.addEventListener('keydown', returnListener);
-            // return () => window.removeEventListener('keydown', returnListener);
         }
     }, [loading])
 
@@ -94,7 +86,12 @@ function PhotoEditor({ photoSrc, finishFront }) {
             textInput.disabled = false;
             textInput.focus();
         }
-
+        newText.onMouseEnter = () => {
+            frontRef.current.container().style.cursor = 'move';
+        }
+        newText.onMouseLeave = () => {
+            frontRef.current.container().style.cursor = 'default';
+        }
         let newObjs = Object.assign({}, objects);
         newObjs[objectKey] = newText;
         setObjectKey(objectKey + 1);
@@ -178,8 +175,9 @@ function PhotoEditor({ photoSrc, finishFront }) {
         textInput.disabled = true;
     }
 
-    const doneEditing = () => {
+    const doneEditing = async () => {
         // Convert canvas to image
+        await setCurrObject(null);
         const imageURL = frontRef.current.toDataURL();
         (async url => {
             const res = await fetch(url);
@@ -198,38 +196,38 @@ function PhotoEditor({ photoSrc, finishFront }) {
             <div id='kanvas'>
                 <div className={styles.kanvas__options}>
                     <div className={styles.text__edit}>
-                        <button onClick={() => newTextInput()}>
-                            + Text
-                        </button>
+                        <div className={styles.text__new_dlt}>
+                            <button onClick={() => newTextInput()}>
+                                New Text
+                            </button>
+                            <button disabled={!currObject} onClick={deleteCurrObj}>Delete</button>
+                        </div>
                         <div className={styles.kanvas__text_container}>
                             <textarea id='textInput' className={styles.kanvas__text_input} value={textValue} onChange={(e) => textChange(e)} />
                         </div>
-                        <button disabled={!currObject} onClick={deleteCurrObj}>Delete</button>
+                    </div>
+                    <div className={styles.filter}>
+                            <label>Filter:  </label>
+                            <FilterSelector filter={filter} setFilter={setFilter} />
                     </div>
                     <div className={styles.text__options}>
                         <div>
-                            <label>Font Size: </label>
-                            <input type='number' value={fontSize} onChange={(e) => changeFontSize(e)} />
+                            <label>Font Size:  </label>
+                            <input className={styles.font__input} type='number' value={fontSize} onChange={(e) => changeFontSize(e)} />
                         </div>
                         <div>
-                            <label>Color: </label>
+                            <label>Color:  </label>
                             <input type="color" value={color} onChange={(e) => changeColor(e)} />
                         </div>
                         <FontSelector fontFamily={fontFamily} changeFontFamily={changeFontFamily} />
                         <div>
-                            <button disabled={!currObject} onClick={() => changeBold()}>B</button>
-                            <button disabled={!currObject} onClick={() => changeItalic()}>I</button>
-                            <button disabled={!currObject} onClick={() => changeUnderline()}>U</button>
-                        </div>
-                        <div>
+                            <button disabled={!currObject} onClick={() => changeBold()}><i class="fas fa-bold"></i></button>
+                            <button disabled={!currObject} onClick={() => changeItalic()}><i class="fas fa-italic"></i></button>
+                            <button disabled={!currObject} onClick={() => changeUnderline()}><i class="fas fa-underline"></i></button>
                             <button disabled={!currObject} onClick={() => changeAlign('left')}><i class="fal fa-align-left"></i></button>
                             <button disabled={!currObject} onClick={() => changeAlign('center')}><i class="fal fa-align-center"></i></button>
                             <button disabled={!currObject} onClick={() => changeAlign('right')}><i class="fal fa-align-right"></i></button>
                         </div>
-                    </div>
-                    <div className={styles.filter}>
-                        <label>Photo Filter: </label>
-                        <FilterSelector filter={filter} setFilter={setFilter} />
                     </div>
                 </div>
                 <Stage ref={frontRef} width={WIDTH} height={HEIGHT}>
@@ -241,7 +239,7 @@ function PhotoEditor({ photoSrc, finishFront }) {
                             const Comp = typeMap[object.type]
                             return (
                                 <Label draggable onDragStart={dragStart} onDragEnd={dragEnd}>
-                                    {object === currObject && <Tag dash={[5, 5]} fill='rgba(255,255,255,0.5)' stroke='black' strokeWidth='2'/> }
+                                    {object === currObject && <Tag dash={[8, 5]} fill='rgba(255,255,255,0.5)' stroke='red' strokeWidth='2'/> }
                                     <Comp {...object} key={object.id} padding='3' />
                                 </Label>
                             )
