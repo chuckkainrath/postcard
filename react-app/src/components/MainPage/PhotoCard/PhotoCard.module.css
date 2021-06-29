@@ -71,8 +71,8 @@
 }
 
 .photo__heart:hover {
-    font-size: 2.7em;
-    margin-left: 9px;
+    /* font-size: 2.7em; */
+    /* margin-left: 9px; */
 }
 
 /* .photo__card_create:hover {
