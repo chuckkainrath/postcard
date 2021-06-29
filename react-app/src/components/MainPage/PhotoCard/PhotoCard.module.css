@@ -65,6 +65,7 @@
 
 .photo__heart {
     display: inline-block;
+    position: relative;
     margin-left: 10px;
     font-size: 2.5em;
     color: rgb(144, 37, 37);
@@ -83,6 +84,14 @@
 .left__container {
     display: flex;
     align-items: center;
+}
+
+.likes__count {
+    display: inline-block;
+    position: absolute;
+    top: 1vh;
+    margin-left: 2px;
+    font-size: 0.5em;
 }
 
 @media only screen and (max-width: 1450px) {
