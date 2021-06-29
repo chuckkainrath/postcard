@@ -21,7 +21,7 @@ def get_public_photos():
                                        COUNT(likes_count.photo_id) as like_count
                                     FROM photos
                                     JOIN users ON photos.user_id=users.id
-                                    LEFT JOIN likes liked ON liked.user_id:=user_id AND liked.photo_id=photos.id
+                                    LEFT JOIN likes liked ON liked.user_id=:user_id AND liked.photo_id=photos.id
                                     LEFT JOIN likes likes_count ON likes_count.photo_id=photos.id
                                     WHERE public=true
                                     GROUP BY liked.id, users.profile_img_url, users.username, photos.id;''', {'user_id': user_id})
@@ -38,7 +38,7 @@ def get_public_photos():
             'username': photo[5],
             'profile_img_url': photo[6],
             'liked': photo[7],
-            'like_count': photo[8];
+            'like_count': photo[8]
         }
         photos_list.append(photo_dict)
 
