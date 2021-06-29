@@ -1,12 +1,60 @@
-.postcard_title {
-    text-align: center;
+.kanvas__container {
+    width: 650px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 40px;
+    display: grid;
+    grid-template-areas:
+    "info header ."
+    "canvas canvas canvas";
+    grid-template-columns: 1fr 5fr 1fr;
+    row-gap: 20px;
 }
 
-.kanvas__container {
-    margin-top: 40px;
+.postcard_title {
+    text-align: center;
+    grid-area: header;
 }
 
 .info {
+    grid-area: info;
+    text-align: left;
+    font-size: 2em;
+    align-self: center;
+}
+
+.instructions {
+    display: none;
+}
+
+.instructions ul {
+    list-style-type: none;
+}
+
+.instructions h1 {
+    text-align: center;
+}
+
+.instructions li {
+    font-size: 1.3em;
+}
+
+.info:hover ~ .instructions {
     position: absolute;
-    left: 0;
+    display: block;
+    border-radius: 5px;
+    box-shadow: 0 0 2px 2px #B84D00;
+    padding: 10px;
+    backdrop-filter: blur(50px);
+    z-index: 1000;
+    top: 5vh;
+}
+
+.kanvas {
+    grid-area: canvas;
+}
+
+.kanvas__complete {
+    
 }
