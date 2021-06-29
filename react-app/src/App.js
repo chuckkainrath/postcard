@@ -9,7 +9,6 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import PhotosComponent from './components/MainPage/PhotosComponent';
 import { authenticate } from "./store/session";
 import ProfileContainer from "./components/ProfilePage/ProfileContainer";
-import UploadPage from './components/PhotoUpload/UploadPage';
 import PostCard from './components/PostCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
