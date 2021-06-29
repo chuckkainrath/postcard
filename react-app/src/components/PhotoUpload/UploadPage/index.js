@@ -106,6 +106,8 @@ function UploadPage({uploadImage, showUploadImage}) {
                                 checked={privatePhoto}
                                 onChange={() => setPrivatePhoto(!privatePhoto)}
                             />
+                            {!privatePhoto && <div className={styles.private__photo}><i class="fad fa-unlock-alt"></i></div>}
+                            {privatePhoto && <div className={styles.private__photo}><i class="fad fa-lock-alt"></i></div>}
                         </div>
                         <div className={styles.buttons}>
                             <Button disabled={imageUploaded} onClick={uploadPhoto}>Upload Photo</Button>

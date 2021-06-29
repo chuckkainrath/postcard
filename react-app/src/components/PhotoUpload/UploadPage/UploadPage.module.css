@@ -32,6 +32,8 @@
 
 .edit__input label {
     margin-right: 2px;
+    font-size: 1.5rem;
+    font-family: 'KoHo';
 }
 
 .edit__input input {
@@ -50,4 +52,11 @@
 
 .buttons button {
     margin: 5px 10px;
+}
+
+.private__photo {
+    display: inline-block;
+    font-size: 2rem;
+    position: relative;
+    margin-left: 1vw;
 }
