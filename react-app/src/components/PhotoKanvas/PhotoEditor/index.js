@@ -29,6 +29,7 @@ function PhotoEditor({ photoSrc, finishFront }) {
     const [ fontFamily, setFontFamily ] = useState('Arial');
     const [ fontStyle, setFontStyle ] = useState('');
     const [ underline, setUnderline ] = useState('');
+    const [ align, setAlign ] = useState('left');
     const [ filter, setFilter ] = useState([]);
     const frontRef = useRef(null);
 
@@ -38,6 +39,14 @@ function PhotoEditor({ photoSrc, finishFront }) {
             const textInput = document.getElementById('textInput')
             setTextInput(textInput);
             textInput.disabled = true;
+            // const returnListener = e => {
+            //     if (e.keyCode == 13 && textInput.disabled === false) {
+            //         console.log(textValue + '\n');
+            //         setTextValue(textValue + '\n');
+            //     }
+            // }
+            // window.addEventListener('keydown', returnListener);
+            // return () => window.removeEventListener('keydown', returnListener);
         }
     }, [loading])
 
@@ -78,7 +87,7 @@ function PhotoEditor({ photoSrc, finishFront }) {
     }
 
     const newTextInput = () => {
-        const newText = {tId: objectKey, type: 'Text', fontFamily: fontFamily, fontSize: fontSize, fill: color, text: 'Text', x: 10, y: 10 }
+        const newText = {tId: objectKey, type: 'Text', align: align, fontFamily: fontFamily, fontSize: fontSize, fill: color, text: 'Text', x: 10, y: 10 }
         newText.onClick = () => {
             setTextValue(newText.text);
             setCurrObject(newText);
@@ -145,6 +154,13 @@ function PhotoEditor({ photoSrc, finishFront }) {
         }
     }
 
+    const changeAlign = dir => {
+        setAlign(dir);
+        if (currObject) {
+            currObject.align = dir;
+        }
+    }
+
     const deleteCurrObj = () => {
         const objCopies = Object.assign({}, objects);
         objCopies[currObject.tId].x = -1000;
@@ -185,7 +201,9 @@ function PhotoEditor({ photoSrc, finishFront }) {
                         <button onClick={() => newTextInput()}>
                             + Text
                         </button>
-                        <input id='textInput' className={styles.kanvas__text_input} value={textValue} onChange={(e) => textChange(e)} />
+                        <div className={styles.kanvas__text_container}>
+                            <textarea id='textInput' className={styles.kanvas__text_input} value={textValue} onChange={(e) => textChange(e)} />
+                        </div>
                         <button disabled={!currObject} onClick={deleteCurrObj}>Delete</button>
                     </div>
                     <div className={styles.text__options}>
@@ -202,6 +220,11 @@ function PhotoEditor({ photoSrc, finishFront }) {
                             <button disabled={!currObject} onClick={() => changeBold()}>B</button>
                             <button disabled={!currObject} onClick={() => changeItalic()}>I</button>
                             <button disabled={!currObject} onClick={() => changeUnderline()}>U</button>
+                        </div>
+                        <div>
+                            <button disabled={!currObject} onClick={() => changeAlign('left')}><i class="fal fa-align-left"></i></button>
+                            <button disabled={!currObject} onClick={() => changeAlign('center')}><i class="fal fa-align-center"></i></button>
+                            <button disabled={!currObject} onClick={() => changeAlign('right')}><i class="fal fa-align-right"></i></button>
                         </div>
                     </div>
                     <div className={styles.filter}>

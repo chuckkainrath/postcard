@@ -9,6 +9,16 @@
     transform: translateX(-50%);
 }
 
+.kanvas__text_input {
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.kanvas__text_container {
+    width: 0;
+    overflow: hidden;
+}
+
 .text__edit {
     display: flex;
 }
