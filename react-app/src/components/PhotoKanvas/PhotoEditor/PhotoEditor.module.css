@@ -9,18 +9,32 @@
     transform: translateX(-50%);
 }
 
-.kanvas__text_input {
-    opacity: 0;
-    filter: alpha(opacity=0);
+.font__input {
+    width: 50px;
 }
 
-.kanvas__text_container {
-    width: 0;
-    overflow: hidden;
+.text__new_dlt {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.text__new_dlt button {
+    display: block;
+    width: 100%;
+}
+
+.text__edit textarea {
+    width: 100%;
+    height: 100%;
 }
 
 .text__edit {
-    display: flex;
+    display: grid;
+    grid-template-columns: 90px auto;
+    grid-template-rows: 75px;
+    grid-column-gap: 10px;
+    margin-bottom: 10px;
 }
 
 .text__edit input {
@@ -31,6 +45,7 @@
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
+    align-items:baseline;
 }
 
 .filter {
