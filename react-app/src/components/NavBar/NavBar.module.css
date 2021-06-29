@@ -27,7 +27,7 @@ ul {
 }
 
 .navbar__welcome h1 {
-    font-size: 2em;
+    font-size: 1.6em;
 }
 
 .navbar__container > li {
@@ -146,6 +146,10 @@ ul {
     text-overflow: ellipsis;
     font-size: 1.2em;
     padding: 3px 5px;
+}
+
+.search__results li:hover {
+    cursor: pointer;
 }
 
 .search__results li:hover {
