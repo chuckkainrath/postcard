@@ -253,7 +253,7 @@ function MyProfile() {
                                     </div>
                                 )
                             })}
-                            {!followingArr &&
+                            {!followersArr &&
                                 <h1 className={styles.no_follow}>You don't have any followers</h1>
                             }
                         </div>
@@ -298,7 +298,7 @@ function MyProfile() {
                             </div>
                         )
                     })}
-                    {!followingArr &&
+                    {!followersArr &&
                         <h1 className={styles.no_follow}>You don't have any followers</h1>
                     }
                 </div>
