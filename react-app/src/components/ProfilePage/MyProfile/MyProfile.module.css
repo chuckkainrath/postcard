@@ -32,6 +32,10 @@
     padding: 15px 0;
 }
 
+.category_selection span:hover {
+    background-color: #E89C21;
+}
+
 .category_selection__selected {
     font-weight: bold;
     background-color: #CB8515;
