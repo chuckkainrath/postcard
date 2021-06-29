@@ -140,12 +140,14 @@ export default function reducer(state = initialState, action) {
             newState = Object.assign({}, state);
             if (newState.photos[action.photoId]) {
                 newState.photos[action.photoId].liked = action.likedId;
+                newState.photos[action.photoId].like_count++;
             }
             return newState;
         case UNLIKE_PHOTO:
             newState = Object.assign({}, state);
             if (newState.photos[action.payload]) {
                 newState.photos[action.payload].liked = null;
+                newState.photos[action.payload].like_count--;
             }
             if (newState.likedPhotos && newState.likedPhotos[action.payload]) {
                 delete newState.likedPhotos[action.payload];
