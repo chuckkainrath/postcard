@@ -49,93 +49,95 @@ function PhotoCard({ photo, myProfile }) {
     const deleteTooltip = props => <Tooltip id="delete-tooltip" {...props}>Delete Image</Tooltip>
 
     return (
-        <div className={styles.photo__card}>
-            <img
-                className={styles.photo__img}
-                src={photo.photo_url}
-                onClick={() => history.push(`/profiles/${photo.username}`)}
-            />
-            <div className={styles.photo__options}>
-                <div className={styles.left__container}>
-                    {myProfile &&
-                        <OverlayTrigger
-                            placement="right"
-                            delay={{ show: 250, hide: 250 }}
-                            overlay={deleteTooltip}
-                        >
-                            <span className={styles.photo__delete} onClick={() => setDeleteConfirm(true)}><i class="fas fa-trash"></i></span>
-                        </OverlayTrigger>
-                    }
-                    {!myProfile &&
-                        <img
-                            className={styles.photo__user_profile}
-                            src={profileSrc}
-                            onClick={() => history.push(`/profiles/${photo.username}`)}
-                        />
-                    }
-                    {photo.public && 
-                        <div
-                            onClick={toggleLike}
-                            className={styles.photo__heart}>
-                            {liked &&
-                                <>
-                                    <OverlayTrigger
-                                        placement="right"
-                                        delay={{ show: 250, hide: 250 }}
-                                        overlay={unlikeTooltip}
-                                    >
-                                        <i class="fas fa-heart"></i>
-                                    </OverlayTrigger>
-                                    <span className={styles.likes__count}>{photo.like_count}</span>
-                                </>
-                            }
-                            {!liked &&
-                                <>
-                                    <OverlayTrigger
-                                        placement="right"
-                                        delay={{ show: 250, hide: 250 }}
-                                        overlay={likeTooltip}
-                                    >
-                                        <i class="fal fa-heart"></i>
-                                    </OverlayTrigger>
-                                    <span className={styles.likes__count}>{photo.like_count}</span>
-                                </>
-                            }
+        <div className={styles.flex__container}>
+            <div className={styles.photo__card}>
+                <img
+                    className={styles.photo__img}
+                    src={photo.photo_url}
+                    onClick={() => history.push(`/profiles/${photo.username}`)}
+                />
+                <div className={styles.photo__options}>
+                    <div className={styles.left__container}>
+                        {myProfile &&
+                            <OverlayTrigger
+                                placement="right"
+                                delay={{ show: 250, hide: 250 }}
+                                overlay={deleteTooltip}
+                            >
+                                <span className={styles.photo__delete} onClick={() => setDeleteConfirm(true)}><i class="fas fa-trash"></i></span>
+                            </OverlayTrigger>
+                        }
+                        {!myProfile &&
+                            <img
+                                className={styles.photo__user_profile}
+                                src={profileSrc}
+                                onClick={() => history.push(`/profiles/${photo.username}`)}
+                            />
+                        }
+                        {photo.public &&
+                            <div
+                                onClick={toggleLike}
+                                className={styles.photo__heart}>
+                                {liked &&
+                                    <>
+                                        <OverlayTrigger
+                                            placement="right"
+                                            delay={{ show: 250, hide: 250 }}
+                                            overlay={unlikeTooltip}
+                                        >
+                                            <i class="fas fa-heart"></i>
+                                        </OverlayTrigger>
+                                        <span className={styles.likes__count}>{photo.like_count}</span>
+                                    </>
+                                }
+                                {!liked &&
+                                    <>
+                                        <OverlayTrigger
+                                            placement="right"
+                                            delay={{ show: 250, hide: 250 }}
+                                            overlay={likeTooltip}
+                                        >
+                                            <i class="fal fa-heart"></i>
+                                        </OverlayTrigger>
+                                        <span className={styles.likes__count}>{photo.like_count}</span>
+                                    </>
+                                }
 
-                        </div>
-                    }
+                            </div>
+                        }
+                    </div>
+                    <div
+                        onClick={() => history.push(`/create-postcard/${photo.id}`)}
+                        className={styles.photo__card_create}>
+                        <OverlayTrigger
+                            placement="left"
+                            delay={{ show: 250, hide: 250 }}
+                            overlay={photoTooltip}
+                        >
+                            <i class={"fal fa-envelope"}></i>
+                        </OverlayTrigger>
+                    </div>
                 </div>
-                <div
-                    onClick={() => history.push(`/create-postcard/${photo.id}`)}
-                    className={styles.photo__card_create}>
-                    <OverlayTrigger
-                        placement="left"
-                        delay={{ show: 250, hide: 250 }}
-                        overlay={photoTooltip}
+                    <Modal
+                        show={deleteConfirm}
+                        onHide={() => setDeleteConfirm(false)}
+                        centered
+                        className={styles.delete__modal}
                     >
-                        <i class={"fal fa-envelope"}></i>
-                    </OverlayTrigger>
-                </div>
+                        <Modal.Header>
+                            <h1 className={styles.modal__title}>Delete Photo</h1>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <p>Are you sure you want to delete the photo?</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <div className={styles.delete_or_cancel}>
+                                <Button onClick={dltPhoto}>Delete</Button>
+                                <Button onClick={() => setDeleteConfirm(false)}>Cancel</Button>
+                            </div>
+                        </Modal.Footer>
+                    </Modal>
             </div>
-                <Modal
-                    show={deleteConfirm}
-                    onHide={() => setDeleteConfirm(false)}
-                    centered
-                    className={styles.delete__modal}
-                >
-                    <Modal.Header>
-                        <h1 className={styles.modal__title}>Delete Photo</h1>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <p>Are you sure you want to delete the photo?</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <div className={styles.delete_or_cancel}>
-                            <Button onClick={dltPhoto}>Delete</Button>
-                            <Button onClick={() => setDeleteConfirm(false)}>Cancel</Button>
-                        </div>
-                    </Modal.Footer>
-                </Modal>
         </div>
     )
 }
