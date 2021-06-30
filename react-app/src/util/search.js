@@ -20,7 +20,7 @@ const searchCreator = () => {
             resultsCache[query] = results;
             return results;
         } catch(error) {
-            console.log('Error', error);
+            
         }
         searching = false;
     }

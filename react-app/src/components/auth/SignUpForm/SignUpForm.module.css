@@ -112,6 +112,10 @@
     padding-top: 2vh;
 }
 
+.postcard__title:hover {
+    cursor: pointer;
+}
+
 .postcard__title h1 {
     font-size: 4rem;
     margin-left: 10px;
