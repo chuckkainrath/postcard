@@ -65,6 +65,7 @@ export const likePhoto = photoId => async dispatch => {
         return;
     }
     dispatch(likePhotoAction(photoId, data.liked_id));
+    return data.liked_id;
 }
 
 export const unlikePhoto = photoId => async dispatch => {
@@ -142,6 +143,8 @@ export default function reducer(state = initialState, action) {
                 newState.photos[action.photoId].liked = action.likedId;
                 newState.photos[action.photoId].like_count++;
             }
+            if (!newState.likedPhotos) newState.likedPhotos = {};
+            newState.likedPhotos[action.photoId] = newState.photos[action.photoId];
             return newState;
         case UNLIKE_PHOTO:
             newState = Object.assign({}, state);

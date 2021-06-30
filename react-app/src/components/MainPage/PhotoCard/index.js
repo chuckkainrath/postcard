@@ -1,26 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { likePhoto, unlikePhoto } from '../../../store/photos';
-import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { likePhoto, unlikePhoto, deletePhoto } from '../../../store/photos';
+import { likeProfilePhoto, unlikeProfilePhoto } from '../../../store/profile';
+import { Tooltip, OverlayTrigger, Modal, Button } from 'react-bootstrap';
 import styles from './PhotoCard.module.css';
 import blankProfile from './blank-profile-img.png';
 
-function PhotoCard({ photo }) {
+function PhotoCard({ photo, myProfile }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user)
     const profileSrc = photo.profile_img_url ? photo.profile_img_url : blankProfile;
     const [liked, setLiked] = useState(photo.liked);
+    // const [likeCount, setLikeCount] = useState(photo.like_count);
+    const [deleteConfirm, setDeleteConfirm] = useState(false);
 
     const toggleLike = async () => {
         if (liked) {
             await dispatch(unlikePhoto(photo.id));
+            dispatch(unlikeProfilePhoto(photo.id));
             setLiked(false);
         } else {
-            await dispatch(likePhoto(photo.id));
+            const likeId = await dispatch(likePhoto(photo.id));
+            if (myProfile) dispatch(likeProfilePhoto(photo.id, likeId))
             setLiked(true)
         }
+    }
+
+
+    const dltPhoto = async () => {
+        setDeleteConfirm(false);
+        dispatch(deletePhoto(photo.id));
     }
 
     const likeTooltip = props => (
@@ -35,6 +46,8 @@ function PhotoCard({ photo }) {
         <Tooltip id="photo-tooltip" {...props}>Create a Postcard</Tooltip>
     );
 
+    const deleteTooltip = props => <Tooltip id="delete-tooltip" {...props}>Delete Image</Tooltip>
+
     return (
         <div className={styles.photo__card}>
             <img
@@ -44,16 +57,26 @@ function PhotoCard({ photo }) {
             />
             <div className={styles.photo__options}>
                 <div className={styles.left__container}>
-                    <img
-                        className={styles.photo__user_profile}
-                        src={profileSrc}
-                        onClick={() => history.push(`/profiles/${photo.username}`)}
-                    />
-                    {photo.user_id !== user.id &&
+                    {myProfile &&
+                        <OverlayTrigger
+                            placement="right"
+                            delay={{ show: 250, hide: 250 }}
+                            overlay={deleteTooltip}
+                        >
+                            <span className={styles.photo__delete} onClick={() => setDeleteConfirm(true)}><i class="fas fa-trash"></i></span>
+                        </OverlayTrigger>
+                    }
+                    {!myProfile &&
+                        <img
+                            className={styles.photo__user_profile}
+                            src={profileSrc}
+                            onClick={() => history.push(`/profiles/${photo.username}`)}
+                        />
+                    }
+                    {photo.public && 
                         <div
                             onClick={toggleLike}
                             className={styles.photo__heart}>
-
                             {liked &&
                                 <>
                                     <OverlayTrigger
@@ -94,6 +117,25 @@ function PhotoCard({ photo }) {
                     </OverlayTrigger>
                 </div>
             </div>
+                <Modal
+                    show={deleteConfirm}
+                    onHide={() => setDeleteConfirm(false)}
+                    centered
+                    className={styles.delete__modal}
+                >
+                    <Modal.Header>
+                        <h1 className={styles.modal__title}>Delete Photo</h1>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p>Are you sure you want to delete the photo?</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <div className={styles.delete_or_cancel}>
+                            <Button onClick={dltPhoto}>Delete</Button>
+                            <Button onClick={() => setDeleteConfirm(false)}>Cancel</Button>
+                        </div>
+                    </Modal.Footer>
+                </Modal>
         </div>
     )
 }
