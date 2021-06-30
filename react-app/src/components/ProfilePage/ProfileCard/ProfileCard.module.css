@@ -80,22 +80,7 @@
     font-size: 3.2em;
 } */
 
-.delete_or_cancel {
-    text-align: center;
-}
 
-.delete_or_cancel button {
-    font-size: 1.2em;
-    margin: 0 10px;
-}
-
-.delete__modal {
-    font-family: 'KoHo';
-}
-
-.delete__modal p {
-    font-size: 1.4em;
-}
 
 @media only screen and (max-width: 1450px) {
     .photo__card {
