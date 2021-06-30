@@ -64,7 +64,6 @@ const NavBar = () => {
     if (val) {
       const res = await search(`/api/users/${val}/search`);
       if (res && Object.keys(res).length) {
-        console.log(res);
         setSearchResults(res);
         setNoResults(false);
       } else {

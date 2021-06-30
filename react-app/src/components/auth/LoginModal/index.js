@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { login } from "../../../store/session";
 import styles from './LoginModal.module.css';
 
-const LoginModal = ({ showLogin, setShowLogin }) => {
+const LoginModal = ({ showLogin, setShowLogin, signupPage }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
@@ -116,12 +116,14 @@ const LoginModal = ({ showLogin, setShowLogin }) => {
               </Form>
             )}
           </Formik>
-          <div className={styles.login__other_options}>
-              <div>Don't have an account?
-                <a tabIndex='0' className={styles.redirect} onClick={() => history.push('/sign-up')}> Sign Up </a>
-              </div>
-            <div>Or login as a <a tabIndex='0' className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</a></div>
-          </div>
+          {!signupPage &&
+            <div className={styles.login__other_options}>
+                <div>Don't have an account?
+                  <a tabIndex='0' className={styles.redirect} onClick={() => history.push('/sign-up')}> Sign Up </a>
+                </div>
+              <div>Or login as a <a tabIndex='0' className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</a></div>
+            </div>
+          }
         </Modal.Body>
       </Modal>
   );
