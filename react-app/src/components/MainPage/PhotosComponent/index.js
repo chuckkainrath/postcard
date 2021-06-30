@@ -31,7 +31,7 @@ function PhotosComponent() {
                                     myProfile={false}
                                     key={photo.id}
                                     photo={photo}
-                            />
+                                />
                     })
                 }
             </div>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { likePhoto, unlikePhoto } from '../../../store/photos';
-import { deletePhoto } from '../../../store/photos';
+import { likePhoto, unlikePhoto, deletePhoto } from '../../../store/photos';
+import { likeProfilePhoto, unlikeProfilePhoto } from '../../../store/profile';
 import { Tooltip, OverlayTrigger, Modal, Button } from 'react-bootstrap';
 import styles from './PhotoCard.module.css';
 import blankProfile from './blank-profile-img.png';
@@ -13,14 +13,17 @@ function PhotoCard({ photo, myProfile }) {
     const user = useSelector(state => state.session.user)
     const profileSrc = photo.profile_img_url ? photo.profile_img_url : blankProfile;
     const [liked, setLiked] = useState(photo.liked);
+    // const [likeCount, setLikeCount] = useState(photo.like_count);
     const [deleteConfirm, setDeleteConfirm] = useState(false);
 
     const toggleLike = async () => {
         if (liked) {
             await dispatch(unlikePhoto(photo.id));
+            dispatch(unlikeProfilePhoto(photo.id));
             setLiked(false);
         } else {
-            await dispatch(likePhoto(photo.id));
+            const likeId = await dispatch(likePhoto(photo.id));
+            if (myProfile) dispatch(likeProfilePhoto(photo.id, likeId))
             setLiked(true)
         }
     }
@@ -70,35 +73,37 @@ function PhotoCard({ photo, myProfile }) {
                             onClick={() => history.push(`/profiles/${photo.username}`)}
                         />
                     }
-                    <div
-                        onClick={toggleLike}
-                        className={styles.photo__heart}>
-                        {liked &&
-                            <>
-                                <OverlayTrigger
-                                    placement="right"
-                                    delay={{ show: 250, hide: 250 }}
-                                    overlay={unlikeTooltip}
-                                >
-                                    <i class="fas fa-heart"></i>
-                                </OverlayTrigger>
-                                <span className={styles.likes__count}>{photo.like_count}</span>
-                            </>
-                        }
-                        {!liked &&
-                            <>
-                                <OverlayTrigger
-                                    placement="right"
-                                    delay={{ show: 250, hide: 250 }}
-                                    overlay={likeTooltip}
-                                >
-                                    <i class="fal fa-heart"></i>
-                                </OverlayTrigger>
-                                <span className={styles.likes__count}>{photo.like_count}</span>
-                            </>
-                        }
+                    {photo.public && 
+                        <div
+                            onClick={toggleLike}
+                            className={styles.photo__heart}>
+                            {liked &&
+                                <>
+                                    <OverlayTrigger
+                                        placement="right"
+                                        delay={{ show: 250, hide: 250 }}
+                                        overlay={unlikeTooltip}
+                                    >
+                                        <i class="fas fa-heart"></i>
+                                    </OverlayTrigger>
+                                    <span className={styles.likes__count}>{photo.like_count}</span>
+                                </>
+                            }
+                            {!liked &&
+                                <>
+                                    <OverlayTrigger
+                                        placement="right"
+                                        delay={{ show: 250, hide: 250 }}
+                                        overlay={likeTooltip}
+                                    >
+                                        <i class="fal fa-heart"></i>
+                                    </OverlayTrigger>
+                                    <span className={styles.likes__count}>{photo.like_count}</span>
+                                </>
+                            }
 
-                    </div>
+                        </div>
+                    }
                 </div>
                 <div
                     onClick={() => history.push(`/create-postcard/${photo.id}`)}
