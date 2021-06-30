@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addFollow, deleteFollow } from '../../../store/followers';
 import { Button } from 'react-bootstrap';
-import ProfileCard from '../ProfileCard';
+import PhotoCard from '../../MainPage/PhotoCard';
 import styles from './OtherProfile.module.css';
 import blankProfile from '../../MainPage/PhotoCard/blank-profile-img.png';
 
@@ -55,7 +55,7 @@ function OtherProfile() {
             }
             <div className={styles.photos__container}>
                 {photosArr && photosArr.map(photo => {
-                    return <ProfileCard userProfile={false} key={photo.id} photo={photo} />
+                    return <PhotoCard myProfile={false} key={photo.id} photo={photo} />
                 })}
             </div>
             {(!photosArr.length && profile) &&

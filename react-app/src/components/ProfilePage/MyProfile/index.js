@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import styles from './MyProfile.module.css';
-import ProfileCard from '../ProfileCard';
 import PhotoCard from '../../MainPage/PhotoCard';
 import PostcardCard from '../PostcardCard';
 import { getPostcards } from '../../../store/postcards';
@@ -161,7 +160,7 @@ function MyProfile() {
                         {publicPhotos &&
                             <div className={styles.photos__container}>
                                 {publicPhotos.map(photo => (
-                                    <ProfileCard userProfile={true} key={photo.id} photo={photo} />
+                                    <PhotoCard myProfile={true} key={photo.id} photo={photo} />
                                 ))}
                             </div>
                         }
@@ -175,7 +174,7 @@ function MyProfile() {
                         {privatePhotos &&
                             <div className={styles.photos__container}>
                                 {privatePhotos.map(photo => (
-                                    <ProfileCard userProfile={true} key={photo.id} photo={photo} />
+                                    <PhotoCard myProfile={true} key={photo.id} photo={photo} />
                                 ))}
                             </div>
                         }
@@ -189,7 +188,7 @@ function MyProfile() {
                         {likedPhotos &&
                             <div className={styles.photos__container}>
                                 {likedPhotos.map(photo => (
-                                    <PhotoCard userProfile={false} key={photo.id} photo={photo} />
+                                    <PhotoCard myProfile={false} key={photo.id} photo={photo} />
                                 ))}
                             </div>
                         }

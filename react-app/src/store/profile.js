@@ -4,6 +4,19 @@ const GET_PROFILE = 'profile/GET_PROFILE';
 const DELETE_PROFILE_IMAGE = 'profile/DELETE_PROFILE_IMAGE';
 const BLANK_PROFILE = 'profile/BLANK_PROFILE';
 const ADD_PICTURE = 'profile/ADD_PICTURE';
+const LIKE_PROF_PHOTO = 'proile/LIKE_PHOTO';
+const UNLIKE_PROF_PHOTO = 'profile/UNLIKE_PHOTO'
+
+export const likeProfilePhoto = (photoId, likeId) => ({
+    type: LIKE_PROF_PHOTO,
+    photoId,
+    likeId
+})
+
+export const unlikeProfilePhoto = photoId => ({
+    type: UNLIKE_PROF_PHOTO,
+    payload: photoId
+})
 
 const getProfileAction = (user, photos) => ({
     type: GET_PROFILE,
@@ -56,6 +69,20 @@ export default function reducer(state = initialState, action) {
             newState = Object.assign({}, state);
             if (state.photos === null) newState.photos = {}
             newState.photos[action.payload.id] = action.payload
+            return newState;
+        case LIKE_PROF_PHOTO:
+            newState = Object.assign({}, state);
+            if (newState.photos && newState.photos[action.photoId]) {
+                newState.photos[action.photoId].liked = action.likeId
+                newState.photos[action.photoId].like_count++;
+            }
+            return newState;
+        case UNLIKE_PROF_PHOTO:
+            newState = Object.assign({}, state);
+            if (newState.photos && newState.photos[action.payload]) {
+                newState.photos[action.payload].liked = null;
+                newState.photos[action.payload].like_count--;
+            }
             return newState;
         default:
             return state;
