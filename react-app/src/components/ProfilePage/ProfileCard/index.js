@@ -50,30 +50,34 @@ function ProfileCard({ userProfile, photo }) {
                             <span className={styles.photo__delete} onClick={() => setDeleteConfirm(true)}><i class="fas fa-trash"></i></span>
                         </OverlayTrigger>
                     }
-                    {!userProfile &&
-                        <div
+                    <div
                         onClick={toggleLike}
                         className={styles.photo__heart}>
                         {liked &&
-                            <OverlayTrigger
-                                placement="right"
-                                delay={{ show: 250, hide: 250 }}
-                                overlay={unlikeTooltip}
-                            >
-                                <i class="fas fa-heart"></i>
-                            </OverlayTrigger>
+                            <>
+                                <OverlayTrigger
+                                    placement="right"
+                                    delay={{ show: 250, hide: 250 }}
+                                    overlay={unlikeTooltip}
+                                >
+                                    <i class="fas fa-heart"></i>
+                                </OverlayTrigger>
+                                <span className={styles.likes__count}>{photo.like_count}</span>
+                            </>
                         }
                         {!liked &&
-                            <OverlayTrigger
-                                placement="right"
-                                delay={{ show: 250, hide: 250 }}
-                                overlay={likeTooltip}
-                            >
-                                <i class="fal fa-heart"></i>
-                            </OverlayTrigger>
+                            <>
+                                <OverlayTrigger
+                                    placement="right"
+                                    delay={{ show: 250, hide: 250 }}
+                                    overlay={likeTooltip}
+                                >
+                                    <i class="fal fa-heart"></i>
+                                </OverlayTrigger>
+                                <span className={styles.likes__count}>{photo.like_count}</span>
+                            </>
                         }
                     </div>
-                    }
                     <OverlayTrigger
                         placement="left"
                         delay={{ show: 250, hide: 250 }}
