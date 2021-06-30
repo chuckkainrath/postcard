@@ -21,13 +21,14 @@ def user(username):
     #                             Photo.public == True).all()
     # photos_dict = [photo.to_dict() for photo in photos]
 
-    raw_photos = db.session.execute('''SELECT photos.*, liked.id as liked_id,
+    raw_photos = db.session.execute('''SELECT photos.*, users.profile_img_url, liked.id as liked_id,
                                     COUNT(likes_count.photo_id) as like_count
                                     FROM photos
+                                    JOIN users on users.id=:profileUser
                                     LEFT JOIN likes liked ON liked.user_id=:sessionUser AND liked.photo_id=photos.id
                                     LEFT JOIN likes likes_count ON likes_count.photo_id=photos.id
                                     WHERE photos.public=true AND photos.user_id=:profileUser
-                                    GROUP BY liked.id, photos.id''',
+                                    GROUP BY liked.id, users.profile_img_url, photos.id''',
                                     {'sessionUser': sessionUser, 'profileUser': user.id})
 
 
@@ -39,8 +40,9 @@ def user(username):
             'public': photo[2],
             'user_id': photo[3],
             'created_at': photo[4],
-            'liked': photo[5],
-            'like_count': photo[6]
+            'profile_img_url': photo[5],
+            'liked': photo[6],
+            'like_count': photo[7]
         }
         photos_list.append(photo_dict)
     return { 'user': user.to_dict(), 'photos': photos_list }
