@@ -4,6 +4,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { signUp, login } from '../../../store/session';
 import { Form, Button } from 'react-bootstrap';
 import { Formik, ErrorMessage } from 'formik';
+import LoginModal from '../LoginModal';
 import * as Yup from 'yup';
 import AvatarInput from './AvatarInput';
 import styles from './SignUpForm.module.css';
@@ -13,6 +14,7 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(state => state.session.user);
+  const [showLogin, setShowLogin] = useState(false);
   const [picture, setPicture] = useState(null);
   const [choosingPicture, setChoosingPicture] = useState(false);
   const [error, setError] = useState([]);
@@ -22,7 +24,6 @@ const SignUpForm = () => {
       const errors = await dispatch(
         signUp(values.username, values.email, values.password, picture));
       if (errors) {
-        console.log(errors);
         setError(errors);
         setTimeout(() => {
           setError('');
@@ -60,7 +61,7 @@ const SignUpForm = () => {
 
   return (
     <div className={styles.signup__container}>
-      <div className={styles.postcard__title}>
+      <div className={styles.postcard__title} onClick={() => history.push('/')}>
         <img className={styles.postcard__logo} src={postcardStamp} />
         <h1>Postacard</h1>
       </div>
@@ -168,7 +169,7 @@ const SignUpForm = () => {
                     Create Account</Button>
                 <div className={styles.other__options}>
                   <div>Have an account?
-                    <a tabIndex='0' className={styles.redirect} onClick={() => history.push('/login')}> Sign In </a>
+                    <a tabIndex='0' className={styles.redirect} onClick={() => setShowLogin(true)}> Sign In </a>
                   </div>
                   <div>Or login as a <a tabIndex='0' className={styles.redirect} onClick={() => signInAsDemo()}>DemoUser</a></div>
                 </div>
@@ -179,6 +180,7 @@ const SignUpForm = () => {
           setPicture={setPicture}
           setChoosingPicture={setChoosingPicture}
           choosingPicture={choosingPicture} />
+        <LoginModal showLogin={showLogin} setShowLogin={setShowLogin} signupPage={true} />
       </div>
     </div>
   );
