@@ -13,7 +13,6 @@ function PhotoCard({ photo, myProfile }) {
     const user = useSelector(state => state.session.user)
     const profileSrc = photo.profile_img_url ? photo.profile_img_url : blankProfile;
     const [liked, setLiked] = useState(photo.liked);
-    // const [likeCount, setLikeCount] = useState(photo.like_count);
     const [deleteConfirm, setDeleteConfirm] = useState(false);
 
     const toggleLike = async () => {
