@@ -248,7 +248,9 @@
 
 @media only screen and (max-width: 825px) {
     .photos__container {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }
 

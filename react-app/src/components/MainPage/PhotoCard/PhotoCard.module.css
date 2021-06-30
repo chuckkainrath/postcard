@@ -10,6 +10,11 @@
     background-color: white;
 }
 
+.flex__container {
+    display: flex;
+    justify-content: center;
+}
+
 .photo__card:hover {
     box-shadow: 0 0 2px 2px #B84D00;
     cursor: pointer;
