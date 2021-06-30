@@ -13,7 +13,6 @@ const randomNum = Math.floor(Math.random() * 1000000);
 
 
 function PhotoKanvas({ photoSrc, frontSrc, stage, setStage }) {
-    console.log('stage', stage);
     const dispatch = useDispatch();
     const history = useHistory();
     const [ cardFront, setCardFront ] = useState();
