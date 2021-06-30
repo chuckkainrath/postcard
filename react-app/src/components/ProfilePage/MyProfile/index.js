@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 import styles from './MyProfile.module.css';
 import PhotoCard from '../../MainPage/PhotoCard';
 import PostcardCard from '../PostcardCard';
+import useScreenDimensions from '../../../util/useScreenDimensions';
 import { getPostcards } from '../../../store/postcards';
 import { getLikedPhotos } from '../../../store/photos';
 import { deleteFollow } from '../../../store/followers';
@@ -60,6 +61,7 @@ const likeSort = likes => {
 function MyProfile() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const dimensions = useScreenDimensions();
     const profile = useSelector(state => state.profile);
     const photos = useSelector(state => state.photos);
     const postcardsDict = useSelector(state => state.postcards);
@@ -109,6 +111,12 @@ function MyProfile() {
             profile.photos ? photoFilter(Object.values(profile.photos), 'public') : null
         );
     }, [profile]);
+
+    useEffect(() => {
+        if (dimensions.width > 1150 && (category === 'following' || category === 'followers')) {
+            setPictureCategory('photo-public');
+        }
+    }, [dimensions])
 
     const setPictureCategory = (cat) => {
         const lastNode = document.getElementById(category);
