@@ -6,6 +6,7 @@
 }
 
 .message__container label {
+    font-size: 1.4rem;
     display: block;
     margin-top: 20px;
 }
