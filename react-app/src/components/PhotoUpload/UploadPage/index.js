@@ -17,6 +17,7 @@ function UploadPage({uploadImage, showUploadImage}) {
     const [editor, setEditor] = useState();
     const [privatePhoto, setPrivatePhoto] = useState(false)
     const [imageUploaded, setImageUploaded] = useState(false)
+
     const onDrop = useCallback(acceptedFile => {
         const imageFile = acceptedFile[0];
         const imageUrl = URL.createObjectURL(imageFile)
@@ -26,6 +27,7 @@ function UploadPage({uploadImage, showUploadImage}) {
             setImageUrl(URL.createObjectURL(imageFile));
         }
     }, []);
+    
     const { getRootProps, getInputProps, isDragActive } = useDropzone({onDrop});
 
     const uploadPhoto = () => {

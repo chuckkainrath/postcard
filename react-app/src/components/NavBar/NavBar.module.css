@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #F3F4F7;
+    background-color: #566156;
     border-bottom: 1px solid black;
     padding-top: 10px;
     font-size: 16px;
@@ -19,6 +19,7 @@ ul {
 
 .username__search {
     font-size: 1.4em;
+    padding-left: 0.5vw;
 }
 
 .navbar__welcome {
@@ -135,9 +136,10 @@ ul {
 
 .search__results {
     position: absolute;
+    left: 25.1%;
     z-index: 1000;
     background-color: white;
-    width: 200px;
+    width: 206px;
     box-shadow: 0 0 2px 2px gray;
 }
 
