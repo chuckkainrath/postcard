@@ -29,6 +29,7 @@ ul {
 
 .navbar__welcome h1 {
     font-size: 1.6em;
+    margin-bottom: 0;
 }
 
 .navbar__container > li {
