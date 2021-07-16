@@ -6,6 +6,7 @@ import { likeProfilePhoto, unlikeProfilePhoto } from '../../../store/profile';
 import { Tooltip, OverlayTrigger, Modal, Button } from 'react-bootstrap';
 import styles from './PhotoCard.module.css';
 import blankProfile from './blank-profile-img.png';
+import postcardIcon from '../../../images/postcard.svg';
 
 function PhotoCard({ photo, myProfile }) {
     const history = useHistory();
@@ -113,7 +114,7 @@ function PhotoCard({ photo, myProfile }) {
                             delay={{ show: 250, hide: 250 }}
                             overlay={photoTooltip}
                         >
-                            <i class={"fal fa-envelope"}></i>
+                            <i className={styles.postcard_icon}></i>
                         </OverlayTrigger>
                     </div>
                 </div>

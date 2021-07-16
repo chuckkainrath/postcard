@@ -1,6 +1,6 @@
 .navbar {
-    background-color: #566156;
-    border-bottom: 1px solid black;
+    background-color: #191919;
+    border-bottom: 1px solid #191919;
     padding-top: 10px;
     font-size: 16px;
 }
@@ -23,8 +23,10 @@ ul {
 }
 
 .navbar__welcome {
-    padding-left: 10px;
+    padding-left: 2vw;
     text-align: left;
+    color: #D1D5DB !important;
+    font-weight: 400;
 }
 
 .navbar__welcome h1 {

@@ -30,6 +30,16 @@
     transform: translateX(-50%);
 }
 
+.postcard_icon {
+    background: url('../../../images/postcard.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 3.93vw;
+    height: 2.23vw;
+    display: inline-block;
+    align-self: center;
+}
+
 .photo__delete {
     font-size: 2.5em;
     margin-left: 5px;
@@ -142,6 +152,11 @@
         width: 50px;
         height: 50px;
     }
+
+    .postcard_icon {
+        width: 5.895vw;
+        height: 3.345vw;
+    }
 }
 
 @media only screen and (max-width: 950px) {
@@ -164,6 +179,11 @@
         width: 50px;
         height: 50px;
     }
+
+    .postcard_icon {
+        width: 73.58px;
+        height: 41.75px;
+    }
 }
 
 @media only screen and (max-width: 400px) {
@@ -174,5 +194,12 @@
     .photo__user_profile {
         width: 35px;
         height: 35px;
+    }
+
+    .postcard_icon {
+        width: 55.185px;
+        height: 31.3125;
+        position: relative;
+        top: 10px;
     }
 }
