@@ -37,7 +37,7 @@
 }
 
 .instructions li {
-    font-size: 1.3em;
+    font-size: 1.7em;
 }
 
 .info:hover ~ .instructions {
@@ -48,7 +48,7 @@
     padding: 10px;
     backdrop-filter: blur(50px);
     z-index: 1000;
-    top: 5vh;
+    top: 6vh;
 }
 
 .kanvas {

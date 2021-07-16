@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Girassol&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=KoHo:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=KoHo:wght@200;400;600;700&display=swap');
 
 html {
     height: 100%;
@@ -12,7 +12,7 @@ html {
 
 body {
     min-height: 100% !important;
-    background-color: #8388a1 !important;
+    background-color: #D1D5DB !important;
     font-size: 0.75em;
 }
 
