@@ -34,10 +34,17 @@
 
 .instructions h1 {
     text-align: center;
+    color: white;
+}
+
+.instructions li::before {
+    content: '- ';
 }
 
 .instructions li {
-    font-size: 1.7em;
+    font-size: 1.5em;
+    /* text-align: center; */
+    color: white;
 }
 
 .info:hover ~ .instructions {
@@ -46,7 +53,9 @@
     border-radius: 5px;
     box-shadow: 0 0 2px 2px #B84D00;
     padding: 10px;
-    backdrop-filter: blur(50px);
+    backdrop-filter: blur(20px);
+    /* background-color: rgba(209, 213, 219, 0.5); */
+    background-color: rgba(0, 0, 0, 0.75);
     z-index: 1000;
     top: 6vh;
 }
