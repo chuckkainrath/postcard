@@ -14,7 +14,7 @@ S3_BUCKETS = {
 }
 
 URL_SCHEME = 'https://'
-URL_DOMAIN = '.s3.amazonaws.com/'
+URL_DOMAIN = '.s3.us-east-2.amazonaws.com/'
 ALLOWED_EXTENSIONS = {'png', 'jpeg', 'jpg'}
 
 s3_client = boto3.client(
