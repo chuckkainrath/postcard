@@ -31,14 +31,15 @@ def upload_photo_to_s3(photo, bucket):
             S3_BUCKETS[bucket],
             photo.filename,
             ExtraArgs={
-                #'ACL': 'bucket-owner-full-control',
-                'ACL': 'public-read',
+                'ACL': 'bucket-owner-full-control',
+                #'ACL': 'public-read',
                 'ContentType': photo.content_type,
                 #'GrantFullControl': f'id={S3_ID}',
                 #'GrantRead': 'uri="http://acs.amazonaws.com/groups/global/AllUsers"'
             })
     except Exception as e:
         # Do error handling
+        # print(e)
         pass
     return {'photo_url': f'{URL_SCHEME}{S3_BUCKETS[bucket]}{URL_DOMAIN}{photo.filename}'}
 
